@@ -1,0 +1,73 @@
+<div class="content">
+    <xng-breadcrumb>
+        <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
+            <mat-icon *ngIf="info">{{ info }}</mat-icon>
+            <ng-container>{{ breadcrumb }}</ng-container>
+        </ng-container>
+    </xng-breadcrumb>
+    <mat-card>
+
+        <mat-card-title>{{
+            "employeesManagmentContent.addEmployee" | translate
+            }}</mat-card-title>
+
+        <mat-card-content>
+            <div class="form-and-massive-container">
+
+                <form [formGroup]="personalInformationsForm" class="personal-informations-form p-4">
+                    <!-- Form content -->
+                    <div class="form-content">
+                        <div class="last-first-name-items">
+                            <!-- Last name and first name fields -->
+                            <mat-form-field>
+                                <mat-label>{{ "employeesManagmentContent.addEmployeeContent.nom" | translate }}</mat-label>
+                                <input type="text" matInput placeholder="{{ 'employeesManagmentContent.addEmployeeContent.nomPlaceholder' | translate }}" formControlName="lastName" required />
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>{{ "employeesManagmentContent.addEmployeeContent.prenom" | translate }}</mat-label>
+                                <input type="text" matInput placeholder="{{ 'employeesManagmentContent.addEmployeeContent.prenomPlaceholder' | translate }}" formControlName="firstName" required />
+                            </mat-form-field>
+                        </div>
+                        <div class="registration-number-phone-items">
+                            <!-- Phone number and registration number fields -->
+                            <mat-form-field>
+                                <mat-label>{{ "employeesManagmentContent.addEmployeeContent.phoneNumber" | translate }}</mat-label>
+                                <input type="tel" matInput placeholder="{{ 'employeesManagmentContent.addEmployeeContent.phonePlaceholder' | translate }}" formControlName="phone" required />
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>{{ "employeesManagmentContent.addEmployeeContent.matricule" | translate }}</mat-label>
+                                <input type="text" matInput placeholder="{{ 'employeesManagmentContent.addEmployeeContent.matriculePlaceholder' | translate }}" formControlName="registrationNumber" required />
+                            </mat-form-field>
+                        </div>
+                        <mat-form-field>
+                            <!-- Email field -->
+                            <mat-label>{{ "employeesManagmentContent.addEmployeeContent.emailPlaceholder" | translate }}</mat-label>
+                            <input type="email" matInput [(ngModel)]="emailValue" placeholder="{{ 'employeesManagmentContent.addEmployeeContent.emailPlaceholder' | translate }}" formControlName="email" required />
+                        </mat-form-field>
+                    </div>
+                    <div class="button-container">
+                        <!-- Add button -->
+                        <button color="primary" mat-raised-button (click)="addEmployee()">
+                            {{ "employeesManagmentContent.addEmployeeContent.add" | translate }}
+                        </button>
+                    </div>
+                </form>
+                
+
+                <div class="massive-addition-section">
+                    <p class="mat-mdc-card-title">
+                        {{
+                        "employeesManagmentContent.addEmployeeContent.massAddText"
+                        |
+                        translate }}
+                    </p>
+
+                    <file-uploader
+                        (sendUploadedFiles)="getUploadedFiles($event)"></file-uploader>
+                </div>
+
+            </div>
+        </mat-card-content>
+
+    </mat-card>
+</div>

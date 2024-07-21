@@ -1,0 +1,165 @@
+.content{
+    gap:1rem;
+    mat-card{
+        margin-top:30px;
+        margin-top:20px;
+        display: flex;
+        width: 100%;
+        padding-top: 20px;
+        padding-left: 40px;
+        padding-right: 50px;
+        padding-bottom: 20px;
+        mat-card-title{
+            font-size: 20px;
+            color:var(--color-blue);
+            font-weight: 500;
+        }
+        mat-card-content{
+            display: flex;
+            flex-direction: column;
+            padding-top:20px;
+            // gap:30px;
+            .informations{
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap:30px;
+                .employee-informations,.idea-informations
+                {
+                    display: flex;
+                    flex-direction: column;
+                    .title{
+                        font-size: 15px;
+                        font-weight: 500;
+                        margin-bottom: 20px;
+                    }
+                    .segment,.line,.date,.type,.motifs,.contre-maitre,.expert,.matricule
+                    {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 5px;
+                        color:var( --color-blue-lighter);
+                    }
+                }
+                .import-kaizen-card{
+                    display:flex;
+                    gap:20px;
+                    justify-content: flex-end;
+                    .images-before-and-after{
+                        display: flex;
+                        gap:20px;
+                        fa-icon{
+                            font-size: 3rem;
+                        }
+                        .images{
+                            display: flex;
+                            flex-direction: column;
+                            a{
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                    .card-kaizen-upload{
+                        display:flex;
+                        align-items: center;
+                        cursor: pointer;
+                        gap:10px;
+                        flex-direction: column;                        
+                        fa-icon{
+                            font-size: 1.5rem;
+                        }
+                    }
+                    .filename {cursor: pointer;}
+
+                }
+            }
+            mat-form-field{
+                width: 100%;
+            }
+            form{
+                display:flex;
+                flex-direction: column;
+                gap:60px;
+                justify-content: center;
+
+                .idea-selection-motifs-generalisation-items{
+                    display: flex;
+                    justify-content: space-between;
+                    gap:30px;
+                    padding-right:50px;
+                    padding-left:50px;
+                    .idea-selection,.idea-generalization{
+                        display: flex;
+                        align-items: center;
+                        gap:10px;
+                        .text{
+                            font-size:15px;
+                            font-family: "Roboto-Regular";
+                        }
+                        .choice{
+                            display: flex;
+                            flex-direction: column;
+                        }
+                    }
+                    .motifs-refus{
+                        display: flex;
+                        align-items: baseline;
+                        gap:2px;
+                        .motifs-text{
+                            font-size: 15px;
+                            font-family: "Roboto-Regular";
+                            width: 100%;
+                        }
+                    }
+                }
+                .idea-note{
+                    display:flex;
+                    align-items: center;
+                    .impact-originalite{
+                        display:flex;
+                        flex-direction: column;
+                        gap:20px;
+                        .originality,.impact{
+                            display: flex;
+                            gap:5px;
+                            input{
+                                border:1px solid black;
+                                border-radius: 5px;
+                                width:15%;
+                                outline:none;
+                                text-align: center;
+                            }   
+    
+                        }
+                    }
+                }
+          
+            }
+            button{
+                align-self: self-end;
+                width: 10%;
+            }
+
+        }
+    }
+}
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+  }
+  
+  ::ng-deep.spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner .8s linear infinite;
+  }

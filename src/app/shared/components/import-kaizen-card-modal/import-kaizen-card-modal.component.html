@@ -1,0 +1,33 @@
+<div class="kaizen-card-modal">
+    <button (click)="this.dialogRef.close()">
+        <img src="/assets/images/close-icon.svg" 
+        class="close-icon"/>
+    </button>
+
+  <span class="title">{{
+    "ideasContent.ideaSelectionContent.kaizenCard" | translate
+  }}</span>
+
+  <div (click)="cardKaizenUploader.click()" class="card-kaizen-upload">
+    <fa-icon [icon]="faAttachment"></fa-icon>
+    <input
+      type="file"
+      hidden
+      #cardKaizenUploader
+      (change)="uploadCardKaizen($event)"
+    />
+  </div>
+
+  <p class="message">
+    {{ "ideasContent.ideaSelectionContent.joinKaizenCard" | translate }}
+  </p>
+
+  <p class="filename">{{ filename }}</p>
+
+  <button mat-raised-button color="primary" 
+  [class.spinner]="isLoading"
+  [mtBasicSpinner]="isLoading" 
+  (click)="closeModal()">
+    {{ "ideasContent.ideaSelectionContent.ok" | translate }}
+  </button>
+</div>

@@ -1,0 +1,59 @@
+<div class="matricule-signin-content">
+  <div class="welcome-section">
+    <img class="leoni" src="./assets/images/Logo-CIP-V1.png" />
+    <h1 class="welcome">{{ "loginContent.welcome" | translate }}</h1>
+  </div>
+
+  <div class="employee-login-form">
+    <span class="description">
+      {{ "loginContent.descriptionEmployee" | translate }}
+    </span>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{
+          "loginContent.connexion" | translate
+        }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="employeLoginForm" (keydown)="enterSubmit($event)">
+          <div class="labels">
+            <mat-label class="self-start">{{
+              "loginContent.registrationPlaceholder" | translate
+            }}</mat-label>
+            <mat-label>{{
+              "loginContent.registrationPlaceholderAR" | translate
+            }}</mat-label>
+          </div>
+
+
+          <div class="matricule-input">
+            <input
+            type="text"
+            [placeholder]="'Ex : 10236587'"
+            matInput
+            formControlName="matricule"
+          />
+          <mat-icon matSuffix>privacy_tip</mat-icon>
+          </div>
+
+
+          <mat-error *ngFor="let error of errors">
+            {{ error }}
+          </mat-error>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          [disabled]="!employeLoginForm || employeLoginForm.invalid"
+          (click)="employeeLogin()"
+          mat-flat-button
+          color="primary"
+          [mtBasicSpinner]="isLoading" 
+          [class.spinner]="isLoading"
+        >
+          {{ "loginContent.connect" | translate }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

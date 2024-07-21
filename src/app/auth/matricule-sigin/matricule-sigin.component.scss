@@ -1,0 +1,187 @@
+.matricule-signin-content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 9rem; /* 144px */
+    padding-left: 6rem; /* 96px */
+    padding-right: 6rem; /* 96px */
+
+    .welcome-section {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem; /* 40px */
+        justify-content: center;
+        align-items: center;
+        .leoni {
+            width: 50%;
+        }
+        .welcome {
+            text-transform: uppercase;
+            font-family: "Roboto-Bold";
+            font-size: 2rem;
+            color: var(--color-blue-dark);
+        }
+    }
+    .employee-login-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 50px;
+        align-items: center;
+        width: 50%;
+        .description {
+            font-size: 20px;
+        }
+        mat-card {
+            padding-right: 50px;
+            padding-left: 50px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            mat-card-title {
+                color: var(--color-blue-lighter);
+                text-align: center;
+            }
+            width: 500px;
+            mat-card-content {
+                margin-top: 40px;
+                form {
+                    display: flex;
+                    flex-direction: column;
+                    .labels {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                        gap: 15px;
+                        mat-label {
+                            font-size: 20px;
+                            font-family: "Roboto-Bold";
+                        }
+                    }
+                    .matricule-input {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        border: 0.25px solid black;
+                        border-radius: 5px;
+                        padding-left: 20px;
+                        padding-right: 20px;
+                        width: 100%;
+                        padding-top: 15px;
+                        padding-bottom: 15px;
+                        margin-top: 30px;
+
+                        input {
+                            border: none;
+                            outline: none;
+                            font-size: 15px;
+                        }
+                    }
+                }
+            }
+            .mdc-card__actions {
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+@media (max-width: 213px) {
+    .matricule-signin-content {
+        display: flex;
+        flex-direction: column;
+        width: 145vw;
+        padding-top: 70px;
+        padding-bottom: 70px;
+        padding-left: 16px;
+        padding-right: 16px;
+
+        .welcome-section {
+            gap: 10px;
+            .leoni {
+                width: 60%;
+            }
+            .welcome {
+                font-size: 2rem;
+            }
+        }
+        .employee-login-form {
+            margin-top: 10px;
+            .description {
+                font-size: 11px;
+                text-align: center;
+            }
+            mat-card {
+                width: 130vw;
+                padding: 10px;
+                mat-card-title {
+                    font-size: 15px;
+                }
+                mat-card-content {
+                    margin-top: 20px;
+                    form {
+                        gap: 15px;
+                        .labels {
+                            gap: 10px;
+                            mat-label {
+                                font-size: 10px;
+                            }
+                        }
+                        .matricule-input {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            border: 0.25px solid black;
+                            border-radius: 5px;
+                            padding-left: 10px;
+                            padding-right: 10px;
+                            padding-top: 5px;
+                            padding-bottom: 5px;
+                            width: 100%;
+                            margin-top: 0;
+                            input {
+                                border: none;
+                                outline: none;
+                                font-size: 10px;
+                            }
+                            mat-icon {
+                                font-size: 15px;
+                                line-height: 1.5;
+                            }
+                        }
+                    }
+                }
+                .mdc-card__actions {
+                    padding: 25px;
+                    ::ng-deep .mdc-button {
+                        height: 28px;
+                    }
+                    ::ng-deep .mdc-button__label {
+                        font-size: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+  }
+  
+  ::ng-deep.spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner .8s linear infinite;
+  }

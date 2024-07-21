@@ -1,0 +1,128 @@
+<table
+  mat-table
+  [dataSource]="newdataSource"
+  matSort
+  (matSortChange)="sortData($event)"
+>
+  <ng-container
+    *ngFor="let column of tableColumns"
+    [matColumnDef]="column.columnDef"
+  >
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ column.header | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div *ngIf="!row.isAdd">
+        
+          <!-- <div *ngIf="column.isDate === true;else isNormalRow">
+            {{ row[column.columnDef] | date : 'dd/MM/yyyy' }}
+          </div>
+        <ng-template #isNormalRow>
+          {{ row[column.columnDef] }}
+        </ng-template> -->
+        <div>
+          {{row[column.columnDef]}}
+        </div>
+
+        <div  *ngIf="column.columnDef === 'isAssign'">
+            <mat-checkbox [color]="'primary'"></mat-checkbox>
+        </div>
+      </div>
+
+
+
+
+      <div [ngSwitch]="column.type" *ngIf="row.isAdd ">
+        <mat-form-field class="form-input" *ngSwitchDefault>
+          <mat-label>{{ column.placeholder | translate }}</mat-label>
+          <input 
+          [(ngModel)]="row[column.columnDef]"
+          matInput [type]="column.type" />
+        </mat-form-field>
+        <div class="btn-edit" *ngSwitchCase="'isEdit'">
+          <button
+           mat-raised-button
+            (click)="saveRow(row)"
+            color="primary"
+          >
+          {{"rolesContent.addRoleBtn" | translate}}
+          </button>
+        </div>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="edit-delete-action">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell
+    class="flex justify-end"
+      *matCellDef="let element"
+      edit-delete-buttons
+      [value]="element"
+      (buttonAction)="onTableAction($event, element)"
+    >
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="details-action">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>
+    <mat-cell
+      *matCellDef="let element"
+      class="flex justify-end"
+      details-button
+      [value]="element"
+      (buttonAction)="onTableAction($event, element)"
+    >
+    </mat-cell>
+
+  </ng-container>
+  <ng-container matColumnDef="edit-deactivate-actions" class="justify-end">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>
+    <mat-cell
+    class="flex justify-end"
+    *matCellDef="let element"
+    edit-deactivate-buttons
+    [value]="element"    
+    (EditDeactivateAction)="onTableAction($event, element)"
+    ></mat-cell>
+  </ng-container>  
+
+  <ng-container matColumnDef="edit-action" class="justify-end">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>
+    <mat-cell 
+    class="flex justify-end"
+    *matCellDef="let element"
+    edit-button
+    [value]="element"
+    (editAction)="onTableAction($event, element)">
+  </mat-cell>
+  </ng-container>
+  
+  <ng-container matColumnDef="edit-details-actions" class="justify-end">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>
+    <mat-cell
+    class="flex justify-end"
+    *matCellDef="let element"
+    edit-details-actions
+    [value]="element"    
+    (editDetailsAction)="onTableAction($event, element)"
+    ></mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row 
+  [ngClass]="{'changeEvenRowsColor ': isEvenRowsChangeColor}"
+
+
+  *matRowDef="let row; columns: displayedColumns"></mat-row>
+</table>
+
+<mat-paginator
+  *ngIf="isShowPaginator"
+  [length]="length"
+  #paginator
+  [pageSize]="pageSize"
+  (page)="getPaginatorData($event)"
+  [pageSizeOptions]="[25,50,75,100]"
+>
+</mat-paginator>

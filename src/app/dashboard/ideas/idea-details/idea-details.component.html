@@ -1,0 +1,293 @@
+<div class="content">
+  <xng-breadcrumb>
+    <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
+      <mat-icon *ngIf="info">{{ info }}</mat-icon>
+      <ng-container>{{ breadcrumb }}</ng-container>
+    </ng-container>
+  </xng-breadcrumb>
+  <mat-card>
+    <mat-card-title>
+      {{ "ideasContent.ideaDetailsContent.ideaDetailsText" | translate }}
+    </mat-card-title>
+    <mat-card-content>
+      <div class="informations">
+        <div class="employee-informations">
+          <span class="title">
+            {{
+              "ideasContent.ideaDetailsContent.employeeInformations" | translate
+            }}
+            :</span
+          >
+          <div class="matricule">
+            <p>
+              {{ "ideasContent.ideaDetailsContent.matricule" | translate }} :
+            </p>
+            <p>{{ideaDetails.employee}}</p>
+          </div>
+          <!-- <div class="name">
+            <p>{{ "ideasContent.ideaDetailsContent.name" | translate }} :</p>
+            <p>{{ideaDetails.fullName}}</p>
+          </div>
+          <div class="matricule">
+            <p>
+              {{ "ideasContent.ideaDetailsContent.matricule" | translate }} :
+            </p>
+            <p>{{ideaDetails.employee}}</p>
+          </div>
+          <div class="phone-number">
+            <p>
+              {{ "ideasContent.ideaDetailsContent.phoneNumber" | translate }} :
+            </p>
+            <p>{{ideaDetails.phone}}</p>
+          </div> -->
+          <div class="segment">
+            <p>{{ "ideasContent.ideaDetailsContent.segment" | translate }} :</p>
+            <p>{{ideaDetails.segment}}</p>
+          </div>
+          <div class="line">
+            <p>{{ "ideasContent.ideaDetailsContent.line" | translate }} :</p>
+            <p>{{ideaDetails.line}}</p>
+          </div>
+        </div>
+        <div class="idea-informations">
+          <span class="title">
+            {{
+              "ideasContent.ideaDetailsContent.informationIdee" | translate
+            }}
+            :</span
+          >
+          <div class="date">
+            <p>
+              {{ "ideasContent.ideaDetailsContent.ideeDate" | translate }} :
+            </p>
+            <p>{{ideaDetails.createdAt}}</p>
+          </div>
+          <div class="type">
+            <!-- <p>
+              {{ "ideasContent.ideaDetailsContent.ideaType" | translate }} :
+            </p>
+            <p>{{ideaCategory }}</p> -->
+            <p>{{"ideasContent.ideaDetailsContent.category"|translate}} :</p>
+            <p *ngIf="ideaCategory !== 'NONE'">{{ideaCategory}}</p>
+          </div>
+          <div class="motifs">
+            <p>{{ "ideasContent.ideaDetailsContent.motif" | translate }} :</p>
+            <p>{{ideaDetails.motif }}</p>
+          </div>
+          <div class="contre-maitre">
+            <p>
+              {{ "ideasContent.ideaDetailsContent.contreMaitre" | translate }} :
+            </p>
+            <p>{{ideaMasterFullName}}</p>
+          </div>
+          <div class="chef-segment">
+            <p>
+              {{ "ideasContent.ideaDetailsContent.chefSegment" | translate }} :
+            </p>
+            <p>{{ideaSegmentMangerFullName}}</p>
+          </div>
+          <div class="expert">
+            <p>{{ "ideasContent.ideaDetailsContent.expert" | translate }} :</p>
+            <p>{{expertFullName}}</p>
+          </div>
+        </div>
+        <div class="import-kaizen-card" *ngIf="currentRole === 'CHEF_SEGMENT'">
+          <div class="images-before-and-after" *ngIf="imageBefore !== null && imageAfter !== null">
+            <fa-icon [icon]="faDownload"></fa-icon>
+            <div class="images">
+              <a
+                (click)="openKaizenImage(imageBefore)"
+              >
+                <p>{{imageBefore}}</p>
+              </a>
+              <a
+              (click)="openKaizenImage(imageAfter)"
+              >
+                <p>{{imageAfter}}</p>
+              </a>
+            </div>
+          </div>
+          <!-- <div (click)="cardKaizenUploader.click()" class="card-kaizen-upload">
+            <fa-icon [icon]="faUpload"></fa-icon>
+            <p class="filename">{{ filename }}</p>
+            <input
+              type="file"
+              hidden
+              #cardKaizenUploader
+              (change)="uploadCardKaizen($event)"
+            />
+          </div> -->
+        </div>
+
+        <div class="export-kaizen-card" *ngIf="currentRole === 'OPEX'">
+          
+          <div class="items" (click)="getKaizenCardByName(ideaDTO?.kaizen)">
+            <fa-icon [icon]="faExport" ></fa-icon>
+            <a class="export-text"
+            >{{"ideasContent.ideaDetailsContent.exportKaizenCard"|translate}}</a>
+            <p class="filename">{{ideaDTO?.kaizen}}</p>
+          </div>
+
+        </div>
+      </div>
+      <mat-form-field appearance="outline">
+        <mat-label
+          >{{
+            "ideasContent.ideaDetailsContent.detailledDescription" | translate
+          }}
+          :</mat-label
+        >
+        <textarea matInput 
+        [readonly]="true"
+        [(ngModel)]="ideaDetails.description"></textarea>
+      </mat-form-field>
+      <div class="idea-note-state" *ngIf="currentRole === 'ADMIN' || currentRole === 'EXPERT' || currentRole === 'OPEX'">
+        <div class="idea-note">
+          <div class="impact-originalite">
+            <div class="originality">
+              <label
+                >{{
+                  "ideasContent.ideaDetailsContent.ideaOriginality" | translate
+                }}:</label
+              >
+              <input type="number" [(ngModel)]="originaliteNote" 
+              [disabled]="true"
+              name="originalite" placeholder="..." />
+              <span>/10</span>
+            </div>
+            <div class="impact">
+              <label
+                >{{
+                  "ideasContent.ideaDetailsContent.plantImpact" | translate
+                }}:</label
+              >
+              <input type="number" 
+              [disabled]="true"
+              [(ngModel)]="impactNote"
+               name="impact" placeholder="..." />
+              <span>/10</span>
+            </div>
+          </div>
+          <p>{{ "ideasContent.ideaDetailsContent.totalNote" | translate }} {{noteTotal}}</p>
+        </div>
+        <!-- <div class="idea-state">
+          <span class="sate-text">{{
+            "ideasContent.ideaDetailsContent.etat" | translate
+          }}</span>
+          <div class="state-validated" *ngIf="ideaDetails.decision === 'VALIDATED'">
+           {{ideaDetails.decision}}
+          </div>
+          <div class="state-rejected" *ngIf="ideaDetails.decision === 'REJECTED'">
+            {{ideaDetails.decision}}
+          </div>
+          <div class="state-preselected" *ngIf="ideaDetails.decision === 'ACCEPTED'">
+            {{ideaDetails.decision}}
+          </div>
+          <div class="state-selected" *ngIf="ideaDetails.decision === 'SELECTED'">
+            {{ideaDetails.decision}}
+          </div>
+        </div> -->
+      </div>
+      <!-- <div
+        class="idea-validation-category"
+        *ngIf="currentRole === 'CONTRE_MAITRE'"
+      >
+        <div class="idea-validation">
+          <span class="validation-text">{{
+            "ideasContent.ideaValidationContent.ideaValidation" | translate
+          }}</span>
+          <mat-radio-group class="validation-choice" disabled="true">
+            <mat-radio-button
+              class="example-margin"
+              value="yes"
+              [checked]="ideaDetails.decision === 'VALIDATED'"
+              >{{
+                "ideasContent.ideaValidationContent.yes" | translate
+              }}</mat-radio-button
+            >
+            <mat-radio-button
+              class="example-margin"
+              value="no"
+              [checked]="ideaDetails.decision === 'REJECTED'"
+              >{{
+                "ideasContent.ideaValidationContent.no" | translate
+              }}</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+        <div class="idea-category">
+          <span class="category-text">{{
+            "ideasContent.ideaValidationContent.ideaCategory" | translate
+          }}</span>
+          <div class="category">
+          </div>
+        </div>
+      </div> -->
+
+      <div
+        class="idea-validation-form-items"
+        *ngIf="currentRole === 'CHEF_SEGMENT'"
+      >
+        <div class="validation-generalizable-items">
+          <div class="item">
+            <span class="text">{{
+              "ideasContent.ideaValidationContent.ideaValidation" | translate
+            }}</span>
+            <mat-radio-group class="choice" disabled="true" [(ngModel)]="validation">
+              <mat-radio-button    [value]="1" >{{
+                "ideasContent.ideaValidationContent.yes" | translate
+              }}</mat-radio-button>
+              <mat-radio-button [value]="0">{{
+                "ideasContent.ideaValidationContent.no" | translate
+              }}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="item">
+            <span class="text">{{
+              "ideasContent.ideaValidationContent.generalizable" | translate
+            }}</span>
+            <mat-radio-group class="choice" disabled="true" [(ngModel)]="generalization">
+              <mat-radio-button
+              [value]="1">{{
+                  "ideasContent.ideaValidationContent.yes" | translate
+                }}</mat-radio-button
+              >
+              <mat-radio-button
+              [value]="0"
+                >{{
+                  "ideasContent.ideaValidationContent.no" | translate
+                }}</mat-radio-button
+              >
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <div class="idea-note">
+            <div class="impact-originalite">
+              <div class="originality">
+                <label
+                  >{{
+                    "ideasContent.ideaDetailsContent.ideaOriginality" | translate
+                  }}:</label
+                >
+                <input type="number" name="originalite" disabled
+                [(ngModel)]="this.originaliteNote"
+                placeholder="..." />
+                <span>/10</span>
+              </div>
+              <div class="impact">
+                <label
+                  >{{
+                    "ideasContent.ideaDetailsContent.plantImpact" | translate
+                  }}:</label
+                >
+                <input type="number" disabled  [(ngModel)]="this.impactNote" name="impact" placeholder="..." />
+                <span>/10</span>
+              </div>
+            </div>
+            <p>{{ "ideasContent.ideaDetailsContent.totalNote" | translate }} {{ noteTotal }}</p>
+          </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,173 @@
+<div class="content">
+    <xng-breadcrumb>
+        <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
+          <mat-icon *ngIf="info">{{ info }}</mat-icon>
+          <ng-container>{{ breadcrumb }}</ng-container>
+        </ng-container>
+      </xng-breadcrumb>
+      <mat-card>
+        <mat-card-title>{{"usersManagmentContent.editUser" | translate }}</mat-card-title>
+        <mat-card-content>
+            <form [formGroup]="editUserForm">
+            <div class="personal-informations-items">
+                <h3>{{"usersManagmentContent.addUserContent.personalInformations" | translate}}</h3>
+                <div class="form-items">
+                    <div class="first-last-form-items">
+                        <mat-form-field>
+                            <mat-label>{{
+                              "usersManagmentContent.addUserContent.nom" | translate
+                            }}</mat-label>
+                            <input
+                              type="text"
+                              matInput
+                              placeholder="{{
+                                'usersManagmentContent.addUserContent.nomPlaceholder'
+                                  | translate
+                              }}"
+                              formControlName="lastName"
+                              required
+                            />
+                          </mat-form-field>
+                          <mat-form-field>
+                            <mat-label>{{
+                              "usersManagmentContent.addUserContent.prenom" | translate
+                            }}</mat-label>
+                            <input
+                              type="text"
+                              matInput
+                              placeholder="{{
+                                'usersManagmentContent.addUserContent.prenomPlaceholder'
+                                  | translate
+                              }}"
+                              formControlName="firstName"
+                              required
+                            />
+                          </mat-form-field>
+                    </div>
+                    <div class="phone-number-registration-number-form-items">
+                        <mat-form-field>
+                            <mat-label>{{
+                              "usersManagmentContent.addUserContent.phoneNumber" | translate
+                            }}</mat-label>
+                            <input
+                              type="tel"
+                              matInput
+                              placeholder="{{
+                                'usersManagmentContent.addUserContent.phonePlaceholder'
+                                  | translate
+                              }}"
+                              formControlName="phone"
+                              required
+                            />
+                          </mat-form-field>
+                          <mat-form-field>
+                            <mat-label>{{
+                              "usersManagmentContent.addUserContent.matricule" | translate
+                            }}</mat-label>
+                            <input
+                              type="text"
+                              matInput
+                              placeholder="{{
+                                'usersManagmentContent.addUserContent.matriculePlaceholder'
+                                  | translate
+                              }}"
+                              formControlName="registrationNumber"
+                              required
+                            />
+                          </mat-form-field>
+                    </div>
+                    <mat-form-field>
+                        <mat-label>{{"usersManagmentContent.addUserContent.email" | translate}}</mat-label>
+                        <input matInput type="email" 
+                        [(ngModel)]="emailValue"
+                        formControlName="email">
+                    </mat-form-field>
+                    <mat-form-field >
+                        <mat-label>{{"usersManagmentContent.addUserContent.login"|translate}}</mat-label>
+                        <input matInput type="email" formControlName="login" 
+                        [value]="emailValue">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="assign-user-section"  *ngIf="userToEdit.roles === 'CONTRE_MAITRE' || userToEdit.roles === 'CHEF_SEGMENT'">
+              <h3>{{"usersManagmentContent.addUserContent.affectUser" | translate }}</h3>
+              <div class="user-asignment-items">
+                  <div class="form-items">
+                      <div class="form-item">
+                          <mat-label>{{
+                            "usersManagmentContent.addUserContent.chooseUserSite"
+                              | translate
+                          }}</mat-label>
+                          <mat-form-field>
+                            <mat-label>{{
+                              "usersManagmentContent.addUserContent.siteName"
+                                | translate
+                            }}</mat-label>
+                            <mat-select [formControlName]="'siteName'"></mat-select>
+                          </mat-form-field>
+                        </div>
+        
+                        <div class="form-item">
+                          <mat-label>{{
+                            "usersManagmentContent.addUserContent.chooseUserPlant"
+                              | translate
+                          }}</mat-label>
+                          <mat-form-field>
+                            <mat-label>{{
+                              "usersManagmentContent.addUserContent.plantName"
+                                | translate
+                            }}</mat-label>
+                            <mat-select [formControlName]="'plantName'"></mat-select>
+                          </mat-form-field>
+                        </div>
+        
+                        <div class="form-item" >
+                          <mat-label>{{
+                            "usersManagmentContent.addUserContent.chooseUserSegment"
+                              | translate
+                          }}</mat-label>
+                          <mat-form-field>
+                            <mat-label>{{
+                              "usersManagmentContent.addUserContent.segmentName"
+                                | translate
+                            }}</mat-label>
+                            <mat-select [formControlName]="'segmentName'"></mat-select>
+                          </mat-form-field>
+                        </div>
+  
+                        <div class="form-item" *ngIf="userToEdit.roles !== 'CHEF_SEGMENT'">
+                          <mat-label>{{
+                            "usersManagmentContent.addUserContent.selectUserLine"
+                              | translate
+                          }}</mat-label>
+                          <mat-form-field>
+                            <mat-label>{{
+                              "usersManagmentContent.addUserContent.lineName"
+                                | translate
+                            }}</mat-label>
+                            <mat-select [formControlName]="'lineName'"></mat-select>
+                          </mat-form-field>
+                        </div>
+                  </div>
+                  <div class="user-assignments-labels"  *ngIf="userToEdit.roles === 'CONTRE_MAITRE' || userToEdit.roles === 'CHEF_SEGMENT'">
+                     <p>{{"usersManagmentContent.yourUserSite"|translate}}  : <b>{{userToEdit.site}}</b></p> 
+                     <p>{{"usersManagmentContent.yourUserPlant"|translate}}  : <b>{{userToEdit.plant}}</b></p>
+                     <p >{{"usersManagmentContent.yourUserSegment"|translate}} : <b>{{userToEdit.segment}}</b></p>
+                     <p *ngIf="userToEdit.roles !== 'CHEF_SEGMENT'">{{"usersManagmentContent.yourUserLine"|translate}} : <b>{{userToEdit.line}}</b></p>
+                  </div>
+              </div>
+            </div>
+
+
+            <button 
+            (click)="save()"
+            class="save-btn"
+            mat-raised-button
+            color="primary"
+            >
+        {{"usersManagmentContent.save" |translate}}
+        </button>
+            </form>
+        </mat-card-content>
+      </mat-card>
+</div>

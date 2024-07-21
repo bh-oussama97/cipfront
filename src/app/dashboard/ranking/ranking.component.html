@@ -1,0 +1,56 @@
+<div class="content">
+    <xng-breadcrumb>
+        <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
+            <mat-icon *ngIf="info">{{ info }}</mat-icon>
+            <ng-container>{{ breadcrumb }}</ng-container>
+        </ng-container>
+    </xng-breadcrumb>
+
+    <div class="filters">
+        <select id="month">
+            <option selected disabled>{{ "rankingContent.filters.month" |
+                translate }}</option>
+        </select>
+        <select id="date">
+            <option selected disabled>{{ "rankingContent.filters.date" |
+                translate }}</option>
+        </select>
+        <select id="site">
+            <option selected disabled>{{ "rankingContent.filters.site" |
+                translate }}</option>
+        </select>
+        <select id="plant">
+            <option selected disabled>{{ "rankingContent.filters.plant" |
+                translate }}</option>
+        </select>
+        <select id="segment">
+            <option selected disabled>{{ "rankingContent.filters.segment" |
+                translate }}</option>
+        </select>
+        <select id="line">
+            <option selected disabled>{{ "rankingContent.filters.line" |
+                translate }}</option>
+        </select>
+    </div>
+
+    <mat-card>
+        <mat-card-title>
+            {{"rankingContent.rankingListTitle" |translate}}
+        </mat-card-title>
+        <mat-card-content>
+
+            <div class="ranking-table">
+                <common-table
+                    [isEvenRowsChangeColor]="true"
+                    [isShowPaginator]="true"
+                    [dataSource]="rankingDataSource"
+                    [tableColumns]="rankingColumns"
+                    [editDetailsActions]="true"
+                    (action)="rakingActions($event)"
+                    class="mat-elevation-z8"></common-table>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+</div>

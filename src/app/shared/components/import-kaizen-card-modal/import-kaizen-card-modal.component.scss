@@ -1,0 +1,56 @@
+.kaizen-card-modal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+    padding: 50px;
+    button{
+        align-self: self-end;
+        .close-icon{
+            width: 1rem;
+        }
+    }
+    .title{
+        font-size: 24px;
+        font-weight:bold;
+    }
+    .card-kaizen-upload{
+        display:flex;
+        align-items: center;
+        cursor: pointer;
+        gap:10px;
+        flex-direction: column;                        
+        fa-icon{
+            font-size: 5rem;
+        }
+    }
+    .message{
+        font-size: 18px;
+    }
+    .filename{
+        font-size: 16px;
+    }
+    @keyframes spinner {
+        to {transform: rotate(360deg);}
+      }
+      
+      ::ng-deep.spinner:before {
+        content: '';
+        box-sizing: border-box;
+        position: absolute;
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        margin-top: -10px;
+        margin-left: -10px;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+        border-top-color: #000000;
+        animation: spinner .8s linear infinite;
+      }
+      
+    
+
+}

@@ -1,0 +1,144 @@
+<div class="content">
+  <xng-breadcrumb>
+    <ng-container
+      *xngBreadcrumbItem="let breadcrumb; let info = info"
+    >
+    <mat-icon *ngIf="info">{{ info }}</mat-icon>
+      <ng-container >{{ breadcrumb }}</ng-container>
+    </ng-container>
+  </xng-breadcrumb>
+  <div class="report-logo-date" >
+    <div class="report-section">
+      <div class="download-report">
+        <div class="select-report">
+          <label>
+            {{ "dashboardContent.rapport" | translate }}
+          </label>
+          <select
+            #allPeriods
+            placeholder="select a period"
+            (change)="onValueSelected(allPeriods.value)"
+          >
+            <option selected>{{ periodSelected }}</option>
+            <option *ngFor="let period of periods"  >{{ period }}</option>
+          </select>
+        </div>
+        <button class="download-btn" (click)="exportAsPDF('charts')">
+          <fa-icon [icon]="fadownload"></fa-icon>
+        </button>
+      </div>
+      <h1 class="cip-title">{{ "dashboardContent.tableBoard" | translate }}</h1>
+    </div>
+  </div>
+  <div class="charts" id="charts">
+    <div class="chart-item">
+      <p class="chart-title">
+        {{ "dashboardContent.ideasTotalNumber" | translate }}
+      </p>
+      <div class="chart-body">
+        <div class="filters">
+          <select id="plant">
+            <option selected>{{ "dashboardContent.plant" | translate }}</option>
+            <option>{{ "dashboardContent.segment" | translate }}</option>
+            <option>{{ "dashboardContent.sites" | translate }}</option>
+            <option>{{ "dashboardContent.li" | translate }}</option>
+          </select>
+          <select>
+            <option selected disabled>
+              {{ "dashboardContent.year" | translate }}
+            </option>
+            <option>2024</option>
+            <option>2023</option>
+            <option>2022</option>
+          </select>
+          <select>
+            <option selected disabled>
+              {{ "dashboardContent.month" | translate }}
+            </option>
+            <option>Janvier</option>
+            <option>Février</option>
+            <option>Mars</option>
+          </select>
+        </div>
+        <button class="download-btn" (click)="downloadChart('ideasTotalNumberChart')">
+          <fa-icon [icon]="fadownload"></fa-icon>
+        </button>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="ideasTotalNumberChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-item">
+      <p class="chart-title">  {{ "dashboardContent.cipPerUser" | translate }}</p>
+      <div class="chart-body">
+        <div class="filters">
+          <select id="plant">
+            <option selected>{{ "dashboardContent.plant" | translate }}</option>
+            <option>{{ "dashboardContent.segment" | translate }}</option>
+            <option>{{ "dashboardContent.sites" | translate }}</option>
+            <option>{{ "dashboardContent.li" | translate }}</option>
+          </select>
+          <select>
+            <option selected disabled>
+              {{ "dashboardContent.year" | translate }}
+            </option>
+            <option>2024</option>
+            <option>2023</option>
+            <option>2022</option>
+          </select>
+          <select>
+            <option selected disabled>
+              {{ "dashboardContent.month" | translate }}
+            </option>
+            <option>Janvier</option>
+            <option>Février</option>
+            <option>Mars</option>
+          </select>
+        </div>
+        <button class="download-btn" (click)="downloadChart('ideesTraiteePerUserChart')">
+          <fa-icon [icon]="fadownload"></fa-icon>
+        </button>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="ideesTraiteePerUserChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-item">
+      <p class="chart-title">
+        {{ "dashboardContent.ideasRate" | translate }}
+      </p>
+      <div class="chart-body">
+        <div class="filters">
+          <select id="plant">
+            <option selected>{{ "dashboardContent.plant" | translate }}</option>
+            <option>{{ "dashboardContent.segment" | translate }}</option>
+            <option>{{ "dashboardContent.sites" | translate }}</option>
+            <option>{{ "dashboardContent.li" | translate }}</option>
+          </select>
+          <select>
+            <option selected disabled>
+              {{ "dashboardContent.year" | translate }}
+            </option>
+            <option>2024</option>
+            <option>2023</option>
+            <option>2022</option>
+          </select>
+          <select>
+            <option selected disabled>
+              {{ "dashboardContent.month" | translate }}
+            </option>
+            <option>Janvier</option>
+            <option>Février</option>
+            <option>Mars</option>
+          </select>
+        </div>
+        <button class="download-btn" (click)="downloadChart('ideasStateChart')">
+          <fa-icon [icon]="fadownload"></fa-icon>
+        </button>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="ideasStateChart" class="pie-chart-size"></canvas>
+      </div>
+    </div>
+  </div>
+</div>

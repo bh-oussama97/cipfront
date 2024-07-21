@@ -1,0 +1,40 @@
+<div class="kaizen-card-picture-before-after">
+    <button (click)="this.dialogRef.close()">
+        <img src="/assets/images/close-icon.svg" 
+        class="close-icon"/>
+    </button>
+
+    <h3 class="cip-state-title">{{"ideasContent.ideaSelectionContent.cipState"|translate}}</h3>
+
+
+    <div class="card-kaizen-upload-items">
+        <div (click)="imageBeforeUploader.click()" class="card-kaizen-before-upload">
+            <fa-icon [icon]="thumbnailIcon"></fa-icon>
+            <p>{{"ideasContent.ideaSelectionContent.before"|translate}}</p>
+            <input
+              type="file"
+              hidden
+              #imageBeforeUploader
+              (change)="uploadCardKaizenImageBefore($event)"
+            />
+            <p class="filename">{{ filenameImageBefore }}</p>
+          </div>
+    
+          <hr>
+          <div (click)="imageAfterUploader.click()" class="card-kaizen-after-upload">
+            <fa-icon [icon]="thumbnailIcon"></fa-icon>
+            <p>{{"ideasContent.ideaSelectionContent.after"|translate}}</p>
+            <input
+              type="file"
+              hidden
+              #imageAfterUploader
+              (change)="uploadCardKaizenImageAfter($event)"
+            />
+            <p class="filename">{{ filenameImageAfter }}</p>
+          </div>
+    </div>
+ 
+    <button mat-raised-button color="primary" (click)="this.dialogRef.close()">
+        {{ "ideasContent.ideaSelectionContent.ok" | translate }}
+      </button>
+</div>

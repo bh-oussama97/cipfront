@@ -1,0 +1,58 @@
+<div class="content">
+    <xng-breadcrumb>
+      <ng-container
+        *xngBreadcrumbItem="let breadcrumb; let info = info"
+      >
+      <mat-icon *ngIf="info">{{ info }}</mat-icon>
+        <ng-container >{{ breadcrumb }}</ng-container>
+      </ng-container>
+    </xng-breadcrumb>
+  
+    <mat-card class="edit-plant-card">
+      <mat-card-header>
+        <mat-card-title>
+          {{ "plantContent.editPlantForm.editPlant" | translate }}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="editPlantForm">
+          <mat-form-field>
+            <mat-label>     {{
+              "plantContent.editPlantForm.siteName" | translate
+            }}</mat-label>
+            <mat-select
+              formControlName="siteName"
+            >
+              <mat-option 
+              [value]="site"
+              *ngFor="let site of sites">{{ site }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field [floatLabel]="'auto'">
+            <mat-label>
+              {{
+                "plantContent.editPlantForm.plantName" | translate
+              }}</mat-label
+            >
+            <input type="text" matInput formControlName="plantName" />
+          </mat-form-field>
+          <mat-form-field [floatLabel]="'auto'">
+            <mat-label>{{
+              "plantContent.editPlantForm.segmentsNumber" | translate
+            }}</mat-label>
+            <input type="number" matInput formControlName="segmentsNumber" />
+          </mat-form-field>
+        </form>
+        <button
+          (click)="editPlant()"
+          class="save-btn"
+          mat-stroked-button
+          color="primary"
+        >
+          {{ "plantContent.editPlantForm.edit" | translate }}
+        </button>
+      </mat-card-content>
+      <mat-card-actions> </mat-card-actions>
+    </mat-card>
+  </div>
+  

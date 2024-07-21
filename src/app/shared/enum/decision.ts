@@ -1,0 +1,8 @@
+export enum Decision {
+    NONE = "NONE",
+	SELECTED = "SELECTED",
+	REJECTED = "REJECTED",
+	ACCEPTED = "ACCEPTED",
+	VALIDATED ="VALIDATED",
+	CLOSED = "CLOSED"
+}

@@ -1,0 +1,70 @@
+.mat-mdc-card-header {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-card{
+    width:500px;
+    height: auto;
+
+}
+mat-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-left: 16px;
+    padding-right: 16px;
+    mat-form-field{
+        width:100%;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        width:100%;
+        align-items: center;
+    }
+    
+}
+.code-verification-sent{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:10px;
+    padding-top:20px;
+    .verification-title{
+        font-size:20px;
+        color: var(--color-blue);
+        font-weight:bold;
+        line-height: 1.5;
+    }
+    .verification-description{
+        font-size:15px;;
+        line-height: 1.5;
+    }
+    .error-text{
+        font-size: 15px;
+        color: var(--color-red-light);
+    }
+}
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+  }
+  
+  ::ng-deep.spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner .8s linear infinite;
+  }
+  

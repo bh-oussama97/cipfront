@@ -1,0 +1,66 @@
+<div class="content">
+  <xng-breadcrumb>
+    <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
+      <mat-icon *ngIf="info">{{ info }}</mat-icon>
+      <ng-container>{{ breadcrumb }}</ng-container>
+    </ng-container>
+  </xng-breadcrumb>
+  <mat-card class="edit-line-card">
+    <mat-card-header>
+      <mat-card-title>
+        {{ "linesContent.editLineForm.editLine" | translate }}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="editLineForm">
+        <mat-form-field>
+          <mat-label>
+            {{ "linesContent.editLineForm.siteName" | translate }}</mat-label
+          >
+          <mat-select formControlName="siteName">
+            <mat-option [value]="site" *ngFor="let site of sites">{{
+              site
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field [floatLabel]="'auto'">
+          <mat-label>
+            {{ "linesContent.editLineForm.plantName" | translate }}
+          </mat-label>
+          <mat-select formControlName="plantName">
+            <mat-option [value]="plant" *ngFor="let plant of plants">{{
+              plant
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field [floatLabel]="'auto'">
+          <mat-label>
+            {{
+              "linesContent.editLineForm.segmentLineName" | translate
+            }}</mat-label
+          >
+          <mat-select formControlName="segmentLineName">
+            <mat-option [value]="segment" *ngFor="let segment of segments">{{
+              segment
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field [floatLabel]="'auto'">
+          <mat-label>{{
+            "linesContent.editLineForm.lineName" | translate
+          }}</mat-label>
+          <input type="text" matInput formControlName="lineName" />
+        </mat-form-field>
+      </form>
+      <button
+        (click)="editLine()"
+        class="save-btn"
+        mat-stroked-button
+        color="primary"
+      >
+        {{ "linesContent.editLineForm.edit" | translate }}
+      </button>
+    </mat-card-content>
+    <mat-card-actions> </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,36 @@
+<app-header></app-header>
+<div class="content">
+    <mat-card>
+        <mat-card-title>{{"notificationsContent.myNotifications" | translate}}</mat-card-title>
+        <mat-card-content>
+
+            <div class="type-month-filters">
+                <select id="type">
+                    <option>{{"notificationsContent.allNotifications"| translate}}</option>
+                    <option>{{"notificationsContent.ideas"| translate}}</option>
+                    <option>{{"notificationsContent.decisions"| translate}}</option>
+                </select>
+                <select id="month"
+                [(ngModel)]="selectedMonth" (change)="filterByMonth()"
+
+                >
+                    <option *ngFor="let month of monthNames">
+                        {{month}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="notifications-items">
+                <div class="notification-item" *ngFor="let notif of filteredTasks">
+                    <img src="/assets/images/bell-notification.png" alt="">
+                    <div class="notification-content">
+                        <p class="notif-title">{{"notificationsContent.newIdea" | translate}}</p>
+                        <p class="notif-description">{{notif.description}}</p>
+                        <p class="notif-date">{{notif.createdAt }}</p>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+<app-footer></app-footer>

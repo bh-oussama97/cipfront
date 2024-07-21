@@ -1,0 +1,87 @@
+.content {
+    display: flex;
+    flex-direction: column;
+
+    .admin-ideas-managment,.chef-segment-ideas-managment,.ideas-managment,.expert-ideas-managment{
+        display: flex;
+        flex-direction: column;
+        width:100%;
+        .btn-right {
+            width: 10%;
+        }
+        .filters {
+            margin-top: 30px;
+        }
+
+        .search-filter-by-state{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap:30px;
+
+            select{
+                border: 1px solid black;
+                border-radius: 5px;
+                font-size: 15px;
+                padding-top:5px;
+                padding-bottom:5px;
+                padding-left:5px;
+                padding-right:20px;
+            }
+            .search-input {
+                background-color: white;
+                font-family: 'Regular';
+                margin-top: 10px;
+                border-radius: 20px;
+                border: 1px black solid;
+                width:50%;
+                display: flex;
+                align-self: center;
+                .icon-input{
+                  display: flex;
+                  align-items: center;
+                  mat-icon {
+                    color: #464646;
+                    font-weight: bold;
+                    margin-left: 0.5rem;
+                    margin-right: 0.5rem;
+                    color: rgb(75 85 99);
+                  }
+                  input {
+                    padding-left: 0.5rem;
+                    padding-right: 0.5rem;
+                    font-size: 20px;
+                    line-height: 1.25rem;
+                    color: rgba(0, 0, 0, 0.6);
+                    height: 3rem;
+                    font-weight: 400;
+                    word-wrap: break-word;
+                  }
+                  input:focus {
+                    border: none;
+                    outline: none;
+                  }
+                }
+            
+              }
+        }
+        mat-card {
+            margin-top: 20px;
+            display: flex;
+            width: 100%;
+            padding-top: 20px;
+            padding-left: 40px;
+            padding-right: 50px;
+            padding-bottom: 20px;
+            mat-card-content {
+                .ideas-table {
+                    width: 100%;
+                    margin-top: 30px;
+                }
+            }
+        }
+    }
+
+
+
+}

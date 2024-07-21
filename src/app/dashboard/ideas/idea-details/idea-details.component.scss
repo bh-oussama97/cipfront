@@ -1,0 +1,244 @@
+.content{
+    gap:1rem;
+    mat-card{
+        margin-top:30px;
+        margin-top:20px;
+        display: flex;
+        width: 100%;
+        padding-top: 20px;
+        padding-left: 40px;
+        padding-right: 50px;
+        padding-bottom: 20px;
+        mat-card-title{
+            font-size: 20px;
+            color:var(--color-blue);
+            font-weight: 500;
+        }
+        mat-card-content{
+            display: flex;
+            flex-direction: column;
+            padding-top:20px;
+            // gap:30px;
+            .informations{
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap:30px;
+                .employee-informations,.idea-informations
+                {
+                    display: flex;
+                    flex-direction: column;
+                    .title{
+                        font-size: 15px;
+                        font-weight: 500;
+                        margin-bottom: 20px;
+                    }
+                    .name,.matricule,.phone-number,.segment,.line,.date,.type,.motifs,.contre-maitre,.chef-segment,.expert
+                    {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 5px;
+                        color:var( --color-blue-lighter);
+                    }
+                }
+                .import-kaizen-card{
+                    display:flex;
+                    gap:20px;
+                    justify-content: flex-end;
+                    .images-before-and-after{
+                        display: flex;
+                        gap:20px;
+                        fa-icon{
+                            font-size: 3rem;
+                        }
+                        .images{
+                            display: flex;
+                            flex-direction: column;
+                            a{
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+                .export-kaizen-card{
+                    display:flex;
+                    justify-content: flex-end;
+                   .items{
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    gap:10px;
+                    cursor: pointer;
+                    fa-icon{
+                        font-size: 2rem;
+                    }
+                    .export-text{
+                        font-size: large;
+                       
+                    }
+                   }
+  
+                }
+            }
+            mat-form-field{
+                width: 100%;
+            }
+            .idea-note-state{
+                display: flex;
+                padding-left:50px;
+                padding-right:50px;
+                justify-content: space-between;
+                .idea-note{
+                    display:flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    .impact-originalite{
+                        display:flex;
+                        flex-direction: column;
+                        gap:20px;
+                        .originality,.impact{
+                            display: flex;
+                            gap:5px;
+                            input{
+                                border:1px solid black;
+                                border-radius: 5px;
+                                width:10%;
+                                outline:none;
+                                text-align: center;
+                            }   
+                        }
+                    }
+                }
+            }
+            .idea-validation-category{
+                display: flex;
+                justify-content: flex-start;
+                gap:200px;
+                padding-left:200px;
+                .idea-validation{
+                    display:flex;
+                    gap:30px;
+                    align-items: center;
+                    .validation-text{
+                        display:flex;
+                        flex-direction: column;
+                        gap:20px;
+                    }
+                    .validation-choice{
+                        display: flex;
+                        flex-direction: column;
+                    }
+                }
+                .idea-category{
+                    display: flex;
+                    align-items: center;
+                  .category-text{
+                    font-family : 'Roboto-Bold';
+                    font-size: 15px;
+                  } 
+                  .category{
+                    font-size: 15px;
+                  } 
+                }
+            }
+            .idea-validation-form-items{
+                display:flex;
+                flex-direction: column;
+                padding-left: 40px;
+                padding-right: 40px;
+                gap:60px;
+                .validation-generalizable-items{
+                    display:flex;
+                    justify-content: space-between;
+
+                    .item{
+                        display:flex;
+                        gap:30px;
+                        align-items: center;
+                        .text{
+                            font-size: 15px;
+                            font-weight: 500;
+                        }
+                        .choice{
+                            display: flex;
+                            flex-direction: column;
+                        }
+                    }
+                }
+                .idea-note{
+                    display:flex;
+                    align-items: center;
+                    .impact-originalite{
+                        display:flex;
+                        flex-direction: column;
+                        gap:20px;
+                        .originality,.impact{
+                            display: flex;
+                            gap:5px;
+                            input{
+                                border:1px solid black;
+                                border-radius: 5px;
+                                width:10%;
+                                outline:none;
+                                text-align: center;
+                            }   
+                        }
+                    }
+                }
+            }
+            .idea-state{
+                display: flex;
+                flex-direction: column;
+                gap:20px;
+                .sate-text{
+                    font-size: 15px;
+                    font-weight: 500;
+                }
+                .state-validated{
+                    color: rgb(88, 160, 66);
+                    border-radius: 15px !important;
+                    border: 1px solid rgb(88, 160, 66);
+                    background-color: lighten(rgb(88, 160, 66),50%);
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    text-align: center;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+                .state-rejected{
+                    color: rgb(190, 7, 7);
+                    border-radius: 15px !important;
+                    border: 1px solid rgb(190, 7, 7);
+                    background-color: lighten(rgb(190, 7, 7),58%);
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    text-align: center; 
+                }
+                .state-preselected
+                {
+                    color: rgb(247, 190, 4);
+                    border: 1px solid rgb(247, 190, 4);
+                    border-radius: 15px !important;
+                    background-color: lighten(rgb(247, 190, 4),42%);
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    text-align: center; 
+                }
+                .state-selected{
+                    color: rgb(0, 132, 255);
+                    border-radius: 15px !important;
+                    border: 1px solid rgb(0, 132, 255);
+                    background-color: lighten(rgb(0, 132, 255),47%);
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    text-align: center; 
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,135 @@
+<div class="content">
+    <xng-breadcrumb>
+      <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
+        <mat-icon *ngIf="info">{{ info }}</mat-icon>
+        <ng-container>{{ breadcrumb }}</ng-container>
+      </ng-container>
+    </xng-breadcrumb>
+    <mat-card>
+      <mat-card-title>
+        {{ "ideasContent.ideaDetailsContent.ideaDetailsText" | translate }}
+      </mat-card-title>
+      <mat-card-content>
+        <div class="informations">
+            <div class="idea-informations">
+              <div class="date">
+                <p>
+                  {{ "ideasContent.ideaDetailsContent.ideeDate" | translate }} :
+                </p>
+                <p>{{ ideaDetails.createdAt}}</p>
+              </div>
+              <div class="type">
+                <!-- <p>
+                  {{ "ideasContent.ideaDetailsContent.ideaType" | translate }} :
+                </p>
+                <p>{{ ideaDetails.type }}</p> -->
+                <p>{{"ideasContent.ideaDetailsContent.category"|translate}} :</p>
+                <p *ngIf="category !== 'NONE'">{{category}}</p>
+              </div>
+              <div class="segment">
+                <p>{{ "ideasContent.ideaDetailsContent.segment" | translate }} :</p>
+                <p>{{ ideaDetails.segment }}</p>
+              </div>
+              <div class="line">
+                <p>{{ "ideasContent.ideaDetailsContent.line" | translate }} :</p>
+                <p>{{ ideaDetails.line }}</p>
+              </div>
+            </div>
+
+            <div class="import-kaizen-card" >
+                <div class="images-before-and-after">
+                  <div class="images">
+                    <div class="image-item" *ngIf="imageBeforeUploaded !== null">
+                      <label>{{"ideasContent.ideaDetailsContent.imageBefore"|translate}} :</label>
+                      <a
+                        (click)="getKaizenImageByName(imageBeforeUploaded)"
+                      >
+                        <p>{{imageBeforeUploaded}}</p>
+                      </a>
+                    </div>
+                    <div class="image-item" *ngIf="imageAfterUploaded !== null">
+                      <label>{{"ideasContent.ideaDetailsContent.imageAfter"|translate}} :</label>
+                      <a
+                      (click)="getKaizenImageByName(imageAfterUploaded)"
+                      >
+                        <p>{{imageAfterUploaded}}</p>
+                      </a>
+                    </div>
+                 
+             
+                  </div>
+                </div>
+                <div class="card-kaizen-upload" (click)="openKaizenCardModal()">
+                  <fa-icon [icon]="faUpload"></fa-icon>
+                  <p class="filename">{{ filename }}</p>
+                </div>
+              </div>
+          </div>
+        <mat-form-field appearance="outline" class="description-form-item">
+          <mat-label
+            >{{
+              "ideasContent.ideaDetailsContent.detailledDescription" | translate
+            }}
+            :</mat-label
+          >
+          <textarea  matInput [(ngModel)]="ideaDetails.description"></textarea>
+        </mat-form-field>
+  
+        <form [formGroup]="ideaExecutionForm">
+            <div class="idea-execution">
+              <label class="execution-text">{{
+                "ideasContent.ideaValidationContent.ideaValidation" | translate
+              }}</label>
+              <mat-radio-group class="execution-choice"  
+              formControlName="choice">
+                <mat-radio-button 
+                value="yes"
+                class="example-margin">{{
+                  "ideasContent.ideaValidationContent.yes" | translate
+                }}</mat-radio-button>
+                <mat-radio-button class="example-margin"
+                value="no"
+                checked
+                >{{
+                  "ideasContent.ideaValidationContent.no" | translate
+                }}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div class="motifs-refus">
+              <span class="motifs-text">{{
+                "ideasContent.ideaValidationContent.refusMotifs" | translate
+              }}</span>
+              <mat-form-field>
+                <mat-label>
+                  {{
+                    "ideasContent.ideaValidationContent.motifs" | translate
+                  }}</mat-label
+                >
+                <mat-select 
+                [(ngModel)]="motifByDefault"
+                formControlName="motif" >
+                  <mat-option [value]="motif" *ngFor="let motif of motifs">{{
+                    motif
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+        </form>
+        <div class="send-btn">
+          <button 
+          mat-raised-button
+          color="primary"
+          [mtBasicSpinner]="isLoading" 
+          [class.spinner]="isLoading"
+          (click)="sendChoice()"
+          >
+          {{
+            "ideasContent.ideaValidationContent.envoyer" | translate
+          }}
+        </button>
+        </div>
+  
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

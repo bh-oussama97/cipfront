@@ -1,0 +1,130 @@
+
+.content {
+    background-color: var(--color-background); 
+    display:flex;
+    flex-direction: column;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: var(--space-l);
+    padding-right: var(--space-l);
+    gap:20px;
+    ::ng-deep xng-breadcrumb {
+        .xng-breadcrumb-root {
+            .xng-breadcrumb-list {
+                .xng-breadcrumb-item {
+                    .xng-breadcrumb-link,.xng-breadcrumb-trail {
+                        gap: 4px !important;
+                    }
+                }
+            }
+        }
+    }
+    .report-logo-date {
+        display:flex;
+        flex-direction: row;
+        align-items: center;
+        gap:20px;
+        margin-top:50px;
+        .report-section {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 100%;
+            border-bottom: 1px solid black;
+    
+            .download-report {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                padding-bottom: 10px;
+                border-bottom: 1px solid black;
+    
+                .select-report {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                    label {
+                        font-size: 20px;
+                        color: var(--color-blue-lighter);
+                        font-weight: 500;
+                    }
+                    select {
+                        border: 1px solid black;
+                        border-radius: 5px;
+                        padding: 5px 20px 5px 5px;
+                        outline: none;
+                    }
+                }
+                .download-btn {
+                    border: none;
+                    background: none;
+                    fa-icon {
+                        font-size: 30px;
+                        cursor: pointer;
+                    }
+                }
+            }
+            .cip-title {
+                color: var(--color-blue);
+                font-family: "Roboto";
+                font-weight: 500;
+            }
+        }
+    }
+    .charts{
+        display: flex;
+        flex-direction: column;
+        gap:20px;
+        .chart-item{
+            background-color: white;
+            display:flex;
+            flex-direction: column;
+            padding-top:20px;
+            padding-left:10px;
+            padding-right:10px;
+            gap:20px;
+            .chart-title{
+                font-size:20px;
+                font-weight: 500;
+                font-family:'Roboto';
+                text-align: center;
+            }
+            .chart-body{
+                display:flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .filters{
+                    display:flex;
+                    gap:10px;
+                    select{
+                        border: 1px solid #F2F2F2;
+                        border-radius: 10px;
+                        padding: 12px;
+                        font-size: 13px;
+                    }
+                }
+                .download-btn {
+                    border: none;
+                    background: none;
+                    fa-icon {
+                        font-size: 20px;
+                        cursor: pointer;
+                    }
+                }
+            }
+            .chart-count{
+                font-size:50px;
+                font-weight: 400;
+                text-align: center;
+                color:var(--color-blue-lighter);
+            }
+            .chart-wrapper {
+                margin-top: 20px;
+                width: auto;
+            }
+        }
+    }
+
+}

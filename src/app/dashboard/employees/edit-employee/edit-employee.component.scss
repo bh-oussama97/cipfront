@@ -1,0 +1,28 @@
+mat-card{
+    mat-card-content{
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        form{
+            display: flex;
+            flex-direction: column;
+            gap:5px;
+            width: 100%;
+            .form-items,.form-item,.registration-item{
+                display: flex;
+                gap:30px;
+                mat-form-field{
+                    width:50%;
+                }
+            }
+            mat-form-field{
+                width:50%;
+            }
+            .edit-btn{
+                align-self: self-end;
+                width:10%;
+            }
+        }
+    }
+}
+

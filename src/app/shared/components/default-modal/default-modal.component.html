@@ -1,0 +1,106 @@
+<mat-card *ngIf="data.isDeleteConfirmationModal">
+  <div class="title">
+    <mat-label>{{ data.title }}</mat-label>
+  </div>
+
+  <div class="message">
+    <mat-label>{{ data.message }} {{ data.name }}</mat-label>
+  </div>
+  <div *ngIf="data.buttons" class="buttons">
+    <ng-container *ngFor="let button of data.buttons">
+      <button
+        *ngIf="button.type === 'stroked'"
+        color="primary"
+        mat-stroked-button
+        (click)="runHandler($event, button)"
+      >
+        {{ button.text }}
+      </button>
+      <button
+        *ngIf="button.type === 'flat'"
+        mat-flat-button
+        color="primary"
+        (click)="runHandler($event, button)"
+        [mtBasicSpinner]="button.isLoading" 
+        [class.spinner]="button.isLoading" 
+      >
+        {{ button.text }}
+      </button>
+    </ng-container>
+  </div>
+</mat-card>
+
+<div *ngIf="data.isDeleteConfirmationModal === false" class="dialog-form">
+  <div class="title">
+    <mat-label>{{ data.title }}</mat-label>
+  </div>
+
+  <div class="message" *ngIf="data.message !== ''">
+    <p>{{ data.message }}</p>
+  </div>
+
+  <div *ngIf="data.isForm" class="form-items">
+    <div *ngFor="let item of data.formItems">
+
+      <div *ngIf="item.type === 'date';else select">
+        <mat-form-field >
+          <mat-label>{{item.label | translate }}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            (dateChange)="chatDateChange($event)"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+            [(ngModel)]="chatDate"
+          >
+            <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <ng-template #select>
+        <div *ngIf="item.type === 'select'; else others">
+          <mat-form-field >
+            <mat-label>   
+              {{ item.label}}</mat-label>
+            <mat-select
+            >
+              <mat-option 
+              [value]="value"
+              *ngFor="let value of item.items">{{ value |translate}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </ng-template>
+      <ng-template #others>
+        <mat-form-field [floatLabel]="'auto'">
+          <mat-label>{{item.label}}</mat-label>
+          <input [type]="item.type" [name]="item.name" matInput [placeholder]="item.placeholder"/>
+        </mat-form-field>
+      </ng-template>
+    </div>
+
+  </div>
+  <div *ngIf="data.buttons" class="buttons">
+    <ng-container *ngFor="let button of data.buttons">
+      <button
+        *ngIf="button.type === 'stroked'"
+        color="primary"
+        mat-stroked-button
+        (click)="runHandler($event, button)"
+      >
+        {{ button.text }}
+      </button>
+      <button
+        *ngIf="button.type === 'flat'"
+        mat-flat-button
+        color="primary"
+        (click)="runHandler($event, button)"
+      >
+        {{ button.text }}
+      </button>
+    </ng-container>
+  </div>
+</div>

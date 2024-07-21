@@ -1,0 +1,25 @@
+<mat-card class="dialog-form">  
+    <div class="message">
+      <mat-label>{{ "ideasContent.ideaValidationContent.confimAssignIdeaDialogText" | translate}}</mat-label>
+    </div>
+    <div class="buttons">
+      <ng-container >
+        <button
+          color="primary"
+          mat-stroked-button
+          (click)="dialogRef.close()"
+        >
+          {{ 'ideasContent.ideaValidationContent.no' | translate  }}
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="yes()"
+          [mtBasicSpinner]="isLoading" 
+          [class.spinner]="isLoading" 
+        >
+        {{ 'ideasContent.ideaValidationContent.yes' | translate  }}
+        </button>
+      </ng-container>
+    </div>
+  </mat-card>

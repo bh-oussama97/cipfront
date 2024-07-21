@@ -1,0 +1,102 @@
+.personal-informations-form{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top:50px;
+    mat-form-field{
+        width:40%;
+        align-self: center;
+    }
+    .last-first-name-items,.registration-number-phone-items{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;;
+        gap:50px;
+        mat-form-field{
+            width:30%;
+        }
+    }
+    .next-btn{
+        align-self: self-end;
+
+    }
+}
+.affecter-role-form{
+    display:flex;
+    flex-direction: column;
+    padding-top: 100px;
+    gap: 200px;
+    .label-role-category-items{
+        display: flex;
+        align-items: baseline;
+        gap:20px;
+        label{
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .category-actions{
+            display: flex;
+            align-items: baseline;
+            gap:10px;
+        }
+        button{
+            fa-icon{
+                font-size: 2rem;
+                color:#006D97;
+            }
+        }
+    }
+    .previous-next-btn{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+.affecter-user-form{
+    display:flex;
+    flex-direction: column;
+    gap:50px;
+    .form-items{
+        width: 100%;
+        display: flex;
+        gap: 100px;
+        align-items: flex-end;
+        justify-content: center;
+        .site-plant-segment-items{
+            display: flex;
+            flex-direction: column;
+            gap:10px;
+            width: 30%;
+        }
+        .user-line{
+            width:30%;
+        }
+    }
+    .previous-add-btn{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.massive-addition-section{
+    display: flex;
+    flex-direction: column;
+    gap:30px;
+    align-items: center;
+    .mat-mdc-card-title{
+        align-self: flex-start;
+    }
+}
+
+.form-item{
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+    mat-label{
+        font-size:15px;
+        font-family: 'Roboto';
+        font-weight: 500;
+    }
+}

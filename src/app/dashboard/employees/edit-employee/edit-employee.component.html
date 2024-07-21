@@ -1,0 +1,159 @@
+<div class="content">
+    <xng-breadcrumb>
+        <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
+            <mat-icon *ngIf="info">{{ info }}</mat-icon>
+            <ng-container>{{ breadcrumb }}</ng-container>
+        </ng-container>
+    </xng-breadcrumb>
+    <mat-card>
+        <mat-card-title>{{
+            "employeesManagmentContent.editEmployee" | translate
+            }}</mat-card-title>
+
+        <mat-card-content>
+            <form [formGroup]="editEmployeeForm">
+                <div class="phone-number-registration-number-form-items">
+                    <mat-form-field >
+                        <mat-label>{{
+                          "employeesManagmentContent.addEmployeeContent.matricule" | translate
+                        }}</mat-label>
+                        <input
+                          type="text"
+                          matInput
+                          placeholder="{{
+                            'employeesManagmentContent.addEmployeeContent.matriculePlaceholder'
+                              | translate
+                          }}"
+                          formControlName="registrationNumber"
+                          required
+                        />
+                      </mat-form-field>
+                </div>
+                <div class="form-items">
+                    <mat-form-field>
+                        <mat-label>{{
+                          "employeesManagmentContent.addEmployeeContent.nom" | translate
+                        }}</mat-label>
+                        <input
+                          type="text"
+                          matInput
+                          placeholder="{{
+                            'employeesManagmentContent.addEmployeeContent.nomPlaceholder'
+                              | translate
+                          }}"
+                          formControlName="lastName"
+                          required
+                        />
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>{{
+                          "employeesManagmentContent.addEmployeeContent.prenom" | translate
+                        }}</mat-label>
+                        <input
+                          type="text"
+                          matInput
+                          placeholder="{{
+                            'employeesManagmentContent.addEmployeeContent.prenomPlaceholder'
+                              | translate
+                          }}"
+                          formControlName="firstName"
+                          required
+                        />
+                      </mat-form-field>
+                </div>
+                <div class="form-item">
+                    <mat-form-field>
+                        <mat-label>{{
+                          "employeesManagmentContent.addEmployeeContent.phoneNumber" | translate
+                        }}</mat-label>
+                        <input
+                          type="tel"
+                          matInput
+                          placeholder="{{
+                            'employeesManagmentContent.addEmployeeContent.phonePlaceholder'
+                              | translate
+                          }}"
+                          formControlName="phone"
+                          required
+                        />
+                      </mat-form-field>
+                 
+                </div>
+                <div class="form-items">
+                    <mat-form-field>
+                        <mat-label>{{
+                          "employeesManagmentContent.site" | translate
+                        }}</mat-label>
+                        <input
+                          type="text"
+                          matInput
+                          placeholder="{{
+                            'employeesManagmentContent.addEmployeeContent.siteName'
+                              | translate
+                          }}"
+                          formControlName="site"
+                          required
+                        />
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>{{
+                          "employeesManagmentContent.plant" | translate
+                        }}</mat-label>
+                        <input
+                          type="text"
+                          matInput
+                          placeholder="{{
+                            'employeesManagmentContent.addEmployeeContent.plantName'
+                              | translate
+                          }}"
+                          formControlName="plant"
+                          required
+                        />
+                      </mat-form-field>
+                </div>
+                <div class="form-items">
+                    <mat-form-field>
+                        <mat-label>{{
+                          "employeesManagmentContent.segment" | translate
+                        }}</mat-label>
+                        <input
+                          type="text"
+                          matInput
+                          placeholder="{{
+                            'employeesManagmentContent.addEmployeeContent.segmentName'
+                              | translate
+                          }}"
+                          formControlName="segment"
+                          required
+                        />
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>{{
+                          "employeesManagmentContent.line" | translate
+                        }}</mat-label>
+                        <input
+                          type="text"
+                          matInput
+                          placeholder="{{
+                            'employeesManagmentContent.addEmployeeContent.lineName'
+                              | translate
+                          }}"
+                          formControlName="line"
+                          required
+                        />
+                      </mat-form-field>
+                </div>
+                <button 
+                (click)="edit()"
+                class="edit-btn"
+                mat-raised-button
+                color="primary"
+                >
+            {{"employeesManagmentContent.edit" |translate}}
+            </button>
+      
+        </form>
+        </mat-card-content>
+
+    </mat-card>
+</div>

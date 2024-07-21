@@ -1,0 +1,89 @@
+<div class="content">
+    <xng-breadcrumb>
+        <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
+          <mat-icon *ngIf="info">{{ info }}</mat-icon>
+          <ng-container>{{ breadcrumb }}</ng-container>
+        </ng-container>
+      </xng-breadcrumb>
+      <div class="information">
+        <fa-icon [icon]="faInformation"></fa-icon>
+        <div class="information-body">
+          <p class="information-title">
+            {{ "linesContent.addLineForm.information" | translate }}
+          </p>
+          <p class="information-subtitle">
+            {{ "linesContent.addLineForm.infomationText" | translate }}
+          </p>
+        </div>
+      </div>
+    
+      <mat-card class="add-line-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{ "linesContent.addLineForm.chooseText" | translate }}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form [formGroup]="addLineForm">
+              <mat-form-field>
+                <mat-label>   {{ "linesContent.addLineForm.site" | translate }}</mat-label>
+                <mat-select
+                  formControlName="siteName"
+                >
+                  <mat-option 
+                  [value]="site"
+                  *ngFor="let site of sites">{{ site }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>   {{ "linesContent.addLineForm.plantName" | translate }}</mat-label>
+                <mat-select
+                  formControlName="plant"
+                >
+                  <mat-option 
+                  [value]="plant"
+                  *ngFor="let plant of plants">{{ plant }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>   {{ "linesContent.addLineForm.segmentName" | translate }}</mat-label>
+                <mat-select
+                  formControlName="segmentName"
+                >
+                  <mat-option 
+                  [value]="segment"
+                  *ngFor="let segment of segments">{{ segment }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field [floatLabel]="'auto'">
+                <mat-label>
+                  {{ "linesContent.addLineForm.nameOfNewLine" | translate }}</mat-label
+                >
+                <input type="text" matInput formControlName="nameLine" />
+              </mat-form-field>
+          </form>
+          <button
+            (click)="addNewLine()"
+            class="add-btn"
+            mat-raised-button
+            color="primary"
+          >
+            {{ "linesContent.addLineForm.add" | translate }}
+          </button>
+          <div class="or-text">
+            <hr />
+            <p>{{ "linesContent.addLineForm.or" | translate }}</p>
+            <hr />
+          </div>
+    
+          <p class="mat-mdc-card-title">
+            {{ "linesContent.addLineForm.addMassifSegments" | translate }}
+          </p>
+
+          <file-uploader
+          (sendUploadedFiles)="getUploadedFiles($event)"
+          ></file-uploader>
+        </mat-card-content>
+        <mat-card-actions> </mat-card-actions>
+      </mat-card>
+</div>

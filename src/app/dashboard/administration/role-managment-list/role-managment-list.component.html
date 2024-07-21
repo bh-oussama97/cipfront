@@ -1,0 +1,38 @@
+<div class="content">
+    <xng-breadcrumb>
+        <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
+          <mat-icon *ngIf="info">{{ info }}</mat-icon>
+          <ng-container>{{ breadcrumb }}</ng-container>
+        </ng-container>
+      </xng-breadcrumb>
+
+      <select id="users"  class="users-filter">
+        <option>Foulen ben Foulen</option>
+        <option>Foulen ben Foulen</option>
+        <option>Foulen ben Foulen</option>
+      </select>
+
+      <div class="buttons">
+        <button class="load-btn" (click)="loadDataSelectedEmployee()">{{"rolesContent.loadData" | translate}}</button>
+        <button class="save-btn">{{"rolesContent.sauvegarder" | translate}}</button>
+        <button class="add-role-btn" (click)="addRole()">{{"rolesContent.ajouterRole" | translate}}</button>
+      </div>
+
+      <mat-spinner 
+      class="roles-loader"
+      *ngIf="isRolesLoader"></mat-spinner>
+
+      <mat-card *ngIf="!isRolesLoader"> 
+        <mat-card-title>{{ "rolesContent.gererRoles" | translate }}</mat-card-title>
+        <mat-card-content>
+            <common-table
+            [isEvenRowsChangeColor]="true"
+            [isShowPaginator]="true"
+            [dataSource]="dataSource"
+            [tableColumns]="rolesColumns"
+            [assignAction]="true"
+            (saveAction)= "saveRole($event)"
+            ></common-table>
+        </mat-card-content>
+      </mat-card>
+</div>

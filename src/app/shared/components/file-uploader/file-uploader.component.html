@@ -1,0 +1,57 @@
+<div class="uploaded-file-area"  *ngIf="selectedFiles.length !== 0">
+    <ng-container *ngFor="let item of selectedFiles; let i = index">
+      <div class="uploaded-file-excel" *ngIf="item.type === 'CSV' || item.type === 'XLSX'">
+        <div class="uploaded-file-name">
+          <img src="/assets/images/excel-icon-file.png" />
+          <p>{{ item.name }}</p>
+        </div>
+        <mat-progress-bar
+          [mode]="mode"
+          [value]="item.progress"
+        ></mat-progress-bar>
+      </div>
+
+      <div class="save-cancel-btn">
+        <button mat-raised-button
+        color="primary"
+        (click)="saveUploadedFiles()"
+        >
+        {{"fileUploadContent.save"|translate}}
+      </button>
+        <button mat-raised-button
+        color="basic"
+        (click)="cancelUpload()"
+        >
+        {{"fileUploadContent.cancel"|translate}}
+      </button>
+      </div>
+      
+    </ng-container>
+</div>
+<div class="upload-file-area"
+*ngIf="selectedFiles.length === 0"
+appDnd
+(fileDropped)="onFileDropped($event)"
+>
+  <img src="/assets/images/folder-with-files.png" />
+  <span class="upload-text">{{
+    "fileUploadContent.importerDocumentsText" | translate
+  }}</span>
+
+  <button
+    class="upload-btn"
+    matInput
+    matSuffix
+    (click)="fileInput.click()"
+  >
+    <fa-icon [icon]="faFolder"></fa-icon>
+    <label>{{ keyTranslated }}</label>
+    <input
+      hidden
+      multiple
+      type="file"
+      #fileInput
+      (change)="onChange($event)"
+    />
+  </button>
+</div>

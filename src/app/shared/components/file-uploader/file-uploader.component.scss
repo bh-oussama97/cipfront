@@ -1,0 +1,117 @@
+.upload-file-area{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 50px;
+    padding-left: 50px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border : 3px solid #F1F1F1;
+    width: 100%;
+    gap:20px;
+    img{
+        width: 80px;
+        height: 80px;
+    }
+    .upload-text{
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+    .upload-btn{
+        display: flex;
+        padding-top:10px;
+        padding-bottom:10px;
+        padding-left:20px;
+        padding-right:20px;
+        border-radius: 15px;
+        gap:5px;
+        cursor: pointer;
+        background-color: var(--color-blue);
+        fa-icon{
+            color:white;
+            font-size: 15px;
+        }
+        label{
+            font-size: 15px;
+            color: white;
+        }
+    }
+
+    .files-area {
+        // width: 73%;
+        height: fit-content;
+        background: white;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding-top: 51px;
+        padding-left: 57px;
+        padding-bottom: 26px;
+        padding-right: 27px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+    }
+}
+.uploaded-file-area{
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 50px;
+    padding-left: 50px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border : 3px solid #F1F1F1;
+    width: 500px;
+    gap:20px;
+    .uploaded-file-excel {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #ebeff2;
+        .uploaded-file-name {
+            display: flex;
+            flex-grow: 1;
+            gap: 16px;
+            img {
+                width: 20px;
+                height: 20px;
+                position: relative;
+            }
+            p {
+                color: #242634;
+                font-size: 13px;
+                font-family: 'Roboto';
+                font-weight: 400;
+                line-height: 16px;
+                word-wrap: break-word;
+            }
+        }
+        ::ng-deep.mat-mdc-progress-bar {
+            width: 48%;
+            --mdc-linear-progress-active-indicator-color: var(--color-green-dark);
+            .mdc-linear-progress__buffer {
+                .mdc-linear-progress__buffer-bar {
+                    background-color: #e9eaed;
+                }
+            }
+
+            .mdc-linear-progress__bar {
+                .mdc-linear-progress__bar-inner {
+                    border-top-width: 6px;
+                }
+            }
+        }
+        .mdc-linear-progress {
+            height: 6px;
+        }
+    }
+    .save-cancel-btn{
+        display: flex;
+        gap:10px;
+        justify-content: flex-end;
+    }
+
+}  

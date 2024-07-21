@@ -1,0 +1,134 @@
+.content{
+
+    mat-card{
+        margin-top:30px;
+        margin-top:20px;
+        display: flex;
+        width: 100%;
+        padding-top: 20px;
+        padding-left: 40px;
+        padding-right: 50px;
+        padding-bottom: 20px;
+        mat-card-title{
+            font-size: 20px;
+            color:var(--color-blue);
+            font-weight: 500;
+        }
+        mat-card-content{
+            display: flex;
+            flex-direction: column;
+            padding-top:20px;
+            gap:20px;
+            .informations{
+                display: flex;
+                justify-content: space-between;
+                .idea-informations
+                {
+                    display: flex;
+                    flex-direction: column;
+                    .type,.line,.date,.segment
+                    {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 5px;
+                        color:var( --color-blue-lighter);
+                    }
+                }
+                .import-kaizen-card{
+                    display:flex;
+                    gap:20px;
+                    justify-content: flex-end;
+                    .images-before-and-after{
+                        display: flex;
+                        gap:20px;
+                        fa-icon{
+                            font-size: 3rem;
+                        }
+                        .images{
+                            display: flex;
+                            flex-direction: column;
+                            .image-item{
+                                display:flex;
+                                gap:10px;
+                                label{
+                                    font-weight: bold;
+                                }
+                                a{
+                                    cursor: pointer;
+                                }
+                            }
+                          
+                        }
+                    }
+                    .card-kaizen-upload{
+                        display:flex;
+                        align-items: center;
+                        cursor: pointer;
+                        gap:10px;
+                        flex-direction: column;                        
+                        fa-icon{
+                            font-size: 1.5rem;
+                        }
+                    }
+
+                }
+            }
+            .description-form-item{
+                width: 100%;
+            }
+
+            form{
+                display:flex;
+                gap:60px;
+                justify-content: center;
+                .idea-execution{
+                    display: flex;
+                    gap:60px;
+                    .execution-text{
+                        font-size:15px;
+                        font-family: "Roboto-Regular";
+                    }
+                    .execution-choice{
+                        display: flex;
+                        flex-direction: column;
+                    }
+                }
+                .motifs-refus{
+                    display: flex;
+                    align-items: baseline;
+                    gap:10px;
+                    .motifs-text{
+                        font-size: 15px;
+                        font-family: "Roboto-Regular";
+                    }
+                }
+            }
+            .send-btn{
+                align-self: self-end;
+                width: 10%;
+            }
+            @keyframes spinner {
+                to {transform: rotate(360deg);}
+              }
+              
+              .spinner:before {
+                content: '';
+                box-sizing: border-box;
+                position: absolute;
+                text-align: center;
+                top: 50%;
+                left: 50%;
+                width: 10%;
+                height: 20px;
+                margin-top: -10px;
+                margin-left: -10px;
+                border-radius: 50%;
+                border: 2px solid #ffffff;
+                border-top-color: #000000;
+                animation: spinner .8s linear infinite;
+              }
+
+
+        }
+    }
+}

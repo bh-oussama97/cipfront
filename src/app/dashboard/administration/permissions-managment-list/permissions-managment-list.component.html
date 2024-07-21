@@ -1,0 +1,38 @@
+<div class="content">
+    <xng-breadcrumb>
+        <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
+          <mat-icon *ngIf="info">{{ info }}</mat-icon>
+          <ng-container>{{ breadcrumb }}</ng-container>
+        </ng-container>
+      </xng-breadcrumb>
+
+      <select id="users"  class="users-filter">
+        <option>Foulen ben Foulen</option>
+        <option>Foulen ben Foulen</option>
+        <option>Foulen ben Foulen</option>
+      </select>
+
+      <div class="buttons">
+        <button class="load-btn" (click)="loadRolesData()">{{"permissionsContent.loadData" | translate}}</button>
+        <button class="save-btn">{{"permissionsContent.sauvegarder" | translate}}</button>
+        <button class="add-permission-btn" (click)="addNewPermission()">{{"permissionsContent.ajouterRole" | translate}}</button>
+      </div>
+
+      <mat-spinner 
+      class="permissions-loader"
+      *ngIf="isPermissionsLoader"></mat-spinner>
+
+      <mat-card *ngIf="!isPermissionsLoader"> 
+        <mat-card-title>{{ "permissionsContent.gererPermissions" | translate }}</mat-card-title>
+        <mat-card-content>
+            <common-table
+            [dataSource]="permissionsDataSource"
+            [tableColumns]="permissionColumns"
+            [assignAction]="true"
+            (saveAction) = "savePermission($event)"
+            [isEvenRowsChangeColor]="true"
+            [isShowPaginator]="true"
+            ></common-table>
+        </mat-card-content>
+      </mat-card>
+</div>

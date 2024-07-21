@@ -1,0 +1,38 @@
+<div class="content">
+    <xng-breadcrumb>
+        <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
+          <mat-icon *ngIf="info">{{ info }}</mat-icon>
+          <ng-container>{{ breadcrumb }}</ng-container>
+        </ng-container>
+      </xng-breadcrumb>
+
+      <button class="btn-right"
+      color="primary"
+      mat-raised-button
+      (click)="addProperty()"
+      >
+        {{"applicationConfig.ajouterPropriete" | translate}}
+      </button>
+
+      <div class="search-input">
+        <div class="icon-input">
+          <mat-icon>search</mat-icon>
+          <input
+            type="text"
+            placeholder="{{ 'applicationConfig.searchText' | translate }}"
+          />
+        </div>
+      </div>
+
+      <mat-card>
+        <mat-card-title>{{"applicationConfig.manageConfiguration" |translate}}</mat-card-title>
+        <mat-card-content>
+            <mat-selection-list hideSingleSelectionIndicator [multiple]="false" matSort>
+                <!-- <mat-list-option disabled="true" >Clé</mat-list-option> -->
+                  <mat-list-option *ngFor="let item of configItems"
+                  (click)="openConfigDialog(item)"
+                  >{{ item |translate}}</mat-list-option>
+              </mat-selection-list>
+        </mat-card-content>
+      </mat-card>
+</div>

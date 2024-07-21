@@ -1,0 +1,47 @@
+.kaizen-card-picture-before-after{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    button{
+        align-self: self-end;
+        img{
+            width: 2rem;
+        }
+    }
+    .cip-state-title{
+        font-size: 20px;
+        font-family: 'Roboto-Regular';
+        font-weight: 600;
+        margin-top: 20px;
+    }
+
+    .card-kaizen-upload-items{
+        display: flex;
+        flex-direction: column;
+        margin-top: 30px;
+        gap:15px;
+        width: 100%;
+        .card-kaizen-before-upload,.card-kaizen-after-upload{
+            display:flex;
+            align-items: center;
+            cursor: pointer;
+            gap:10px;
+            flex-direction: column;                        
+            fa-icon{
+                font-size: 5rem;
+            }
+            p{
+                font-size: 15px;
+            }
+            .filename{
+                font-size: 16px;
+            }
+        }
+        hr{
+            border: 2px dashed black;
+            width: 100%;
+        }
+    }
+
+}

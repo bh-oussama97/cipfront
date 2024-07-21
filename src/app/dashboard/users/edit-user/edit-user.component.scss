@@ -1,0 +1,71 @@
+.content{
+    display:flex;
+    flex-direction: column;
+    mat-card{
+        mat-card-content{
+            padding-top: 20px;
+            padding-bottom: 20px;
+            form{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                .personal-informations-items{
+                    display: flex;
+                    align-items: flex-start;
+                    gap:50px;
+                    width:100%;
+                    h3{
+                        font-family: 'Roboto';
+                        width: 40%;
+                    }
+                    .form-items{
+                        display: flex;
+                        flex-direction: column;
+                        gap:5px;
+                        width: 100%;
+                        .first-last-form-items,.phone-number-registration-number-form-items{
+                            display: flex;
+                            gap:30px;
+                            mat-form-field{
+                                width:60%;
+                            }
+                        }
+                        mat-form-field{
+                            width:100%;
+                        }
+
+                    }
+                }
+                .user-asignment-items{
+                    display: flex;
+                    align-items: center;
+                    gap:100px;
+                    width:100%;  
+                    .form-items{
+                        display: flex;
+                        flex-direction: column;
+                        width: 50%;
+                        .form-item{
+                            display:flex;
+                            flex-direction: column;
+                            gap:10px;
+                            mat-label{
+                                font-size:15px;
+                                font-family: 'Roboto';
+                                font-weight: 500;
+                            }
+                        }
+                    }
+                    .user-assignments-labels{
+                        display: flex;
+                        flex-direction: column;
+                    }
+                }
+                .save-btn{
+                    align-self: self-end;
+                    width:10%;
+                }
+            }
+        }
+    }
+}

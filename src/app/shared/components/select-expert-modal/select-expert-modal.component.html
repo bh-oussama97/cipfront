@@ -1,0 +1,28 @@
+<div class="select-expert-dialog">
+  <div class="select-expert-header">
+    <h1 class="title">
+      {{ "ideasContent.ideaSelectionContent.chooseExpert" | translate }}
+    </h1>
+    <fa-icon (click)="this.dialogRef.close()" [icon]="close"></fa-icon>
+  </div>
+  <div class="select-expert-body">
+    <mat-form-field class="expert-select">
+      <mat-label> Expert</mat-label>
+      <mat-select [(value)]="expertSelected">
+        <mat-option [value]="value" *ngFor="let value of data.expertList">{{
+          value.fullName
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="buttons">
+      <ng-container>
+        <button color="primary"
+        [mtBasicSpinner]="isLoading" 
+        [class.spinner]="isLoading" 
+        mat-raised-button (click)="confirm()">
+          {{ "ideasContent.ideaValidationContent.ok" | translate }}
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</div>

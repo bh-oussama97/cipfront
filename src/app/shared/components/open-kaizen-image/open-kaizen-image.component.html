@@ -1,0 +1,12 @@
+<div class="select-expert-dialog">
+  <div class="select-expert-header">
+    <h1 class="title">
+      {{ "ideasContent.ideaSelectionContent.imagePreview" | translate }}
+    </h1>
+    <div class="close-download-icons">
+      <fa-icon [icon]="fadownload" (click)="downloadImage()"></fa-icon>
+      <fa-icon (click)="this.dialogRef.close()" [icon]="close"></fa-icon>
+    </div>
+  </div>
+  <img [src]="imageBlobUrl" />
+</div>
