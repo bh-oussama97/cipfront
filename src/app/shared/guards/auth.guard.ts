@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 export const AuthGuard = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  if (!authService.get_login_info()) {
+  if (!authService.isAuthenticated) {
     router.parseUrl('/login');
     return false;
   }

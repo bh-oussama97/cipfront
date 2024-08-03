@@ -3,15 +3,14 @@
     flex-direction: column;
     align-items: center;
     padding: 50px;
-    button{
+    .close-icon {
+        cursor: pointer;
+        font-size: 20px;
         align-self: self-end;
-        img{
-            width: 2rem;
-        }
     }
     .cip-state-title{
         font-size: 20px;
-        font-family: 'Roboto-Regular';
+        font-family: 'Poppins', sans-serif;
         font-weight: 600;
         margin-top: 20px;
     }

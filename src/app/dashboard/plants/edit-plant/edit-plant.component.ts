@@ -26,15 +26,15 @@ export class EditPlantComponent implements OnInit {
   }
   editPlant() {
     this.snackbar
-      .open(this.translate.instant('plantContent.editPlantForm.successModification'), 'X', {
+      .open(this.translate.instant('plantContent.editPlantForm.successModification'), '', {
         duration: 5000,
         horizontalPosition: 'center',
         verticalPosition: 'top',
-        panelClass: 'notif-success'
+        panelClass: 'notification-success'
       })
       .afterDismissed()
       .subscribe(res=>{
-        this.router.navigateByUrl('/dashboard/plants');
+        this.router.navigateByUrl('plants');
       });
   }
 }

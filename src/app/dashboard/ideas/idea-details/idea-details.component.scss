@@ -1,5 +1,22 @@
 .content{
     gap:1rem;
+    ::ng-deep xng-breadcrumb {
+        align-self: self-start;
+        .xng-breadcrumb-root {
+            .xng-breadcrumb-list {
+                .xng-breadcrumb-item {
+                    .xng-breadcrumb-trail {
+                        gap: 10px !important;
+                        font-family: "Poppins", sans-serif !important;
+                    }
+                    .xng-breadcrumb-link {
+                        gap: 5px !important;
+                        color:white;
+                    }
+                }
+            }
+        }
+    }
     mat-card{
         margin-top:30px;
         margin-top:20px;
@@ -132,7 +149,8 @@
                     display: flex;
                     align-items: center;
                   .category-text{
-                    font-family : 'Roboto-Bold';
+                            font-family: "Poppins", sans-serif !important;
+
                     font-size: 15px;
                   } 
                   .category{

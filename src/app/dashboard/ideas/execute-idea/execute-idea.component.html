@@ -2,7 +2,7 @@
     <xng-breadcrumb>
       <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
         <mat-icon *ngIf="info">{{ info }}</mat-icon>
-        <ng-container>{{ breadcrumb }}</ng-container>
+        <ng-container>{{ breadcrumb | translate}}</ng-container>
       </ng-container>
     </xng-breadcrumb>
     <mat-card>
@@ -65,15 +65,8 @@
                 </div>
               </div>
           </div>
-        <mat-form-field appearance="outline" class="description-form-item">
-          <mat-label
-            >{{
-              "ideasContent.ideaDetailsContent.detailledDescription" | translate
-            }}
-            :</mat-label
-          >
+    
           <textarea  matInput [(ngModel)]="ideaDetails.description"></textarea>
-        </mat-form-field>
   
         <form [formGroup]="ideaExecutionForm">
             <div class="idea-execution">
@@ -99,23 +92,17 @@
               <span class="motifs-text">{{
                 "ideasContent.ideaValidationContent.refusMotifs" | translate
               }}</span>
-              <mat-form-field>
-                <mat-label>
-                  {{
-                    "ideasContent.ideaValidationContent.motifs" | translate
-                  }}</mat-label
-                >
-                <mat-select 
-                [(ngModel)]="motifByDefault"
-                formControlName="motif" >
-                  <mat-option [value]="motif" *ngFor="let motif of motifs">{{
+                <select formControlName="motif" 
+                class="form-select"
+                [(ngModel)]="motifByDefault">
+                  <option 
+                   *ngFor="let motif of motifs">{{
                     motif
-                  }}</mat-option>
-                </mat-select>
-              </mat-form-field>
+                  }}</option>
+                </select>
+
             </div>
         </form>
-        <div class="send-btn">
           <button 
           mat-raised-button
           color="primary"
@@ -127,7 +114,6 @@
             "ideasContent.ideaValidationContent.envoyer" | translate
           }}
         </button>
-        </div>
   
       </mat-card-content>
     </mat-card>

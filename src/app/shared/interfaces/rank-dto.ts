@@ -1,4 +1,6 @@
 export interface RankDto {
+    id : string;
+    idea:string;
     matricule: string;
     full_name: string;
     average: number;
@@ -6,3 +8,4 @@ export interface RankDto {
     kaisenFile: string;
     rank?: number;
 }
+    

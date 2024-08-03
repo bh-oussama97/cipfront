@@ -1,0 +1,109 @@
+<div class="content">
+  <xng-breadcrumb>
+    <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
+      <mat-icon *ngIf="info">{{ info }}</mat-icon>
+      <ng-container>{{ breadcrumb | translate }}</ng-container>
+    </ng-container>
+  </xng-breadcrumb>
+  <div class="ideas-managment">
+    <button
+      (click)="exportIdeas()"
+      mat-raised-button
+      color="primary"
+      class="btn-right"
+    >
+      {{ "ideasContent.export" | translate }}
+    </button>
+
+    <div
+      class="search-input"
+      *ngIf="currentRole === 'ADMIN' || currentRole === 'OPEX'"
+    >
+      <div class="icon-input">
+        <mat-icon>search</mat-icon>
+        <input
+          type="text"
+          placeholder="{{ 'ideasContent.search' | translate }}"
+          (keyup)="searchIdeaByName($event)"
+        />
+      </div>
+    </div>
+    <div
+      class="filters"
+      *ngIf="currentRole === 'ADMIN' || currentRole === 'OPEX'"
+    >
+      <select
+        id="iniateur"
+        [(ngModel)]="selectedEmployee"
+        (change)="filterbyEmployee()"
+      >
+        <option *ngFor="let emp of employeeNames">{{ emp }}</option>
+      </select>
+      <select id="etat" class="form-select" [(ngModel)]="selectedState" (change)="filterByState()">
+        <option *ngFor="let state of states">{{ state }}</option>
+      </select>
+      <select
+        id="contreMaitre"
+        [(ngModel)]="selectedContreMaitre"
+        (change)="filterByContreMaitre()"
+      >
+        <option *ngFor="let contre of contreMaitreNames">{{ contre }}</option>
+      </select>
+      <select
+        id="chefSegment"
+        [(ngModel)]="selectedChefSegment"
+        (change)="filterByChefSegment()"
+      >
+        <option *ngFor="let chef of chefSegmentNames">{{ chef }}</option>
+      </select>
+      <select
+        id="expert"
+        [(ngModel)]="selectedExpert"
+        (change)="filterbyExpert()"
+      >
+        <option *ngFor="let expert of expertNames">{{ expert }}</option>
+      </select>
+    </div>
+
+    <div
+      class="search-filter-by-state"
+      *ngIf="currentRole !== 'ADMIN' && currentRole !== 'OPEX'"
+    >
+      <select id="etat" 
+      class="form-select"
+      [(ngModel)]="selectedState" (change)="filterByState()">
+        <option *ngFor="let state of states">{{ state }}</option>
+      </select>
+
+      <div class="search-input">
+        <div class="icon-input">
+          <mat-icon>search</mat-icon>
+          <input
+            type="text"
+            placeholder="{{ 'ideasContent.search' | translate }}"
+            (keyup)="searchIdeaByName($event)"
+          />
+        </div>
+      </div>
+    </div>
+
+    <mat-card>
+      <mat-card-title>
+        {{ "ideasContent.ideasList" | translate }}
+      </mat-card-title>
+      <mat-card-content>
+        <div class="ideas-table">
+          <common-table
+            [isEvenRowsChangeColor]="true"
+            [isShowPaginator]="true"
+            [dataSource]="filteredDataSource"
+            [tableColumns]="ideasAssociatedColumns"
+            [detailsAction]="true"
+            (action)="associatedTableAction($event)"
+            [role]="currentRole"
+          ></common-table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

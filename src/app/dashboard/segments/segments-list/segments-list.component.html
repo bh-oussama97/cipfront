@@ -1,0 +1,72 @@
+
+
+<div class="content">
+    <xng-breadcrumb>
+      <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
+        <mat-icon *ngIf="info">{{ info }}</mat-icon>
+        <ng-container>{{ breadcrumb | translate}}</ng-container>
+      </ng-container>
+    </xng-breadcrumb>
+    <div class="buttons-right">
+      <button (click)="addSegment()" mat-raised-button color="primary">
+        {{ "segementsContent.addSegment" | translate }}
+      </button>
+      <button
+        (click)="downloadSegmentsTemplate()"
+        mat-raised-button
+        color="primary"
+      >
+        {{ "segementsContent.downloadTemplate" | translate }}
+      </button>
+    </div>
+  
+    <div class="search-input">
+      <div class="icon-input">
+        <mat-icon>search</mat-icon>
+        <input
+          type="text"
+          placeholder="{{ 'segementsContent.search' | translate }}"
+          (keyup)="searchSegment($event)"
+        />
+      </div>
+    </div>
+  
+    <div class="filters">
+      <select id="site" class="form-select">
+        <option selected disabled>{{ "segementsContent.site" | translate }}</option>
+        <option>Sousse</option>
+        <option>Mateur Sud</option>
+        <option>Manzel Hayet</option>
+      </select>
+      <select id="plant" class="form-select">
+        <option selected disabled>{{ "segementsContent.plant" | translate }}</option>
+        <option>BMW</option>
+        <option>AUDI</option>
+        <option>VW</option>
+        <option>MS1</option>
+        <option>MN1</option>
+        <option>MH1</option>
+      </select>
+      <select id="segment" class="form-select">
+        <option selected disabled>{{ "segementsContent.segement" | translate }}</option>
+        <option>Cutting & WPA MEB AUTARK</option>
+        <option>Segment 45</option>
+        <option>Segment 59</option>
+        <option>Segment 53-1</option>
+        <option>Cutting & WPA SYSAPP LTN1</option>
+        <option>Segment Muster SYSAPP</option>
+      </select>
+    </div>
+  
+    <common-table
+    [isEvenRowsChangeColor]="true"
+    [isShowPaginator]="true"
+    [dataSource]="segmentsData"
+    [tableColumns]="segmentsColumns"
+    [editDeleteActions]="true"
+    (action)="onTableAction($event)"
+    class="mat-elevation-z8"
+  ></common-table>
+  
+  </div>
+  

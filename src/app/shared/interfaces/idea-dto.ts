@@ -7,24 +7,30 @@ import { IdeaHistoryDto } from "./idea-history-dto";
 
 export interface IdeaDto {
 
-	IdeaId?: string;
-    description?: string;  
-    status?:  IdeaState;
+	IdeaId?: string,
+    description?:  String;  
+    status?: IdeaState;
 	matricule?: string;
 	affectedTo?: string;
 	decision?: Decision;
 	motif?: Motif;
-	category: Category;
+	category?: Category;
 	type?: IdeaType;
+	segment?: string;
+    line?: string;
+    contreMaitre?: string;
+    chefSegment?: string;
+    expert?: string;
 	createdAt?: string;
 	global?: boolean;
 	valid?: boolean;
 	original?: number;
 	impact?: number;
 	total?: number;
-	kaizanBefore? : string;
-	kaizanAfter? :string;
-	kaizen?:string;
+	kaizanBefore?: string;
+	kaizanAfter?: string;
+	kaizen?: string;
+	
 	/* Historiques*/
-	histories : IdeaHistoryDto[];
+	 histories : IdeaHistoryDto [];
 }

@@ -2,7 +2,8 @@
 
 .welcome{
   text-transform: uppercase;
-  font-family: "Roboto-Bold";
+  font-family: 'Poppins', sans-serif;
+  font-weight:500;
   font-size: 2rem;
   color: var(--color-blue-dark);
 }
@@ -13,11 +14,19 @@
   gap:20px;
   margin-top:50px;
   align-items: center;
+  h2{
+    font-family: "Poppins",sans-serif !important;
+    font-weight: 600;
+  }
   mat-card{
     padding-right: 50px;
     padding-left: 50px;
     padding-top: 20px;
     padding-bottom: 20px;
+    mat-card-title{
+      font-family: "Poppins",sans-serif !important; 
+      font-weight: 600;
+    }
     width: 500px;
     mat-card-content{
         margin-top:40px;
@@ -35,6 +44,10 @@
   
   .example-full-width {
     width: 100%;
+    font-family: "Poppins",sans-serif !important; 
+    mat-label,mat-error{
+      font-family: "Poppins",sans-serif !important;  
+    }
   }
   .mdc-card__actions{
     display:flex;

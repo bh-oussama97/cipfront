@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { faFileImage } from '@fortawesome/free-regular-svg-icons';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
@@ -33,7 +33,7 @@ import { OpenKaizenImageComponent } from 'src/app/shared/components/open-kaizen-
   templateUrl: './select-idea.component.html',
   styleUrls: ['./select-idea.component.scss']
 })
-export class SelectIdeaComponent implements OnInit {
+export class SelectIdeaComponent implements OnInit,OnDestroy {
 
   ideaDetails: TaskDto;
   subscription: Subscription;
@@ -58,6 +58,7 @@ export class SelectIdeaComponent implements OnInit {
   ideaDTO: IdeaDto;
   isLoading: boolean = false;
   category:string;
+  ideaId:string;
   constructor(private dataservice: DataService,
     private fb: FormBuilder,
     private dialogService: ModalService,
@@ -67,7 +68,8 @@ export class SelectIdeaComponent implements OnInit {
     private snackbar: MatSnackBar,
     private router: Router,
     private authService: AuthService,
-    private fileService: FileService
+    private fileService: FileService,
+    private activatedRoute : ActivatedRoute
   ) {
     this.motifs = [Motif.NONE, Motif.INCLEAR_IDEA, Motif.NOT_STANDARD, Motif.RECURRENT_IDEA];
     this.ideaSelectionForm = this.fb.group({
@@ -81,29 +83,32 @@ export class SelectIdeaComponent implements OnInit {
     });
   }
 
-
   ngOnInit(): void {
-    this.authService.getLoggedInUser().subscribe((loggedInUser: any) => {
-      this.connectedUser = loggedInUser;
-    })
-    this.subscription = this.dataservice.currentMessage$.subscribe({
-      next: (message: any) => {
-        this.ideaDetails = message;
-        this.getIdeaById(this.ideaDetails.ideaId);
-        this.description = message.description;
-        if(this.ideaDetails.responsables.length > 0)
-        {
-          for (let responsable of this.ideaDetails.responsables) {
-            if (responsable.roles[0] === Profile.CONTRE_MAITRE) {
-              this.ideaMasterFullName = responsable.fullName;
-            }
-            if (responsable.roles[0] === Profile.EXPERT) {
-              this.expertFullName = responsable.fullName;
-            }
-          }
-        }
-      }
+    this.connectedUser = this.authService.get_login_info();
+    this.activatedRoute.paramMap.subscribe({
+      next: (params: ParamMap) => {
+        this.ideaId = params.get('ideaId');
+      },
     });
+    this.getIdeaById( this.ideaId );
+    // this.subscription = this.dataservice.currentMessage$.subscribe({
+    //   next: (message: any) => {
+    //     this.ideaDetails = message;
+    //     this.getIdeaById(this.ideaDetails.ideaId);
+    //     this.description = message.description;
+    //     if(this.ideaDetails.responsables)
+    //     {
+    //       for (let responsable of this.ideaDetails.responsables) {
+    //         if (responsable.roles[0] === Profile.CONTRE_MAITRE) {
+    //           this.ideaMasterFullName = responsable.fullName;
+    //         }
+    //         if (responsable.roles[0] === Profile.EXPERT) {
+    //           this.expertFullName = responsable.fullName;
+    //         }
+    //       }
+    //     }
+    //   }
+    // });
     this.ideaService.getResponsiblesListByEmployeeMatriculeAndRole(this.ideaDetails.employee, Profile.EXPERT).subscribe((result: UserDto[]) => {
       this.expertsList = result;
     });
@@ -169,7 +174,7 @@ export class SelectIdeaComponent implements OnInit {
                   const rejectedIdea: NextStepDto = {
                     ideaId: this.ideaDetails.ideaId,
                     description: this.ideaDetails.description,
-                    status: IdeaState.CLOSED,
+                    status: IdeaState.REFUSED,
                     matricule: this.connectedUser.matricule,
                     affectedTo: this.ideaDetails.employee,
                     impact: this.ideaSelectionForm.value.impactNote,
@@ -187,27 +192,27 @@ export class SelectIdeaComponent implements OnInit {
                       next: (response: any) => {
                         if (response !== null) {
                           this.snackbar
-                            .open("Idea has been rejected !", 'X', {
+                            .open("Idea has been rejected !", '', {
                               duration: 2000,
                               horizontalPosition: 'right',
                               verticalPosition: 'top',
-                              panelClass: 'notification-warning'
+                              panelClass: 'notification-error'
                             }).afterDismissed().subscribe((res) => {
                               this.dataservice.notifyTaskCompletion();
-                              this.router.navigateByUrl('dashboard/ideas');
+                              this.router.navigateByUrl('/ideas');
                             });;
                         }
                       }, error: (httpError: HttpErrorResponse) => {
                         let responseError: ResponseDto = httpError.error;
                         this.snackbar
-                          .open(responseError.message, 'X', {
+                          .open(responseError.message, '', {
                             duration: 2000,
                             horizontalPosition: 'right',
                             verticalPosition: 'top',
                             panelClass: 'notification-error'
                           })
                           .afterDismissed().subscribe((res) => {
-                            this.router.navigateByUrl('/dashboard/ideas');
+                            this.router.navigateByUrl('/ideas');
                           });
                       }
                     }
@@ -247,16 +252,7 @@ export class SelectIdeaComponent implements OnInit {
           }
         );
       }
-      // else if(this.ideaDTO?.kaizen === null)
-      // {
-      //   this.snackbar
-      //   .open(this.translate.instant('ideasContent.ideaSelectionContent.uploadKaizenCard'), 'X', {
-      //     duration: 2000,
-      //     horizontalPosition: 'right',
-      //     verticalPosition: 'top',
-      //     panelClass: 'notification-warning'
-      //   });
-      // }
+
       else {
         this.dialogService.create(
           {
@@ -280,7 +276,8 @@ export class SelectIdeaComponent implements OnInit {
                         originalite: this.ideaSelectionForm.value.originaliteNote,
                         impact: this.ideaSelectionForm.value.impactNote,
                         motif: this.ideaSelectionForm.value.motif,
-                        noteTotal: this.noteTotal
+                        noteTotal: this.noteTotal,
+                        category  : this.ideaDTO.category
                       },
                       minWidth: '40%',
                       minHeight: 'fit-content',
@@ -300,70 +297,81 @@ export class SelectIdeaComponent implements OnInit {
           }
         );
       }
-
-
-    // }
-    // else {
-    //   this.snackbar
-    //   .open(this.translate.instant('ideasContent.ideaSelectionContent.checkAllFields'), 'X', {
-    //     duration: 2000,
-    //     horizontalPosition: 'right',
-    //     verticalPosition: 'top',
-    //     panelClass: 'notification-error'
-    //   });
-    // }
   }
-  closeIdea() {
-    this.isLoading = true;
-    const ideaClosed: NextStepDto = {
-      ideaId: this.ideaDetails.ideaId,
-      description: this.ideaDTO.description,
-      status: IdeaState.CLOSED,
-      matricule: this.ideaDTO.matricule,
-      affectedTo: this.connectedUser.matricule,
-      impact: this.impactNote,
-      original: this.originaliteNote,
-      global: this.ideaDTO.global,
-      valid: this.ideaDTO.valid,
-      type: this.ideaDTO.type,
-      motif: this.ideaDTO.motif,
-      decision: Decision.CLOSED,
-      category: this.ideaDTO.category,
-      total: this.noteTotal
-    };
-    this.ideaService.updateIdeaNextStep(ideaClosed).subscribe(
+  closeIdea() {    
+       if(this.ideaDTO?.kaizen === null)
       {
-        next: (response: any) => {
-          if (response !== null) {
-            setTimeout(() => {
-              this.isLoading = false;
+        this.snackbar
+        .open(this.translate.instant('ideasContent.ideaSelectionContent.uploadKaizenCard'), '', {
+          duration: 2000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: 'notification-error'
+        });
+      }
+      else if (this.originaliteNote === undefined && this.impactNote === undefined)
+      {
+        this.snackbar
+        .open(this.translate.instant('ideasContent.ideaSelectionContent.chooseOriginaliteImpactNote'), 'X', {
+          duration: 2000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: 'notification-error'
+        });
+      }
+      else{
+        this.isLoading = true;
+
+        const ideaClosed: NextStepDto = {
+          ideaId: this.ideaDetails.ideaId,
+          description: this.ideaDTO.description,
+          status: IdeaState.VALIDATED,
+          matricule: this.ideaDTO.matricule,
+          affectedTo: this.connectedUser.matricule,
+          impact: this.impactNote,
+          original: this.originaliteNote,
+          global: this.ideaDTO.global,
+          valid: this.ideaDTO.valid,
+          type: this.ideaDTO.type,
+          motif: this.ideaDTO.motif,
+          decision: Decision.VALIDATED,
+          category: this.ideaDTO.category,
+          total: this.noteTotal
+        };
+        this.ideaService.updateIdeaNextStep(ideaClosed).subscribe(
+          {
+            next: (response: any) => {
+              if (response !== null) {
+                setTimeout(() => {
+                  this.isLoading = false;
+                  this.snackbar
+                    .open("Idea has been closed !", '', {
+                      duration: 2000,
+                      horizontalPosition: 'right',
+                      verticalPosition: 'top',
+                      panelClass: 'notification-success'
+                    }).afterDismissed().subscribe((res) => {
+                      this.dataservice.notifyTaskCompletion();
+                      this.router.navigateByUrl('/ideas');
+                    });
+                }, 3000);
+              }
+            }, error: (httpError: HttpErrorResponse) => {
+              let responseError: ResponseDto = httpError.error;
               this.snackbar
-                .open("Idea has been closed !", 'X', {
+                .open(responseError.message, '', {
                   duration: 2000,
                   horizontalPosition: 'right',
                   verticalPosition: 'top',
-                  panelClass: 'notif-success'
-                }).afterDismissed().subscribe((res) => {
-                  this.dataservice.notifyTaskCompletion();
-                  this.router.navigateByUrl('dashboard/ideas');
+                  panelClass: 'notification-error'
+                })
+                .afterDismissed().subscribe((res) => {
+                  this.router.navigateByUrl('/ideas');
                 });
-            }, 3000);
+            }
           }
-        }, error: (httpError: HttpErrorResponse) => {
-          let responseError: ResponseDto = httpError.error;
-          this.snackbar
-            .open(responseError.message, 'X', {
-              duration: 2000,
-              horizontalPosition: 'right',
-              verticalPosition: 'top',
-              panelClass: 'notification-error'
-            })
-            .afterDismissed().subscribe((res) => {
-              this.router.navigateByUrl('/dashboard/ideas');
-            });
-        }
+        )
       }
-    )
   }
   openKaizenCardModal() {
     this.dialog.open(ImportKaizenCardModalComponent,
@@ -408,11 +416,11 @@ export class SelectIdeaComponent implements OnInit {
     this.ideaService.getIdeaById(id).subscribe((ideaDto: IdeaDto) => {      
       this.ideaDTO = ideaDto;
       this.category = ideaDto.category;
-      if (this.ideaDTO?.decision === Decision.VALIDATED) {
+      if (this.ideaDTO?.decision === Decision.PRESELECTED) {
         this.ideaSelectionForm.controls['originaliteNote'].disable();
         this.ideaSelectionForm.controls['impactNote'].disable();
       }
-      if (this.ideaDTO?.decision === Decision.ACCEPTED) {
+      if (this.ideaDTO?.decision === Decision.EXECUTED) {
         this.ideaSelectionForm.controls['generalizableChoice'].disable();
         this.ideaSelectionForm.controls['validationChoice'].disable();
       }
@@ -433,5 +441,8 @@ export class SelectIdeaComponent implements OnInit {
   isGreaterThan(value: number) {
     this.isInputValid = !isNaN(value);
     return this.isInputValid && value > 10;
+  }
+    ngOnDestroy(): void {
+     this.subscription.unsubscribe();
   }
 }

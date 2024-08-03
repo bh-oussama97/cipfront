@@ -1,5 +1,22 @@
 .content{
 
+    ::ng-deep xng-breadcrumb {
+        align-self: self-start;
+        .xng-breadcrumb-root {
+            .xng-breadcrumb-list {
+                .xng-breadcrumb-item {
+                    .xng-breadcrumb-trail {
+                        gap: 10px !important;
+                        font-family: "Poppins", sans-serif !important;
+                    }
+                    .xng-breadcrumb-link {
+                        gap: 5px !important;
+                        color:white;
+                    }
+                }
+            }
+        }
+    }
     mat-card{
         margin-top:30px;
         margin-top:20px;
@@ -86,7 +103,7 @@
                     gap:60px;
                     .execution-text{
                         font-size:15px;
-                        font-family: "Roboto-Regular";
+                        font-family: 'Poppins', sans-serif;
                     }
                     .execution-choice{
                         display: flex;
@@ -99,36 +116,36 @@
                     gap:10px;
                     .motifs-text{
                         font-size: 15px;
-                        font-family: "Roboto-Regular";
+                        font-family: 'Poppins', sans-serif;
+                        white-space: pre;
                     }
                 }
             }
-            .send-btn{
+            button{
                 align-self: self-end;
                 width: 10%;
             }
-            @keyframes spinner {
-                to {transform: rotate(360deg);}
-              }
-              
-              .spinner:before {
-                content: '';
-                box-sizing: border-box;
-                position: absolute;
-                text-align: center;
-                top: 50%;
-                left: 50%;
-                width: 10%;
-                height: 20px;
-                margin-top: -10px;
-                margin-left: -10px;
-                border-radius: 50%;
-                border: 2px solid #ffffff;
-                border-top-color: #000000;
-                animation: spinner .8s linear infinite;
-              }
-
-
         }
     }
 }
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+  }
+  
+  .spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    width: 10%;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner .8s linear infinite;
+  }

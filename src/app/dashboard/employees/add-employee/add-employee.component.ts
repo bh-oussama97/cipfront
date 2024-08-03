@@ -88,11 +88,11 @@ faMinusCircle = faMinusCircle;
       duration: 2000,
       horizontalPosition: 'right',
       verticalPosition: 'top',
-      panelClass: 'notif-success'
+      panelClass: 'notification-success'
     })
     .afterDismissed()
     .subscribe((res) => {
-      this.router.navigateByUrl('/dashboard/employees');
+      this.router.navigateByUrl('employees');
     });
   }
 
@@ -105,11 +105,11 @@ faMinusCircle = faMinusCircle;
         duration: 2000,
         horizontalPosition: 'right',
         verticalPosition: 'top',
-        panelClass: 'notif-success'
+        panelClass: 'notification-success'
       })
       .afterDismissed()
       .subscribe((res) => {
-        this.router.navigateByUrl('/dashboard/employees');
+        this.router.navigateByUrl('employees');
       });
     }
   }

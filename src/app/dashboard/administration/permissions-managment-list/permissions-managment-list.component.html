@@ -2,11 +2,11 @@
     <xng-breadcrumb>
         <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
           <mat-icon *ngIf="info">{{ info }}</mat-icon>
-          <ng-container>{{ breadcrumb }}</ng-container>
+          <ng-container>{{ breadcrumb | translate}}</ng-container>
         </ng-container>
       </xng-breadcrumb>
 
-      <select id="users"  class="users-filter">
+      <select id="users"  class="form-select users-filter" >
         <option>Foulen ben Foulen</option>
         <option>Foulen ben Foulen</option>
         <option>Foulen ben Foulen</option>

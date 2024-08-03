@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit{
               duration: 2000,
               horizontalPosition: 'right',
               verticalPosition: 'top',
-              panelClass: 'notif-success'
+              panelClass: 'notification-success'
             })
             .afterDismissed().subscribe((res) => {
               this.dataService.transfertObject(userSignBody.emailId);
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit{
           this.displayProgressSpinner = false;
           let responseError: ResponseDto = httpError.error;
           this.snackbar
-            .open(responseError?.message, 'X', {
+            .open(responseError?.message, '', {
               duration: 2000,
               horizontalPosition: 'right',
               verticalPosition: 'top',

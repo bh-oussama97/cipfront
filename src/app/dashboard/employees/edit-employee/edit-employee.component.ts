@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,21 +22,21 @@ export class EditEmployeeComponent implements OnInit{
     private dataservice: DataService
   ) { }  
   ngOnInit() {
-    this.subscription = this.dataservice.currentMessage$.subscribe({
-      next: (message: any) => {
-        this.employeeToEdit = message;
-      }
-    });
+    // this.subscription = this.dataservice.currentMessage$.subscribe({
+    //   next: (message: any) => {
+    //     this.employeeToEdit = message;
+    //   }
+    // });
 
     this.editEmployeeForm = this.fb.group({
-      lastName: [this.employeeToEdit.employee.split(" ")[0]],
-      firstName: [this.employeeToEdit.employee.split(" ")[1]],
-      phone: [this.employeeToEdit.phoneNumber],
-      registrationNumber: [this.employeeToEdit.matricule],
-      site: [this.employeeToEdit.site],
-      plant: [this.employeeToEdit.plant],
-      segment: [this.employeeToEdit.segment],
-      line: [this.employeeToEdit.line]
+      lastName: [''],
+      firstName: [''],
+      phone: [''],
+      registrationNumber: [''],
+      site: [''],
+      plant: [''],
+      segment: [''],
+      line: ['']
     });  }
 
     edit(){
@@ -45,11 +45,11 @@ export class EditEmployeeComponent implements OnInit{
         duration: 2000,
         horizontalPosition: 'right',
         verticalPosition: 'top',
-        panelClass: 'notif-success'
+        panelClass: 'notification-success'
       })
       .afterOpened()
       .subscribe((res) => {
-        this.router.navigateByUrl('/dashboard/employees');
+        this.router.navigateByUrl('employees');
       });
     }
 }

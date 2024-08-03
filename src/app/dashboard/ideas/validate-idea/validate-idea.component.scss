@@ -1,89 +1,111 @@
-.content{
-    gap:1rem;
-    mat-card{
-        margin-top:30px;
-        margin-top:20px;
+.content {
+    gap: 1rem;
+    ::ng-deep xng-breadcrumb {
+        align-self: self-start;
+        .xng-breadcrumb-root {
+            .xng-breadcrumb-list {
+                .xng-breadcrumb-item {
+                    .xng-breadcrumb-trail {
+                        gap: 10px !important;
+                        font-family: "Poppins", sans-serif !important;
+                    }
+                    .xng-breadcrumb-link {
+                        gap: 5px !important;
+                        color:white;
+                    }
+                }
+            }
+        }
+    }
+    mat-card {
+        margin-top: 30px;
+        margin-top: 20px;
         display: flex;
         width: 100%;
         padding-top: 20px;
         padding-left: 40px;
         padding-right: 50px;
         padding-bottom: 20px;
-        mat-card-title{
+        mat-card-title {
             font-size: 20px;
-            color:var(--color-blue);
+            color: var(--color-blue);
             font-weight: 500;
         }
-        mat-card-content{
+        mat-card-content {
             display: flex;
             flex-direction: column;
-            padding-top:20px;
-            gap:20px;
-            .informations{
+            padding-top: 20px;
+            gap: 20px;
+            .informations {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap:30px;
-                .idea-informations
-                {
+                gap: 30px;
+                .idea-informations {
                     display: flex;
                     flex-direction: column;
-                    .type,.line,.date,.segment
-                    {
+                    .type,
+                    .line,
+                    .date,
+                    .segment {
                         display: flex;
                         flex-direction: row;
                         gap: 5px;
-                        color:var( --color-blue-lighter);
+                        color: var(--color-blue-lighter);
                     }
                 }
             }
-            .description-form-item{
+            .description-form-item {
                 width: 100%;
             }
 
-            form{
-                display:flex;
-                gap:60px;
+            form {
+                display: flex;
+                gap: 60px;
                 justify-content: center;
-                .idea-validation{
+                .idea-validation {
                     display: flex;
-                    gap:60px;
-                    .validation-text{
-                        font-size:15px;
-                        font-family: "Roboto-Regular";
+                    align-items: baseline;
+                    gap: 60px;
+                    .validation-text {
+                        font-size: 15px;
+                        font-family: "Poppins", sans-serif;
                     }
-                    .validation-choice{
+                    .validation-choice {
                         display: flex;
                         flex-direction: column;
                     }
                 }
-                .motifs-refus,.idea-category{
+                .motifs-refus,
+                .idea-category {
                     display: flex;
-                    align-items: baseline;
-                    gap:10px;
-                    .motifs-text,.category-text{
+                    align-items: center;
+                    gap: 10px;
+                    .motifs-text,
+                    .category-text {
                         font-size: 15px;
-                        font-family: "Roboto-Regular";
+                        white-space: pre;
+                        font-family: "Poppins", sans-serif;
                     }
                 }
             }
-            .send-btn{
+            .send-btn {
                 align-self: self-end;
                 width: 10%;
             }
-
-
         }
     }
 }
 
 @keyframes spinner {
-    to {transform: rotate(360deg);}
-  }
-  
-  ::ng-deep.spinner:before {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+::ng-deep.spinner:before {
     align-self: self-end;
     width: 10%;
-    content: '';
+    content: "";
     box-sizing: border-box;
     position: absolute;
     text-align: center;
@@ -95,5 +117,5 @@
     border-radius: 50%;
     border: 2px solid #ffffff;
     border-top-color: #000000;
-    animation: spinner .8s linear infinite;
-  }
+    animation: spinner 0.8s linear infinite;
+}

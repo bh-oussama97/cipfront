@@ -20,17 +20,18 @@
         <ng-template #isNormalRow>
           {{ row[column.columnDef] }}
         </ng-template> -->
-        <div>
-          {{row[column.columnDef]}}
+        <div *ngIf="column.isFileDownload === true;else normalColumn" (click)="getKaizenCardByName(row[column.columnDef])">
+          <a class="export-text"
+          > {{row[column.columnDef]}}</a>
         </div>
+        <ng-template #normalColumn>
+          {{row[column.columnDef]}}
+        </ng-template>
 
-        <div  *ngIf="column.columnDef === 'isAssign'">
+        <div  *ngIf="column.columnDef === 'isAssign'" >
             <mat-checkbox [color]="'primary'"></mat-checkbox>
         </div>
       </div>
-
-
-
 
       <div [ngSwitch]="column.type" *ngIf="row.isAdd ">
         <mat-form-field class="form-input" *ngSwitchDefault>
@@ -106,6 +107,17 @@
     edit-details-actions
     [value]="element"    
     (editDetailsAction)="onTableAction($event, element)"
+    ></mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="confirm-action" class="justify-end">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>
+    <mat-cell
+    class="flex justify-end"
+    *matCellDef="let element"
+    confirm-action
+    [value]="element"    
+    (confirmAction)="onTableAction($event, element)"
     ></mat-cell>
   </ng-container>
 

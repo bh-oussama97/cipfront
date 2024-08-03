@@ -1,7 +1,31 @@
+.breadcrumb-item{
+    background: linear-gradient(to left , #77E4C8 ,#36C2CE , #478CCF , #4535C1);
+
+    padding-top: 20px;
+    padding-left: 40px;
+    padding-right: 50px;
+    ::ng-deep xng-breadcrumb {
+        align-self: self-start;
+        .xng-breadcrumb-root {
+            .xng-breadcrumb-list {
+                .xng-breadcrumb-item {
+                    .xng-breadcrumb-trail {
+                        gap: 10px !important;
+                        font-family: "Poppins", sans-serif !important;
+                    }
+                    .xng-breadcrumb-link {
+                        gap: 5px !important;
+                        color:white;
+                    }
+                }
+            }
+        }
+    }
+}
 .content{
-    height: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: var(--color-background); 
     ::ng-deep xng-breadcrumb {
         align-self: self-start;

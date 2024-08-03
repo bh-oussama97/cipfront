@@ -40,11 +40,11 @@ export class FileUploaderComponent implements OnInit{
       let fileExt = item.name.split('.')[1];
       if (validExtensions.indexOf(fileExt) < 0) {
         this.snackbar
-          .open(this.translate.instant('fileUploadContent.invalidType'), 'X', {
+          .open(this.translate.instant('fileUploadContent.invalidType'), '', {
             duration: 5000,
             horizontalPosition: 'center',
             verticalPosition: 'top',
-            panelClass: 'notification-warning'
+            panelClass: 'notification-error'
           })
           .afterOpened()
           .subscribe((res) => {

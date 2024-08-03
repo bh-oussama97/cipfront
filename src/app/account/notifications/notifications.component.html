@@ -1,16 +1,24 @@
-<app-header></app-header>
 <div class="content">
+    <xng-breadcrumb>
+        <ng-container
+          *xngBreadcrumbItem="let breadcrumb; let info = info"
+        >
+        <mat-icon *ngIf="info">{{ info }}</mat-icon>
+          <ng-container >{{ breadcrumb | translate}}</ng-container>
+        </ng-container>
+      </xng-breadcrumb>
     <mat-card>
         <mat-card-title>{{"notificationsContent.myNotifications" | translate}}</mat-card-title>
         <mat-card-content>
 
             <div class="type-month-filters">
-                <select id="type">
+                <select id="type"  class="form-select">
                     <option>{{"notificationsContent.allNotifications"| translate}}</option>
                     <option>{{"notificationsContent.ideas"| translate}}</option>
                     <option>{{"notificationsContent.decisions"| translate}}</option>
                 </select>
                 <select id="month"
+                class="form-select"
                 [(ngModel)]="selectedMonth" (change)="filterByMonth()"
 
                 >
@@ -33,4 +41,3 @@
         </mat-card-content>
     </mat-card>
 </div>
-<app-footer></app-footer>

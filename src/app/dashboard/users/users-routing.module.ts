@@ -3,35 +3,43 @@ import { RouterModule, Routes } from '@angular/router';
 import { UsersComponent } from './users.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { UsersListComponent } from './users-list/users-list.component';
 
 const routes: Routes = [
   {
  path : '',
  component : UsersComponent,
- pathMatch : 'full',
  data: {
   breadcrumb: {
-    label: 'Users Managment',
+    label: 'headerSection.gestionUsers',
+    info : 'home'
   }
 },
-},
-{
-  path : 'add',
-  component : AddUserComponent,
-  data: {
-    breadcrumb : {
-      label: 'Add new user'
+children :[
+  {
+    path :'',
+    component : UsersListComponent,
+    pathMatch : 'full'
+  },
+  {
+    path : 'add',
+    component : AddUserComponent,
+    data: {
+      breadcrumb : {
+        label: 'usersManagmentContent.addNewUser'
+      }
+    }
+  },
+  {
+    path : 'edit/:matricule',
+    component : EditUserComponent,
+    data: {
+      breadcrumb : {
+        label: 'usersManagmentContent.edit'
+      }
     }
   }
-},
-{
-  path : 'edit/:matricule',
-  component : EditUserComponent,
-  data: {
-    breadcrumb : {
-      label: 'Edit'
-    }
-  }
+]
 }
 ];
 

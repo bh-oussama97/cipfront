@@ -27,15 +27,15 @@ export class EditSegmentComponent implements OnInit{
   }
   editSegment(){
     this.snackbar
-    .open(this.translate.instant('segementsContent.editSegmentForm.successModification'), 'X', {
+    .open(this.translate.instant('segementsContent.editSegmentForm.successModification'), '', {
       duration: 5000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
-      panelClass: 'notif-success'
+      panelClass: 'notification-success'
     })
     .afterDismissed()
     .subscribe(res=>{
-      this.router.navigateByUrl('/dashboard/sites');
+      this.router.navigateByUrl('segments');
     });
   }
 }

@@ -3,35 +3,43 @@ import { RouterModule, Routes } from '@angular/router';
 import { SegmentsComponent } from './segments.component';
 import { AddSegmentComponent } from './add-segment/add-segment.component';
 import { EditSegmentComponent } from './edit-segment/edit-segment.component';
+import { SegmentsListComponent } from './segments-list/segments-list.component';
 
 const routes: Routes = [
   {
     path : '',
     component : SegmentsComponent,
-    pathMatch : 'full',
     data: {
       breadcrumb: {
-        label: 'Segments',
+        label: 'dashboardContent.segment',
+        info :'home'
       }
-    }
-  },
-  {
-    path: 'add',
-    component : AddSegmentComponent,
-    data: {
-      breadcrumb: {
-        label: 'Add'
+    },
+    children:[
+      {
+        path:'',
+        pathMatch : 'full',
+        component : SegmentsListComponent
+      },
+      {
+        path: 'add',
+        component : AddSegmentComponent,
+        data: {
+          breadcrumb: {
+            label: 'segementsContent.addSegmentForm.add'
+          }
+        }
+      },
+      {
+        path : 'edit/:id',
+        component : EditSegmentComponent,
+        data: {
+          breadcrumb: {
+            label: 'segementsContent.editSegmentForm.edit',
+          }
+        }
       }
-    }
-  },
-  {
-    path : 'edit/:id',
-    component : EditSegmentComponent,
-    data: {
-      breadcrumb: {
-        label: 'Edit',
-      }
-    }
+    ]
   }
 ];
 

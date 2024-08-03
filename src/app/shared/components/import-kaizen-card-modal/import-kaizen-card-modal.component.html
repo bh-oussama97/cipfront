@@ -1,9 +1,5 @@
 <div class="kaizen-card-modal">
-    <button (click)="this.dialogRef.close()">
-        <img src="/assets/images/close-icon.svg" 
-        class="close-icon"/>
-    </button>
-
+  <fa-icon class="close-icon" (click)="this.dialogRef.close()" [icon]="close"></fa-icon>
   <span class="title">{{
     "ideasContent.ideaSelectionContent.kaizenCard" | translate
   }}</span>
@@ -24,10 +20,13 @@
 
   <p class="filename">{{ filename }}</p>
 
-  <button mat-raised-button color="primary" 
-  [class.spinner]="isLoading"
-  [mtBasicSpinner]="isLoading" 
-  (click)="closeModal()">
+  <button
+    mat-raised-button
+    color="primary"
+    [class.spinner]="isLoading"
+    [mtBasicSpinner]="isLoading"
+    (click)="closeModal()"
+  >
     {{ "ideasContent.ideaSelectionContent.ok" | translate }}
   </button>
 </div>

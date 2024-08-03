@@ -1,26 +1,39 @@
-.content{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: var(--color-background); 
+.breadcrumb-item{
+    background: linear-gradient(to left , #77E4C8 ,#36C2CE , #478CCF , #4535C1);
+
+    padding-top: 20px;
+    padding-left: 40px;
+    padding-right: 50px;
     ::ng-deep xng-breadcrumb {
         align-self: self-start;
         .xng-breadcrumb-root {
             .xng-breadcrumb-list {
                 .xng-breadcrumb-item {
-                    .xng-breadcrumb-link,.xng-breadcrumb-trail {
-                        gap: 4px !important;
+                    .xng-breadcrumb-trail {
+                        gap: 10px !important;
+                        font-family: "Poppins", sans-serif !important;
+                    }
+                    .xng-breadcrumb-link {
+                        gap: 5px !important;
+                        color:white;
                     }
                 }
             }
         }
     }
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-background); 
+
     .profile-card{
         display:flex;
         width:70%;
         display: flex;
-        margin-top:150px;
+        align-self: center;
         padding-top:20px;
         padding-left:40px;
         padding-right:50px;

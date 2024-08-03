@@ -35,14 +35,14 @@ export class AddLineComponent implements OnInit{
   }
   addNewLine(){
     this.snackbar
-    .open(this.translate.instant('linesContent.addLineForm.successAdd'), 'X', {
+    .open(this.translate.instant('linesContent.addLineForm.successAdd'), '', {
       duration: 2000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
-      panelClass: 'notif-success'
+      panelClass: 'notification-success'
     })
     .afterDismissed().subscribe((res)=>{
-      this.router.navigateByUrl('/dashboard/lines');
+      this.router.navigateByUrl('lines');
     });
   }
       /**
@@ -53,14 +53,14 @@ export class AddLineComponent implements OnInit{
         if (fileList.length > 0)
         {
           this.snackbar
-          .open(this.translate.instant('linesContent.addLineForm.successAdd'), 'X', {
+          .open(this.translate.instant('linesContent.addLineForm.successAdd'), '', {
             duration: 2000,
             horizontalPosition: 'center',
             verticalPosition: 'top',
-            panelClass: 'notif-success'
+            panelClass: 'notification-success'
           })
           .afterDismissed().subscribe((res)=>{
-            this.router.navigateByUrl('/dashboard/lines');
+            this.router.navigateByUrl('lines');
           });
         }
       }

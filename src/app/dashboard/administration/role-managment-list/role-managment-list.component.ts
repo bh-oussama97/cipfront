@@ -86,7 +86,7 @@ export class RoleManagmentListComponent implements OnInit {
       duration: 5000,
       horizontalPosition: 'right',
       verticalPosition: 'top',
-      panelClass: 'notif-success'
+      panelClass: 'notification-success'
     })
     .afterOpened()
     .subscribe((res) => {

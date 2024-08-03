@@ -1,0 +1,10 @@
+<div class="actions">
+  <button class="view-btn" (click)="detailsClick()">
+    <fa-icon [icon]="faDetails"></fa-icon>
+  </button>
+
+  <mat-checkbox
+    [checked]="confirmValue"
+    (change)="confirmClick($event)"
+  ></mat-checkbox>
+</div>

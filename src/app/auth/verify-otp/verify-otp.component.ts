@@ -15,7 +15,7 @@ import { DataService } from 'src/app/shared/services/data.service';
   templateUrl: './verify-otp.component.html',
   styleUrls: ['./verify-otp.component.scss']
 })
-export class VerifyOtpComponent implements OnInit,OnDestroy{
+export class VerifyOtpComponent implements OnInit{
   email: string = '';
   verifyOTPCodeForm: FormGroup;
   isLoading:boolean=false;
@@ -30,13 +30,13 @@ export class VerifyOtpComponent implements OnInit,OnDestroy{
     this.verifyOTPCodeForm = this.fb.group({
       verificationCode: ['', Validators.required]
     });
-    this.subscription = this.dataservice.currentMessage$.subscribe({
+    this.subscription = this.dataservice.getObject().subscribe({
       next: (emailMessage:string) => {
         this.email = emailMessage;        
 
-        if (emailMessage === null) {
-          this.email = this.dataservice.getObjectFromSessionStorage();
-        }
+        // if (emailMessage === null) {
+        //   this.email = this.dataservice.getObjectFromSessionStorage();
+        // }
       }
     });    
     this.emailMasked = this.maskEmail(this.email);
@@ -60,7 +60,7 @@ export class VerifyOtpComponent implements OnInit,OnDestroy{
           setTimeout(()=>{
             this.isLoading = false;
             this.snackbar
-              .open("Please check the otp !", 'X', {
+              .open("Please check the otp !", '', {
                 duration: 2000,
                 horizontalPosition: 'right',
                 verticalPosition: 'top',
@@ -82,8 +82,9 @@ export class VerifyOtpComponent implements OnInit,OnDestroy{
             roles: secondResponse['role'][0],
             matricule: secondResponse.matricule
           }
-          this.authService.userArr = userArr;
-          this.authService.save_login_info();
+          // this.authService.userArr.next(userArr);
+          this.authService.save_login_info(userArr);
+          this.authService.saveLanguage('en');
           this.router.navigateByUrl('/dashboard');
         },2000);
       });
@@ -98,7 +99,7 @@ export class VerifyOtpComponent implements OnInit,OnDestroy{
     
     return `${maskedLocalPart}@${domain}`;
   }
-  ngOnDestroy(): void {
-    this.dataservice.clearObject();
-   }
+  // ngOnDestroy(): void {
+  //   this.dataservice.clearObject();
+  //  }
 }

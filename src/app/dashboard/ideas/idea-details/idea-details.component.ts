@@ -19,7 +19,7 @@ import { ResponseDto } from 'src/app/shared/interfaces/response-dto';
   templateUrl: './idea-details.component.html',
   styleUrls: ['./idea-details.component.scss']
 })
-export class IdeaDetailsComponent implements OnInit, OnDestroy {
+export class IdeaDetailsComponent implements OnInit {
 
   ideaDetails: any;
   subscription: Subscription;
@@ -39,6 +39,7 @@ export class IdeaDetailsComponent implements OnInit, OnDestroy {
   imageBefore: string;
   imageAfter: string;
   ideaCategory: string;
+  ideaMotif: string;
   ideaDTO: IdeaDto;
   validation: number;
   generalization: number;
@@ -59,28 +60,29 @@ export class IdeaDetailsComponent implements OnInit, OnDestroy {
         this.ideaId = params.get('ideaId');
       },
     });
-    this.subscription = this.dataservice.currentMessage$.subscribe({
-      next: (message: any) => {
-        this.ideaDetails = message;
-        if (this.ideaDetails.responsables.length > 0) {
-          for (let responsable of this.ideaDetails?.responsables) {
-            if (responsable.roles[0] === Profile.CHEF_SEGMENT) {
-              this.ideaSegmentMangerFullName = responsable.fullName;
-            }
-            if (responsable.roles[0] === Profile.CONTRE_MAITRE) {
-              this.ideaMasterFullName = responsable.fullName;
-            }
-            if (responsable.roles[0] === Profile.EXPERT) {
-              this.expertFullName = responsable.fullName;
-            }
-          }
-        }
-        if (message === null) {
-          this.ideaDetails = this.dataservice.getObjectFromSessionStorage();
-        }
-      }
-    });
-    this.getIdeaById(this.ideaDetails.ideaId);
+    // this.subscription = this.dataservice.currentMessage$.subscribe({
+    //   next: (message: any) => {
+    //     this.ideaDetails = message;
+    //     if(this.ideaDetails.responsables)
+    //     {
+    //       for (let responsable of this.ideaDetails?.responsables) {
+    //         if (responsable.roles[0] === Profile.CHEF_SEGMENT) {
+    //           this.ideaSegmentMangerFullName = responsable.fullName;
+    //         }
+    //         if (responsable.roles[0] === Profile.CONTRE_MAITRE) {
+    //           this.ideaMasterFullName = responsable.fullName;
+    //         }
+    //         if (responsable.roles[0] === Profile.EXPERT) {
+    //           this.expertFullName = responsable.fullName;
+    //         }
+    //       }
+    //     }
+    //     if (message === null) {
+    //       this.ideaDetails = this.dataservice.getObjectFromSessionStorage();
+    //     }
+    //   }
+    // });
+    this.getIdeaById(this.ideaId );
   }
 
   getKaizenImageByName(name: string) {
@@ -98,6 +100,7 @@ export class IdeaDetailsComponent implements OnInit, OnDestroy {
       this.imageBefore = response.kaizanBefore;
       this.imageAfter = response.kaizanAfter;
       this.ideaCategory = response.category;
+      this.ideaMotif = response.motif;
     });
   }
 
@@ -122,7 +125,7 @@ export class IdeaDetailsComponent implements OnInit, OnDestroy {
         }, error: (responseError: HttpErrorResponse) => {
           if (responseError.status === 500) {
             this.snackbar
-              .open("Could not read the file!", 'X', {
+              .open("Could not read the file!", '', {
                 duration: 2000,
                 horizontalPosition: 'right',
                 verticalPosition: 'top',
@@ -134,8 +137,8 @@ export class IdeaDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  public ngOnDestroy(): void {
-    this.dataservice.clearObject();
-  }
+  // public ngOnDestroy(): void {
+  //   this.dataservice.clearObject();
+  // }
 
 }

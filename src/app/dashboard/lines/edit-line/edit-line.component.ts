@@ -31,15 +31,15 @@ export class EditLineComponent implements OnInit{
 
   editLine(){
     this.snackbar
-      .open(this.translate.instant('linesContent.editLineForm.successModification'), 'X', {
+      .open(this.translate.instant('linesContent.editLineForm.successModification'), '', {
         duration: 5000,
         horizontalPosition: 'center',
         verticalPosition: 'top',
-        panelClass: 'notif-success'
+        panelClass: 'notification-success'
       })
       .afterDismissed()
       .subscribe((res) => {
-        this.router.navigateByUrl('/dashboard/lines');
+        this.router.navigateByUrl('lines');
       });
   }
 }

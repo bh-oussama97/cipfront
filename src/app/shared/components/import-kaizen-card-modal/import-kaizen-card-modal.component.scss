@@ -4,11 +4,10 @@
     align-items: center;
     gap: 60px;
     padding: 50px;
-    button{
+    .close-icon {
+        cursor: pointer;
+        font-size: 20px;
         align-self: self-end;
-        .close-icon{
-            width: 1rem;
-        }
     }
     .title{
         font-size: 24px;

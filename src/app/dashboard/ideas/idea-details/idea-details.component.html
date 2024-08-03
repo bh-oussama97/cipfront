@@ -2,7 +2,7 @@
   <xng-breadcrumb>
     <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
       <mat-icon *ngIf="info">{{ info }}</mat-icon>
-      <ng-container>{{ breadcrumb }}</ng-container>
+      <ng-container>{{ breadcrumb | translate}}</ng-container>
     </ng-container>
   </xng-breadcrumb>
   <mat-card>
@@ -22,31 +22,31 @@
             <p>
               {{ "ideasContent.ideaDetailsContent.matricule" | translate }} :
             </p>
-            <p>{{ideaDetails.employee}}</p>
+            <p>{{ideaDTO.matricule}}</p>
           </div>
           <!-- <div class="name">
             <p>{{ "ideasContent.ideaDetailsContent.name" | translate }} :</p>
-            <p>{{ideaDetails.fullName}}</p>
+            <p>{{ideaDTO.fullName}}</p>
           </div>
           <div class="matricule">
             <p>
               {{ "ideasContent.ideaDetailsContent.matricule" | translate }} :
             </p>
-            <p>{{ideaDetails.employee}}</p>
+            <p>{{ideaDTO.employee}}</p>
           </div>
           <div class="phone-number">
             <p>
               {{ "ideasContent.ideaDetailsContent.phoneNumber" | translate }} :
             </p>
-            <p>{{ideaDetails.phone}}</p>
+            <p>{{ideaDTO.phone}}</p>
           </div> -->
           <div class="segment">
             <p>{{ "ideasContent.ideaDetailsContent.segment" | translate }} :</p>
-            <p>{{ideaDetails.segment}}</p>
+            <p>{{ideaDTO.segment}}</p>
           </div>
           <div class="line">
             <p>{{ "ideasContent.ideaDetailsContent.line" | translate }} :</p>
-            <p>{{ideaDetails.line}}</p>
+            <p>{{ideaDTO.line}}</p>
           </div>
         </div>
         <div class="idea-informations">
@@ -60,7 +60,7 @@
             <p>
               {{ "ideasContent.ideaDetailsContent.ideeDate" | translate }} :
             </p>
-            <p>{{ideaDetails.createdAt}}</p>
+            <p>{{ideaDTO.createdAt}}</p>
           </div>
           <div class="type">
             <!-- <p>
@@ -72,26 +72,26 @@
           </div>
           <div class="motifs">
             <p>{{ "ideasContent.ideaDetailsContent.motif" | translate }} :</p>
-            <p>{{ideaDetails.motif }}</p>
+            <p *ngIf="ideaMotif !== 'NONE'">{{ideaDTO.motif }}</p>
           </div>
           <div class="contre-maitre">
             <p>
               {{ "ideasContent.ideaDetailsContent.contreMaitre" | translate }} :
             </p>
-            <p>{{ideaMasterFullName}}</p>
+            <p>{{ideaDTO.contreMaitre}}</p>
           </div>
           <div class="chef-segment">
             <p>
               {{ "ideasContent.ideaDetailsContent.chefSegment" | translate }} :
             </p>
-            <p>{{ideaSegmentMangerFullName}}</p>
+            <p>{{ideaDTO.chefSegment}}</p>
           </div>
           <div class="expert">
             <p>{{ "ideasContent.ideaDetailsContent.expert" | translate }} :</p>
-            <p>{{expertFullName}}</p>
+            <p>{{ideaDTO.expert}}</p>
           </div>
         </div>
-        <div class="import-kaizen-card" *ngIf="currentRole === 'CHEF_SEGMENT'">
+        <div class="import-kaizen-card" *ngIf="currentRole === 'CHEF_SEGMENT' || currentRole === 'EXPERT'">
           <div class="images-before-and-after" *ngIf="imageBefore !== null && imageAfter !== null">
             <fa-icon [icon]="faDownload"></fa-icon>
             <div class="images">
@@ -130,17 +130,10 @@
 
         </div>
       </div>
-      <mat-form-field appearance="outline">
-        <mat-label
-          >{{
-            "ideasContent.ideaDetailsContent.detailledDescription" | translate
-          }}
-          :</mat-label
-        >
+
         <textarea matInput 
         [readonly]="true"
-        [(ngModel)]="ideaDetails.description"></textarea>
-      </mat-form-field>
+        [(ngModel)]="ideaDTO.description"></textarea>
       <div class="idea-note-state" *ngIf="currentRole === 'ADMIN' || currentRole === 'EXPERT' || currentRole === 'OPEX'">
         <div class="idea-note">
           <div class="impact-originalite">
@@ -174,17 +167,17 @@
           <span class="sate-text">{{
             "ideasContent.ideaDetailsContent.etat" | translate
           }}</span>
-          <div class="state-validated" *ngIf="ideaDetails.decision === 'VALIDATED'">
-           {{ideaDetails.decision}}
+          <div class="state-validated" *ngIf="ideaDTO.decision === 'VALIDATED'">
+           {{ideaDTO.decision}}
           </div>
-          <div class="state-rejected" *ngIf="ideaDetails.decision === 'REJECTED'">
-            {{ideaDetails.decision}}
+          <div class="state-rejected" *ngIf="ideaDTO.decision === 'REJECTED'">
+            {{ideaDTO.decision}}
           </div>
-          <div class="state-preselected" *ngIf="ideaDetails.decision === 'ACCEPTED'">
-            {{ideaDetails.decision}}
+          <div class="state-preselected" *ngIf="ideaDTO.decision === 'ACCEPTED'">
+            {{ideaDTO.decision}}
           </div>
-          <div class="state-selected" *ngIf="ideaDetails.decision === 'SELECTED'">
-            {{ideaDetails.decision}}
+          <div class="state-selected" *ngIf="ideaDTO.decision === 'SELECTED'">
+            {{ideaDTO.decision}}
           </div>
         </div> -->
       </div>
@@ -200,7 +193,7 @@
             <mat-radio-button
               class="example-margin"
               value="yes"
-              [checked]="ideaDetails.decision === 'VALIDATED'"
+              [checked]="ideaDTO.decision === 'VALIDATED'"
               >{{
                 "ideasContent.ideaValidationContent.yes" | translate
               }}</mat-radio-button
@@ -208,7 +201,7 @@
             <mat-radio-button
               class="example-margin"
               value="no"
-              [checked]="ideaDetails.decision === 'REJECTED'"
+              [checked]="ideaDTO.decision === 'REJECTED'"
               >{{
                 "ideasContent.ideaValidationContent.no" | translate
               }}</mat-radio-button

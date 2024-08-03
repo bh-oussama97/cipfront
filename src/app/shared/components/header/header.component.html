@@ -5,111 +5,89 @@
         <img class="logo" src="./assets/images/Logo-CIP-V1.png" />
       </a>
 
-
-
-      <div *ngIf="connectedUserRole !== 'ADMIN'" class="flex gap-6 items-center">
+      <div
+        *ngIf="connectedUserRole !== 'ADMIN'"
+        class="flex gap-6 items-center"
+      >
         <a [routerLink]="'/dashboard'" class="header-link">
           {{ "headerSection.dashboard" | translate }}
         </a>
 
-        <a routerLink="/dashboard/ideas" class="header-link">
+        <a routerLink="/ideas" class="header-link">
           {{ "headerSection.id" | translate }}
         </a>
       </div>
 
-      <!-- <div *ngIf="connectedUserRole === 'CHEF_SEGMENT'">
-        <a [routerLink]="'/dashboard'" class="header-link">
-          {{ "headerSection.dashboard" | translate }}
-        </a>
-        
-        <a routerLink="/dashboard/ideas" class="header-link">
-          {{ "headerSection.id" | translate }}
-        </a>
-      </div>
-
-
-      <div *ngIf="connectedUserRole === 'EXPERT'">
-        <a [routerLink]="'/dashboard'" class="header-link">
-          {{ "headerSection.dashboard" | translate }}
-        </a>
-        
-        <a routerLink="/dashboard/ideas" class="header-link">
-          {{ "headerSection.id" | translate }}
-        </a>
-      </div>
-
-      <div *ngIf="connectedUserRole === 'OPEX'">
-        <a [routerLink]="'/dashboard'" class="header-link">
-          {{ "headerSection.dashboard" | translate }}
-        </a>
-        
-        <a routerLink="/dashboard/ideas" class="header-link">
-          {{ "headerSection.id" | translate }}
-        </a>
-      </div> -->
-
-      <a routerLink="/dashboard/ranking" class="header-link" *ngIf="connectedUserRole === 'CHEF_SEGMENT' || connectedUserRole === 'OPEX'">
+      <a
+        routerLink="/ranking"
+        class="header-link"
+        *ngIf="
+          connectedUserRole === 'CHEF_SEGMENT' || connectedUserRole === 'OPEX'
+        "
+      >
         {{ "headerSection.ranking" | translate }}
       </a>
 
-      <div *ngIf="connectedUserRole === 'ADMIN'" class="flex gap-6 items-center">
+      <div
+        *ngIf="connectedUserRole === 'ADMIN'"
+        class="flex gap-6 items-center"
+      >
         <a [routerLink]="'/dashboard'" class="header-link">
           {{ "headerSection.dashboard" | translate }}
         </a>
-  
-  
+
         <button mat-button [matMenuTriggerFor]="menu">
-          <div   class="flex items-center">
-            <a routerLink="/dashboard/structure" class="header-link">
+          <div class="flex items-center">
+            <a routerLink="/structure" class="header-link">
               {{ "headerSection.structure" | translate }}
             </a>
             <img
-              [src]=" './assets/images/chevron-down.svg'"
+              [src]="'./assets/images/chevron-down.svg'"
               alt="chevron-down"
             />
           </div>
         </button>
         <mat-menu #menu="matMenu" yPosition="above">
-          <a routerLink="/dashboard/plants" mat-menu-item >
-            {{ 'dashboardContent.plant' | translate }}
+          <a routerLink="/plants" mat-menu-item>
+            {{ "dashboardContent.plant" | translate }}
           </a>
-          <a routerLink="/dashboard/segments" mat-menu-item >
-            {{ 'dashboardContent.segment' | translate }}
+          <a routerLink="/segments" mat-menu-item>
+            {{ "dashboardContent.segment" | translate }}
           </a>
-          <a routerLink="/dashboard/lines" mat-menu-item  >
-            {{ 'dashboardContent.li' | translate }}
+          <a routerLink="/lines" mat-menu-item>
+            {{ "dashboardContent.li" | translate }}
           </a>
-        </mat-menu>  
-        <a routerLink="/dashboard/users" class="header-link">
+        </mat-menu>
+        <a routerLink="/users" class="header-link">
           {{ "headerSection.users" | translate }}
         </a>
-        <a routerLink="/dashboard/employees" class="header-link">
+        <a routerLink="/employees" class="header-link">
           {{ "headerSection.employees" | translate }}
         </a>
-        <a routerLink="/dashboard/ranking" class="header-link">
+        <a routerLink="/ranking" class="header-link">
           {{ "headerSection.ranking" | translate }}
         </a>
-  
-        <button mat-button [matMenuTriggerFor]="adminMenu"  >
-          <div   class="flex items-center">
-           <span class="header-link">            
-            {{ "headerSection.admin" | translate }}
-          </span>          
+
+        <button mat-button [matMenuTriggerFor]="adminMenu">
+          <div class="flex items-center">
+            <span class="header-link">
+              {{ "headerSection.admin" | translate }}
+            </span>
             <img
-              [src]=" './assets/images/chevron-down.svg'"
+              [src]="'./assets/images/chevron-down.svg'"
               alt="chevron-down"
             />
           </div>
         </button>
         <mat-menu #adminMenu="matMenu" yPosition="above">
-          <a routerLink="/dashboard/roles" mat-menu-item >
-            {{ 'headerSection.gestionRoles' | translate }}
+          <a routerLink="/administration/roles" mat-menu-item>
+            {{ "headerSection.gestionRoles" | translate }}
           </a>
-          <a routerLink="/dashboard/permissions" mat-menu-item >
-            {{ 'headerSection.gestionPermissions' | translate }}
+          <a routerLink="/administration/permissions" mat-menu-item>
+            {{ "headerSection.gestionPermissions" | translate }}
           </a>
-          <a routerLink="/dashboard/application-config" mat-menu-item  >
-            {{ 'headerSection.configurationApplication' | translate }}
+          <a routerLink="/administration/application-config" mat-menu-item>
+            {{ "headerSection.configurationApplication" | translate }}
           </a>
         </mat-menu>
       </div>
@@ -129,49 +107,59 @@
           alt="french-language-icon"
         />
       </button>
-      <button class="notification"
-      mat-icon-button [matMenuTriggerFor]="notificationsMenu">
-        <mat-icon 
-        matBadgeColor="warn"
-        [matBadgeHidden]="false"
-        [matBadge]=notificationsCount>notifications</mat-icon>
+      <button
+        class="notification"
+        mat-icon-button
+        [matMenuTriggerFor]="notificationsMenu"
+      >
+        <mat-icon
+          matBadgeColor="warn"
+          [matBadgeHidden]="false"
+          [matBadge]="notificationsCount"
+          >notifications</mat-icon
+        >
       </button>
 
-      <mat-menu [xPosition]="'before'" #notificationsMenu="matMenu"
-      class="notification-menu"
+      <mat-menu
+        [xPosition]="'before'"
+        #notificationsMenu="matMenu"
+        class="notification-menu"
       >
-    <p class="new-notifications-text">{{"headerSection.notificationContent.youHaveNewNotification"|translate}} {{notificationsCount}} notifications</p>
+        <p class="new-notifications-text">
+          {{
+            "headerSection.notificationContent.youHaveNewNotification"
+              | translate
+          }}
+          {{ notificationsCount }} notifications
+        </p>
 
-    <div class="notifications-items">
-      <div class="notification-item" 
-    
-      *ngFor="let notif of notifsPreview" >
-        <img class="bell-icon" src="/assets/images/bell-notification.png"/>
-        <div class="notification-content" (click)="goToIdeaDetails(notif)">
-          <span class="title">{{"notificationsContent.newIdea" | translate}}</span>
-          <p class="description">{{notif.description}}</p>
-          <p class="date">{{notif.createdAt}}</p>
+        <div class="notifications-items">
+          <div class="notification-item" *ngFor="let notif of notifsPreview">
+            <img class="bell-icon" src="/assets/images/bell-notification.png" />
+            <div class="notification-content" (click)="goToIdeaDetails(notif)">
+              <span class="title">{{
+                "notificationsContent.newIdea" | translate
+              }}</span>
+              <p class="description">{{ notif.description }}</p>
+              <p class="date">{{ notif.createdAt }}</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-
-    <a 
-    routerLink="/notifications"
-    class="see-all-notifications">{{"headerSection.notificationContent.showAllnotifications" | translate}}</a>
-    
-  
-  </mat-menu>
-      <p class="username">{{fullName}}</p>
+        <a routerLink="/account/notifications" class="see-all-notifications">{{
+          "headerSection.notificationContent.showAllnotifications" | translate
+        }}</a>
+      </mat-menu>
+      <p class="username">{{ fullName }}</p>
       <mat-menu xPosition="before" #appMenu="matMenu" class="header-menu">
         <ng-template class="border-0" matMenuContent let-name="name">
-          <a (click)="goToProfile()" class="menu-item">
+          <a routerLink="/account/profile" class="menu-item">
             <fa-icon [icon]="faUser"></fa-icon>
             <span>
               {{ "headerSection.profile" | translate }}
             </span>
           </a>
-          <a (click)="goToSettings()" class="menu-item">
+          <a routerLink="/account/settings"  class="menu-item">
             <fa-icon [icon]="faSettings"></fa-icon>
             <span>
               {{ "headerSection.settings" | translate }}

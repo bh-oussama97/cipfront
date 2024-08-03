@@ -1,8 +1,8 @@
 <div class="kaizen-card-picture-before-after">
-    <button (click)="this.dialogRef.close()">
-        <img src="/assets/images/close-icon.svg" 
-        class="close-icon"/>
-    </button>
+  
+  <fa-icon 
+  class="close-icon"
+  (click)="this.dialogRef.close()" [icon]="close"></fa-icon>
 
     <h3 class="cip-state-title">{{"ideasContent.ideaSelectionContent.cipState"|translate}}</h3>
 
@@ -34,7 +34,7 @@
           </div>
     </div>
  
-    <button mat-raised-button color="primary" (click)="this.dialogRef.close()">
+    <button mat-raised-button color="primary" (click)="validateCardBeforeAfterUpload()">
         {{ "ideasContent.ideaSelectionContent.ok" | translate }}
       </button>
 </div>

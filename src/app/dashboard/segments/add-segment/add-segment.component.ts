@@ -32,14 +32,14 @@ constructor(private snackbar:MatSnackBar,
   }
   addNewSegment(){
     this.snackbar
-      .open(this.translate.instant('segementsContent.addSegmentForm.successAdd'), 'X', {
+      .open(this.translate.instant('segementsContent.addSegmentForm.successAdd'), '', {
         duration: 5000,
         horizontalPosition: 'center',
         verticalPosition: 'top',
-        panelClass: 'notif-success'
+        panelClass: 'notification-success'
       })
       .afterDismissed().subscribe((res)=>{
-        this.router.navigateByUrl('/dashboard/segments');
+        this.router.navigateByUrl('segments');
       });
   }
       /**
@@ -50,14 +50,14 @@ constructor(private snackbar:MatSnackBar,
         if(fileList.length > 0)
         {
           this.snackbar
-          .open(this.translate.instant('segementsContent.addSegmentForm.successAdd'), 'X', {
+          .open(this.translate.instant('segementsContent.addSegmentForm.successAdd'), '', {
             duration: 2000,
             horizontalPosition: 'center',
             verticalPosition: 'top',
-            panelClass: 'notif-success'
+            panelClass: 'notification-success'
           })
           .afterDismissed().subscribe((res)=>{
-            this.router.navigateByUrl('/dashboard/segments');
+            this.router.navigateByUrl('segments');
           });
         }
       }

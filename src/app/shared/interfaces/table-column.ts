@@ -4,4 +4,5 @@ export interface TableColumn {
     type?:string;
     placeholder?:string;
     isDate?:boolean;
+    isFileDownload?:boolean;
 }

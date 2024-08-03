@@ -32,7 +32,6 @@ export class MatriculeSiginComponent implements OnInit {
   }
 
   employeeLogin() {
-    this.isLoading = true;
     if (this.employeLoginForm.invalid) {
       this.errors.push('Matricule Incorrecte');
       this.errors.push('يوجد خطأ في المعرف');
@@ -41,15 +40,14 @@ export class MatriculeSiginComponent implements OnInit {
     {
       matricule: this.employeLoginForm.value.matricule
     };
-
+    this.isLoading = true;
     this.authService.matriculeSignin(employeeLoginDto).subscribe({
       next: (response: UserMatriculeSuccessDto) => {
         if (response !== null) {
           setTimeout(()=>{
             this.isLoading = false;
-            this.authService.setToken(response.accessToken);
-            this.authService.userArr = response;
-            this.authService.save_login_info();
+            this.authService.setToken(response.accessToken);            
+            this.authService.save_login_info(response);
             this.router.navigateByUrl('/home');
           },3000)
         }
@@ -57,13 +55,13 @@ export class MatriculeSiginComponent implements OnInit {
         setTimeout(() => {
           this.isLoading = false;
           this.snackbar
-          .open(httpError.error.message, 'X', {
+          .open(httpError.error.message, '', {
             duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
             panelClass: 'notification-error'
           });
-        }, 3000);
+        }, 2000);
    
       }
     });

@@ -23,19 +23,19 @@ export class EditUserComponent implements OnInit {
     private dataservice: DataService
   ) { }
   ngOnInit(): void {
-    this.subscription = this.dataservice.currentMessage$.subscribe({
-      next: (message: any) => {
-        this.userToEdit = message;
-      }
-    });
-    this.emailValue = this.userToEdit.login;
+    // this.subscription = this.dataservice.currentMessage$.subscribe({
+    //   next: (message: any) => {
+    //     this.userToEdit = message;
+    //   }
+    // });
+    // this.emailValue = this.userToEdit.login;
     this.editUserForm = this.fb.group({
-      lastName: [this.userToEdit.firstName],
-      firstName: [this.userToEdit.lastName],
-      phone: [this.userToEdit.phoneNumber],
-      registrationNumber: [this.userToEdit.matricule],
-      email: this.emailValue,
-      login: new FormControl({ value: this.emailValue, disabled: true }),
+      lastName: [''],
+      firstName: [''],
+      phone: [''],
+      registrationNumber: [''],
+      email: [''],
+      login: new FormControl({ value: null, disabled: true }),
       siteName: null,
       plantName: null,
       segmentName: null,
@@ -44,15 +44,15 @@ export class EditUserComponent implements OnInit {
   }
   save() {
     this.snackbar
-      .open(this.translate.instant('usersManagmentContent.successEdit'), 'X', {
+      .open(this.translate.instant('usersManagmentContent.successEdit'), '', {
         duration: 2000,
         horizontalPosition: 'right',
         verticalPosition: 'top',
-        panelClass: 'notif-success'
+        panelClass: 'notification-success'
       })
       .afterOpened()
       .subscribe((res) => {
-        this.router.navigateByUrl('/dashboard/users');
+        this.router.navigateByUrl('users');
       });
   }
 }

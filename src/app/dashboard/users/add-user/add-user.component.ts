@@ -97,15 +97,15 @@ faMinusCircle = faMinusCircle;
 
   addUser(){
     this.snackbar
-    .open(this.translate.instant('usersManagmentContent.addUserContent.successAdd'), 'X', {
+    .open(this.translate.instant('usersManagmentContent.addUserContent.successAdd'), '', {
       duration: 2000,
       horizontalPosition: 'right',
       verticalPosition: 'top',
-      panelClass: 'notif-success'
+      panelClass: 'notification-success'
     })
     .afterDismissed()
     .subscribe((res) => {
-      this.router.navigateByUrl('/dashboard/users');
+      this.router.navigateByUrl('users');
     });
   }
 
@@ -114,15 +114,15 @@ faMinusCircle = faMinusCircle;
     if(fileList.length > 0)
     {
       this.snackbar
-      .open(this.translate.instant('usersManagmentContent.addUserContent.successAdd'), 'X', {
+      .open(this.translate.instant('usersManagmentContent.addUserContent.successAdd'), '', {
         duration: 2000,
         horizontalPosition: 'right',
         verticalPosition: 'top',
-        panelClass: 'notif-success'
+        panelClass: 'notification-success'
       })
       .afterDismissed()
       .subscribe((res) => {
-        this.router.navigateByUrl('/dashboard/users');
+        this.router.navigateByUrl('users');
       });
     }
   }

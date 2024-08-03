@@ -4,7 +4,7 @@
       *xngBreadcrumbItem="let breadcrumb; let info = info"
     >
     <mat-icon *ngIf="info">{{ info }}</mat-icon>
-      <ng-container >{{ breadcrumb }}</ng-container>
+      <ng-container >{{ breadcrumb | translate}}</ng-container>
     </ng-container>
   </xng-breadcrumb>
   <div class="report-logo-date" >
@@ -37,7 +37,7 @@
       </p>
       <div class="chart-body">
         <div class="filters">
-          <select id="plant">
+          <select id="plant" class="form-select">
             <option selected>{{ "dashboardContent.plant" | translate }}</option>
             <option>{{ "dashboardContent.segment" | translate }}</option>
             <option>{{ "dashboardContent.sites" | translate }}</option>
@@ -72,7 +72,7 @@
       <p class="chart-title">  {{ "dashboardContent.cipPerUser" | translate }}</p>
       <div class="chart-body">
         <div class="filters">
-          <select id="plant">
+          <select id="plant" class="form-select">
             <option selected>{{ "dashboardContent.plant" | translate }}</option>
             <option>{{ "dashboardContent.segment" | translate }}</option>
             <option>{{ "dashboardContent.sites" | translate }}</option>
@@ -109,7 +109,7 @@
       </p>
       <div class="chart-body">
         <div class="filters">
-          <select id="plant">
+          <select id="plant" class="form-select">
             <option selected>{{ "dashboardContent.plant" | translate }}</option>
             <option>{{ "dashboardContent.segment" | translate }}</option>
             <option>{{ "dashboardContent.sites" | translate }}</option>

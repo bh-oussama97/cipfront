@@ -3,40 +3,48 @@ import { RouterModule, Routes } from '@angular/router';
 import { LinesComponent } from './lines.component';
 import { AddLineComponent } from './add-line/add-line.component';
 import { EditLineComponent } from './edit-line/edit-line.component';
+import { LinesListComponent } from './lines-list/lines-list.component';
 
 const routes: Routes = [
   {
-    path : '',
-      component : LinesComponent,
-      pathMatch : 'full',
-      data: {
-        breadcrumb: {
-          label: 'Lines',
-        }
-      }
-  },
-  {
-    path: 'add',
-    component : AddLineComponent,
+    path: '',
+    component: LinesComponent,
     data: {
       breadcrumb: {
-        label: 'Add'
-      }
-    }
+        label: 'dashboardContent.li',
+        info: 'home',
+      },
+    },
+    children: [
+      {
+        path: '',
+        component: LinesListComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'add',
+        component: AddLineComponent,
+        data: {
+          breadcrumb: {
+            label: 'linesContent.addLineForm.add',
+          },
+        },
+      },
+      {
+        path: 'edit/:id',
+        component: EditLineComponent,
+        data: {
+          breadcrumb: {
+            label: 'linesContent.editLineForm.edit',
+          },
+        },
+      },
+    ],
   },
-  {
-    path : 'edit/:id',
-    component : EditLineComponent,
-    data: {
-      breadcrumb: {
-        label: 'Edit',
-      }
-    }
-  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class LinesRoutingModule { }
+export class LinesRoutingModule {}

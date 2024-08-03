@@ -10,6 +10,7 @@ import { IdeaCreationRequestDto } from '../shared/interfaces/idea-creation-reque
 import { HttpErrorResponse } from '@angular/common/http';
 import { ResponseDto } from '../shared/interfaces/response-dto';
 import { jwtDecode } from "jwt-decode";
+import { UserMatriculeSuccessDto } from '../shared/interfaces/user-matricule-success-dto';
 
 @Component({
   selector: 'app-home-employee',
@@ -21,6 +22,8 @@ export class HomeEmployeeComponent implements OnInit{
   responsables:UserDto[];
   welcomeMessage:string;
   isLoading:boolean=false;
+  fullName:string;
+  userArr:UserMatriculeSuccessDto;
   constructor(private fb:FormBuilder,private translate : TranslateService,
     private snackbar : MatSnackBar,
     private router : Router,
@@ -29,9 +32,11 @@ export class HomeEmployeeComponent implements OnInit{
     ) {
       this.translate.use('fr');
   }
-  ngOnInit(): void {    
-    this.welcomeMessage = "BIENVENUE "  + jwtDecode(this.authService.userArr.accessToken)['full_name'] + " ! -- "+ this.authService.userArr.structure +" --";    
-    this.responsables = this.authService.userArr.reponsable;    
+  ngOnInit(): void {   
+
+    this.userArr = JSON.parse(localStorage.getItem('userJson'));
+    this.responsables = this.userArr.reponsable;
+    this.welcomeMessage = "BIENVENUE "  + jwtDecode( this.userArr.accessToken)['full_name'] + " ! -- "+ this.userArr.structure +" --";    
    this.IdeaForm = this.fb.group({
     idea : ['',[Validators.required]],
     superior : ['',[Validators.required]]
@@ -44,7 +49,7 @@ export class HomeEmployeeComponent implements OnInit{
       setTimeout(()=>{
         this.isLoading=false;
         this.snackbar
-        .open('الرجاء إدخال مديرك المباشر ', 'X', {
+        .open('الرجاء إدخال مديرك المباشر ', '', {
           duration: 2000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
@@ -58,7 +63,7 @@ export class HomeEmployeeComponent implements OnInit{
       setTimeout(()=>{
         this.isLoading=false;
         this.snackbar
-        .open('الرجاء إدخال الفكرة', 'X', {
+        .open('الرجاء إدخال الفكرة', '', {
           duration: 2000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
@@ -69,7 +74,7 @@ export class HomeEmployeeComponent implements OnInit{
     else{
       let formValue = this.IdeaForm.value;
       const ideaRequest : IdeaCreationRequestDto = {
-        matricule : this.authService.userArr.matricule,
+        matricule : this.userArr.matricule,
         affectedTo : formValue.superior.matricule,
         subject : formValue.idea
       };    
@@ -81,7 +86,7 @@ export class HomeEmployeeComponent implements OnInit{
           setTimeout(()=>{
             this.isLoading=false;
             this.snackbar
-            .open(successMessage, 'X', {
+            .open(successMessage, '', {
               duration : 2000,
               horizontalPosition: 'right',
               verticalPosition: 'top',
@@ -99,7 +104,7 @@ export class HomeEmployeeComponent implements OnInit{
       },error : (httpError: HttpErrorResponse)=> {
         let responseError: ResponseDto = httpError.error;
         this.snackbar
-          .open(responseError.message, 'X', {
+          .open(responseError.message, '', {
             duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',

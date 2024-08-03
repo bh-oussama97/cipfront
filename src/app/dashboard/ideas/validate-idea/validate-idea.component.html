@@ -2,7 +2,7 @@
   <xng-breadcrumb>
     <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
       <mat-icon *ngIf="info">{{ info }}</mat-icon>
-      <ng-container>{{ breadcrumb }}</ng-container>
+      <ng-container>{{ breadcrumb | translate }}</ng-container>
     </ng-container>
   </xng-breadcrumb>
   <mat-card>
@@ -16,7 +16,7 @@
             <p>
               {{ "ideasContent.ideaDetailsContent.ideeDate" | translate }} :
             </p>
-            <p>{{ ideaDetails.createdAt}}</p>
+            <p>{{ ideaDetails.createdAt | date : 'yyyy-MM-dd hh:mm a'}}</p>
           </div>
           <!-- <div class="type">
             <p>
@@ -42,16 +42,16 @@
           </div>
         </div>
       </div>
-      <mat-form-field appearance="outline" class="description-form-item">
+      <!-- <mat-form-field appearance="outline" class="description-form-item">
         <mat-label
           >{{
             "ideasContent.ideaDetailsContent.detailledDescription" | translate
           }}
           :</mat-label
-        >
+        > -->
         <textarea matInput  [readonly]="true"
         [(ngModel)]="ideaDetails.description"></textarea>
-      </mat-form-field>
+      <!-- </mat-form-field> -->
 
       <form [formGroup]="ideaValidationForm">
         <div class="idea-validation">
@@ -62,10 +62,10 @@
           formControlName="choice">
             <mat-radio-button 
             value="yes"
-            class="example-margin">{{
+            >{{
               "ideasContent.ideaValidationContent.yes" | translate
             }}</mat-radio-button>
-            <mat-radio-button class="example-margin"
+            <mat-radio-button 
             value="no"
             checked
             >{{
@@ -77,37 +77,27 @@
           <span class="motifs-text">{{
             "ideasContent.ideaValidationContent.refusMotifs" | translate
           }}</span>
-          <mat-form-field [appearance]="'outline'">
-            <mat-label>
-              {{
-                "ideasContent.ideaValidationContent.motifs" | translate
-              }}</mat-label
-            >
-            <mat-select formControlName="motif" 
-            [(ngModel)]="motifByDefault"
-            [disabled]="ideaValidationForm.value.choice === 'yes' ? true :false">
-              <mat-option [value]="motif" *ngFor="let motif of motifs">{{
+            <select formControlName="motif" 
+            class="form-select"
+            [(ngModel)]="motifByDefault">
+              <option 
+               *ngFor="let motif of motifs">{{
                 motif
-              }}</mat-option>
-            </mat-select>
-          </mat-form-field>
+              }}</option>
+            </select>
         </div>
         <div class="idea-category">
           <span class="category-text">{{
             "ideasContent.ideaValidationContent.ideaCategory" | translate
           }}</span>
-          <mat-form-field [appearance]="'outline'">
-            <mat-label>
-              {{
-                "ideasContent.ideaValidationContent.category" | translate
-              }}</mat-label
-            >
-            <mat-select formControlName="category" [(ngModel)]="categoryByDefault">
-              <mat-option [value]="cat" *ngFor="let cat of categories">{{
+
+            <select formControlName="category" 
+            class="form-select"
+            [(ngModel)]="categoryByDefault">
+              <option [value]="cat" *ngFor="let cat of categories">{{
                 cat
-              }}</mat-option>
-            </mat-select>
-          </mat-form-field>
+              }}</option>
+            </select>
         </div>
     </form>
       <button 

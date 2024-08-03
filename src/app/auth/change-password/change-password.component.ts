@@ -20,11 +20,11 @@ export class ChangePasswordComponent implements OnInit {
   }
   save() {
     this.snackbar
-      .open('Password changed successfully', 'X', {
+      .open('Password changed successfully', '', {
         duration: 2000,
         horizontalPosition: 'right',
         verticalPosition: 'top',
-        panelClass: 'notif-success'
+        panelClass: 'notification-success'
       })
       .afterDismissed().subscribe((result)=>{
         this.router.navigateByUrl('login');

@@ -25,9 +25,10 @@ import { KaizenCardBeforeAfterModalComponent } from './components/kaizen-card-be
 import { SelectExpertModalComponent } from './components/select-expert-modal/select-expert-modal.component';
 import { NgxLoadingButtonsModule } from 'ngx-loading-buttons';
 import { OpenKaizenImageComponent } from './components/open-kaizen-image/open-kaizen-image.component';
-import { AssignIdeaChefSegmentComponent } from './components/assign-idea-chef-segment/assign-idea-chef-segment.component';
 import { EditButtonComponent } from './components/edit-button/edit-button.component';
 import { OnlynumberDirective } from './directives/onlynumber.directive';
+import { ConfirmActionComponent } from './components/confirm-action/confirm-action.component';
+import { ConfirmBestIdeaDialogComponent } from './components/confirm-best-idea-dialog/confirm-best-idea-dialog.component';
 
 @NgModule({
   declarations: [
@@ -46,9 +47,10 @@ import { OnlynumberDirective } from './directives/onlynumber.directive';
     KaizenCardBeforeAfterModalComponent,
     SelectExpertModalComponent,
     OpenKaizenImageComponent,
-    AssignIdeaChefSegmentComponent,
     EditButtonComponent,
-    OnlynumberDirective
+    OnlynumberDirective,
+    ConfirmActionComponent,
+    ConfirmBestIdeaDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -81,7 +83,9 @@ import { OnlynumberDirective } from './directives/onlynumber.directive';
     EditDetailsActionsComponent,
     NgxLoadingButtonsModule,
     EditButtonComponent,
-    OnlynumberDirective
+    OnlynumberDirective,
+    ConfirmActionComponent
   ]
   })
+  
 export class SharedModule { }

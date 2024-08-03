@@ -25,11 +25,11 @@ export class EditStructureComponent implements OnInit{
   }
   editSite(){
     this.snackbar
-    .open(this.translate.instant('structureContent.editSiteForm.successModification'), 'X', {
+    .open(this.translate.instant('structureContent.editSiteForm.successModification'), '', {
       duration: 5000,
       horizontalPosition : 'center',
       verticalPosition : 'top',
-      panelClass: 'notif-success'
+      panelClass: 'notification-success'
     })
     .afterDismissed()
     .subscribe(res=>{

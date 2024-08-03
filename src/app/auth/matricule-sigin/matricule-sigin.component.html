@@ -31,15 +31,16 @@
             type="text"
             [placeholder]="'Ex : 10236587'"
             matInput
+            appOnlynumber
             formControlName="matricule"
           />
           <mat-icon matSuffix>privacy_tip</mat-icon>
           </div>
 
 
-          <mat-error *ngFor="let error of errors">
+          <!-- <mat-error *ngFor="let error of errors">
             {{ error }}
-          </mat-error>
+          </mat-error> -->
         </form>
       </mat-card-content>
       <mat-card-actions>

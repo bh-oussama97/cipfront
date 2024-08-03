@@ -32,11 +32,11 @@ export class AddStructureComponent {
         if(response !== null)
           {
             this.snackbar
-            .open(response.message, 'X', {
+            .open(response.message, '', {
               duration: 2000,
               horizontalPosition : 'center',
               verticalPosition : 'top',
-              panelClass: 'notif-success'
+              panelClass: 'notification-success'
             })
             .afterDismissed().subscribe((res)=>{
               this.router.navigateByUrl('/dashboard/structure');
@@ -45,7 +45,7 @@ export class AddStructureComponent {
       }, error: (httpError: HttpErrorResponse) => {
         let responseError: ResponseDto = httpError.error;
         this.snackbar
-          .open(responseError.message, 'X', {
+          .open(responseError.message, '', {
             duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',

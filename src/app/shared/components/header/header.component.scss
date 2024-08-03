@@ -8,6 +8,7 @@
   text-transform: uppercase;
   color: #0e1c36;
   min-width: fit-content;
+  font-family: 'Poppins', sans-serif;
   letter-spacing: 1.5px;
 }
 .logo {
@@ -18,7 +19,7 @@
 .username {
   color: black;
   margin: 0 !important;
-  font-family: "Regular";
+  font-family: 'Poppins', sans-serif;
   font-size: 18px;
 }
 
@@ -52,7 +53,7 @@
       color: var(--color-blue-lighter);
       padding-bottom: 10px;
       border-bottom: 0.5px solid #f1f1f1;
-      font-family: "Roboto-Regular";
+      font-family: 'Poppins', sans-serif;
     }
     .notifications-items {
       display: flex;
@@ -98,7 +99,7 @@
     min-width: 142px;
 
     .menu-item {
-      font-family: "Roboto-Regular";
+      font-family: 'Poppins', sans-serif;
       margin-top: var(--space-s);
       color: black;
       display: flex;

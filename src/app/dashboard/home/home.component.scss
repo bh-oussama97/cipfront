@@ -9,11 +9,17 @@
     padding-right: var(--space-l);
     gap:20px;
     ::ng-deep xng-breadcrumb {
+        align-self: self-start;
         .xng-breadcrumb-root {
             .xng-breadcrumb-list {
                 .xng-breadcrumb-item {
-                    .xng-breadcrumb-link,.xng-breadcrumb-trail {
-                        gap: 4px !important;
+                    .xng-breadcrumb-trail {
+                        gap: 10px !important;
+                        font-family: "Poppins", sans-serif !important;
+                    }
+                    .xng-breadcrumb-link {
+                        gap: 5px !important;
+                        color:white;
                     }
                 }
             }

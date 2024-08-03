@@ -4,6 +4,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { TableButtonAction } from '../../interfaces/table-button-action';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { HttpErrorResponse } from '@angular/common/http';
+import { FileService } from '../../services/file.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'common-table',
@@ -42,6 +45,8 @@ export class CommonTableComponent implements OnInit {
     new EventEmitter<any>();
   @Input() isEvenRowsChangeColor: boolean = false;
   DataSource: MatTableDataSource<any>;
+  @Input() confirmAction: boolean = false;
+  @Input() isRakingList :boolean =false;
 
   newdataSource: MatTableDataSource<any> = new MatTableDataSource();
   length: number = 0;
@@ -49,7 +54,7 @@ export class CommonTableComponent implements OnInit {
   @Input() isShowPaginator: boolean = true;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor() { }
+  constructor(private fileService : FileService,private snackbar:MatSnackBar) { }
 
   ngOnInit(): void {
     this.displayedColumns = this.tableColumns.map((c) => c.columnDef);
@@ -90,6 +95,14 @@ export class CommonTableComponent implements OnInit {
     {
       this.displayedColumns.push('edit-details-actions');
 
+    }
+    if (this.confirmAction === true && this.role === 'CHEF_SEGMENT') {
+      this.displayedColumns.push('confirm-action');
+    }
+
+    if(this.isRakingList === true && (this.role === 'OPEX' || this.role === 'ADMIN'))
+    {
+      this.displayedColumns.push('details-action');
     }
     this.initializeDataSource();
   }
@@ -146,6 +159,25 @@ export class CommonTableComponent implements OnInit {
       endIndex = this.length;
     }
     this.newdataSource.data = this.DataSource.data.slice(startIndex, endIndex);
+  }
+
+  getKaizenCardByName(name: string) {
+    this.fileService.downloadFileByName(name).subscribe(
+      {
+        next: (response: any) => {
+          this.fileService.saveAsExcelFile(response, name.split('.')[0]);
+        }, error: (responseError: HttpErrorResponse) => {
+          if (responseError.status === 500) {
+            this.snackbar
+              .open("Could not read the file!", '', {
+                duration: 2000,
+                horizontalPosition: 'right',
+                verticalPosition: 'top',
+                panelClass: 'notification-error'
+              });
+          }
+        }
+      });
   }
 
 }

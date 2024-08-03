@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IdeaService } from '../../services/idea.service';
 import { NextStepDto } from '../../interfaces/next-step-dto';
@@ -14,13 +14,15 @@ import { Category } from '../../enum/category';
 import { DataService } from '../../services/data.service';
 import { IdeaDto } from '../../interfaces/idea-dto';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from '../../services/auth.service';
+import { IdeaState } from '../../enum/idea-state';
 
 @Component({
   selector: 'app-select-expert-modal',
   templateUrl: './select-expert-modal.component.html',
   styleUrls: ['./select-expert-modal.component.scss']
 })
-export class SelectExpertModalComponent {
+export class SelectExpertModalComponent implements OnInit{
   close = faClose;
   expertSelected: any;
   connectedUser:UserDto;
@@ -34,22 +36,26 @@ export class SelectExpertModalComponent {
       valid: string,
       ideaDetails: TaskDto, motif: Motif,
       noteTotal : number,
-      ideaDTO : IdeaDto
+      ideaDTO : IdeaDto,
+      category : Category
     },
     public dialogRef: MatDialogRef<SelectExpertModalComponent>,
     private ideaService: IdeaService,
     private snackbar: MatSnackBar,
     private router : Router,
-    private dataservice : DataService
+    private dataservice : DataService,
+    private authService : AuthService
   ) {
-    this.connectedUser = JSON.parse(localStorage.getItem('userJson'));
+  }
+  ngOnInit(): void {
+    this.connectedUser = this.authService.get_login_info();
   }
   confirm() {
     this.isLoading = true;
     const nextStepDto: NextStepDto = {
       ideaId: this.data.ideaDetails.ideaId,
       description: this.data.ideaDetails.description,
-      status: this.data.ideaDetails.status,
+      status: IdeaState.SELECTED,
       matricule: this.connectedUser.matricule,
       affectedTo: this.expertSelected.matricule,
       impact: this.data.impact,
@@ -59,7 +65,7 @@ export class SelectExpertModalComponent {
       type: this.data.ideaDetails.type,
       motif: this.data.motif,
       decision: Decision.SELECTED,
-      category: Category.NONE,
+      category: this.data.category,
       total : this.data.noteTotal
     };
     this.ideaService.updateIdeaNextStep(nextStepDto).subscribe({
@@ -69,14 +75,14 @@ export class SelectExpertModalComponent {
             this.isLoading = false;
             this.dialogRef.close();
             this.snackbar
-              .open("Idea has been assigned to " + this.expertSelected.fullName, 'X', {
+              .open("Idea has been assigned to " + this.expertSelected.fullName, '', {
                 duration: 2000,
                 horizontalPosition: 'right',
                 verticalPosition: 'top',
-                panelClass: 'notif-success'
+                panelClass: 'notification-success'
               }).afterDismissed().subscribe((res) => {
                 this.dataservice.notifyTaskCompletion();
-                this.router.navigateByUrl('dashboard/ideas');
+                this.router.navigateByUrl('/ideas');
               });
           },2000)
  
@@ -86,7 +92,7 @@ export class SelectExpertModalComponent {
         setTimeout(()=>{
           this.isLoading = false;
           this.snackbar
-          .open(responseError.message, 'X', {
+          .open(responseError.message, '', {
             duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',

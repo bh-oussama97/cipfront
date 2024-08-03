@@ -1,0 +1,79 @@
+<div class="content">
+    <xng-breadcrumb>
+      <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
+        <mat-icon *ngIf="info">{{ info }}</mat-icon>
+        <ng-container>{{ breadcrumb | translate}}</ng-container>
+      </ng-container>
+    </xng-breadcrumb>
+    <div class="buttons-right">
+      <button (click)="addNewEmployee()" mat-raised-button color="primary">
+        {{ "employeesManagmentContent.addEmployee" | translate }}
+      </button>
+      <button
+        (click)="downloadTemplate()"
+        mat-raised-button
+        color="primary"
+      >
+        {{ "employeesManagmentContent.downloadTemplate" | translate }}
+      </button>
+      <button
+      (click)="export()"
+      mat-raised-button
+      color="primary"
+    >
+      {{ "employeesManagmentContent.export" | translate }}
+    </button>
+    </div>
+  
+    <div class="search-input">
+      <div class="icon-input">
+        <mat-icon>search</mat-icon>
+        <input
+          type="text"
+          placeholder="{{ 'employeesManagmentContent.search' | translate }}"
+          (keyup)="searchEmployee($event)"
+        />
+      </div>
+    </div>
+  
+    <div class="filters">
+     
+      <select id="site" class="form-select">
+        <option selected disabled>{{ "employeesManagmentContent.site" | translate }}</option>
+      </select>
+      <select id="plant" class="form-select">
+        <option selected disabled>{{ "employeesManagmentContent.plant" | translate }}</option>
+      </select>
+      <select id="segment" class="form-select">
+        <option selected disabled>{{ "employeesManagmentContent.segment" | translate }}</option>
+      </select>
+      <select id="line" class="form-select">
+        <option selected disabled>{{ "employeesManagmentContent.line" | translate }}</option>
+      </select>
+    </div>
+  
+    <mat-card>
+        <mat-card-title>
+            {{"employeesManagmentContent.employeesList" |translate}}
+          </mat-card-title>
+        <mat-card-content>
+    
+          <div class="employees-table">
+            <common-table
+            [isEvenRowsChangeColor]="true"
+            [isShowPaginator]="true"
+            [dataSource]="employeesData"
+            [tableColumns]="employeesColumns"
+            [editAction]="true"
+            (action)="onTableAction($event)"
+            class="mat-elevation-z8"
+          ></common-table>
+          </div>
+    
+    
+        </mat-card-content>
+      </mat-card>
+
+  
+  </div>
+  

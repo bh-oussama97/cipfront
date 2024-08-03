@@ -46,7 +46,12 @@ export class IdeaService {
 
   }
 
-  getRakingIdeas(): Observable<RankDto[]> {
-    return this.http.get<RankDto[]>(environment.apiUrl + '/ranking');
+  getRakingIdeas(matricule: string): Observable<RankDto[]> {
+    return this.http.get<RankDto[]>(environment.apiUrl + '/ranking/' + matricule);
   }
+
+  selectBestIdea(rankingId): Observable<ResponseDto> {
+    return this.http.post<ResponseDto>(environment.apiUrl + '/ranking/' + rankingId, {},{ responseType: 'text' as 'json' });
+  }
+
 }

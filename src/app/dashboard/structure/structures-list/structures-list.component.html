@@ -1,0 +1,36 @@
+<div class="content">
+    <xng-breadcrumb>
+      <ng-container
+        *xngBreadcrumbItem="let breadcrumb; let info = info"
+      >
+      <mat-icon *ngIf="info">{{ info }}</mat-icon>
+        <ng-container >{{ breadcrumb | translate}}</ng-container>
+      </ng-container>
+    </xng-breadcrumb>
+    <button class="btn-right" 
+    (click)="addSite()"
+    mat-raised-button color="primary">
+      {{ "structureContent.addStructure" | translate }}
+    </button>
+  
+    <div class="search-input">
+      <div class="icon-input">
+        <mat-icon>search</mat-icon>
+        <input
+          type="text"
+          placeholder="{{ 'structureContent.search' | translate }}"
+        />
+      </div>
+    </div>
+  
+    <common-table
+    [isEvenRowsChangeColor]="true"
+    [isShowPaginator]="true"
+    [dataSource]="structuresData"
+    [tableColumns]="structuresColumns"
+    [editDeleteActions]="true"
+    (action)="onTableAction($event)"
+    class="mat-elevation-z8"
+    ></common-table>
+  </div>
+  

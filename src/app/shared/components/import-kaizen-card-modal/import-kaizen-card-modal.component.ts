@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
+import { faClose, faPaperclip } from '@fortawesome/free-solid-svg-icons';
 import { FileService } from '../../services/file.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -15,6 +15,7 @@ export class ImportKaizenCardModalComponent implements OnInit {
   file: File;
   filename: string;
   faAttachment = faPaperclip;
+  close = faClose;
   isLoading: boolean = false;
   constructor(public dialogRef: MatDialogRef<ImportKaizenCardModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data:
@@ -37,11 +38,26 @@ export class ImportKaizenCardModalComponent implements OnInit {
     formData.append('id', this.data.ideaId);
     formData.append('file', this.file);
     formData.append('status', 'kaizen');
-    if (this.fileservice.isValidSize(this.file.size) === false) {
+    
+    if(this.file === undefined)
+    {
+      this.isLoading = true;
       setTimeout(() => {
         this.isLoading = false;
         this.snackbar
-          .open("File size should minimum than 2MB", 'X', {
+          .open("Please import a file ", '', {
+            duration: 2000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: 'notification-error'
+          })
+      }, 2000);
+    }
+    else if (this.fileservice.isValidSize(this.file?.size) === false) {
+      setTimeout(() => {
+        this.isLoading = false;
+        this.snackbar
+          .open("File size should minimum than 2MB", '', {
             duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
@@ -56,11 +72,11 @@ export class ImportKaizenCardModalComponent implements OnInit {
             setTimeout(() => {
               this.isLoading = false;
               this.snackbar
-                .open(result['message'], 'X', {
+                .open(result['message'], '', {
                   duration: 2000,
                   horizontalPosition: 'right',
                   verticalPosition: 'top',
-                  panelClass: 'notif-success'
+                  panelClass: 'notification-success'
                 });
               this.dialogRef.close({ filename: this.filename });
             }, 2000);
@@ -69,7 +85,7 @@ export class ImportKaizenCardModalComponent implements OnInit {
             setTimeout(() => {
               this.isLoading = false;
               this.snackbar
-                .open(httpError.error, 'X', {
+                .open(httpError.error, '', {
                   duration: 3000,
                   horizontalPosition: 'right',
                   verticalPosition: 'top',

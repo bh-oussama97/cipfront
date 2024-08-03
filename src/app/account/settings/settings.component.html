@@ -1,13 +1,16 @@
-<app-header></app-header>
-<div class="content">
+<div class="breadcrumb-item">
   <xng-breadcrumb>
     <ng-container
       *xngBreadcrumbItem="let breadcrumb; let info = info"
     >
     <mat-icon *ngIf="info">{{ info }}</mat-icon>
-      <ng-container >{{ breadcrumb }}</ng-container>
+      <ng-container >{{ breadcrumb | translate}}</ng-container>
     </ng-container>
   </xng-breadcrumb>
+</div>
+
+<div class="content">
+
   <mat-card class="settings-card">
     <mat-card-header>
       <mat-card-title>
@@ -55,4 +58,3 @@
     </mat-card-actions>
   </mat-card>
 </div>
-<app-footer></app-footer>

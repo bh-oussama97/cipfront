@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { faFileImage, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription, debounceTime } from 'rxjs';
@@ -20,17 +20,17 @@ import { ResponseDto } from 'src/app/shared/interfaces/response-dto';
 import { TaskDto } from 'src/app/shared/interfaces/task-dto';
 import { UserDto } from 'src/app/shared/interfaces/user-dto';
 import { DataService } from 'src/app/shared/services/data.service';
-import { FileService } from 'src/app/shared/services/file.service';
 import { IdeaService } from 'src/app/shared/services/idea.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
-import { saveAs } from "file-saver";
+import { OpenKaizenImageComponent } from 'src/app/shared/components/open-kaizen-image/open-kaizen-image.component';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-execute-idea',
   templateUrl: './execute-idea.component.html',
   styleUrls: ['./execute-idea.component.scss']
 })
-export class ExecuteIdeaComponent implements OnInit, OnDestroy {
+export class ExecuteIdeaComponent implements OnInit {
 
   ideaDetails: any;
   subscription: Subscription;
@@ -48,6 +48,7 @@ export class ExecuteIdeaComponent implements OnInit, OnDestroy {
   userAffectedTo:UserDto;
   isLoading:boolean=false;
   category:string;
+  ideaId:string;
   constructor(private dataservice: DataService, private fb: FormBuilder,
     private translate: TranslateService,
     private dialogService: ModalService,
@@ -55,7 +56,8 @@ export class ExecuteIdeaComponent implements OnInit, OnDestroy {
   private snackbar:MatSnackBar,
   private router : Router,
   private dialog: MatDialog,
-  private fileService:FileService
+  private authService:AuthService,
+  private activatedRoute : ActivatedRoute
 
   ) {
     this.motifs = [Motif.NONE, Motif.INCLEAR_IDEA, Motif.NOT_STANDARD, Motif.RECURRENT_IDEA];
@@ -69,17 +71,21 @@ export class ExecuteIdeaComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
-    this.connectedUser = JSON.parse(localStorage.getItem('userJson'));
-    this.dataservice.getObject().subscribe({
-      next: (message: TaskDto) => {
-        this.ideaDetails = message;                
-        if (message === null) {
-          this.ideaDetails = this.dataservice.getObjectFromSessionStorage();
-        }
-      }
+    this.connectedUser = this.authService.get_login_info();
+    this.activatedRoute.paramMap.subscribe({
+      next: (params: ParamMap) => {
+      this.ideaId = params.get('ideaId');
+      },
     });
-    this.getIdeabyId(this.ideaDetails.ideaId);
+    // this.dataservice.getObject().subscribe({
+    //   next: (message: TaskDto) => {
+    //     this.ideaDetails = message;                
+    //     if (message === null) {
+    //       this.ideaDetails = this.dataservice.getObjectFromSessionStorage();
+    //     }
+    //   }
+    // });
+    this.getIdeabyId(this.ideaId);
     this.ideaService.getResponsiblesListByEmployeeMatriculeAndRole(this.ideaDetails.employee,Profile.CHEF_SEGMENT).subscribe((opexUserList:UserDto[])=>{
       if (opexUserList.length > 0 )
       {
@@ -137,7 +143,7 @@ export class ExecuteIdeaComponent implements OnInit, OnDestroy {
         const nextStepRejected : NextStepDto = {
           ideaId: this.ideaDetails.ideaId,
           description: this.ideaDetails.description,
-          status: IdeaState.CLOSED,
+          status: IdeaState.REFUSED,
           matricule: this.connectedUser.matricule,
           affectedTo: this.ideaDetails.employee,
           type: this.ideaDetails.type,
@@ -158,14 +164,14 @@ export class ExecuteIdeaComponent implements OnInit, OnDestroy {
                 setTimeout(()=>{
                   this.isLoading=false;
                   this.snackbar
-                  .open("Idea has been rejected !", 'X', {
+                  .open("Idea has been rejected !", '', {
                     duration: 2000,
                     horizontalPosition: 'right',
                     verticalPosition: 'top',
-                    panelClass: 'notification-warning'
+                    panelClass: 'notification-error'
                   }).afterDismissed().subscribe((res) => {
                     this.dataservice.notifyTaskCompletion();
-                    this.router.navigateByUrl('dashboard/ideas');
+                    this.router.navigateByUrl('/ideas');
                   });
                 },2000)
               }
@@ -174,7 +180,7 @@ export class ExecuteIdeaComponent implements OnInit, OnDestroy {
             setTimeout(()=>{
               this.isLoading=false;
               this.snackbar
-              .open(responseError.message, 'X', {
+              .open(responseError.message, '', {
                 duration: 2000,
                 horizontalPosition: 'right',
                 verticalPosition: 'top',
@@ -195,7 +201,7 @@ export class ExecuteIdeaComponent implements OnInit, OnDestroy {
           duration: 2000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
-          panelClass: 'notification-warning'
+          panelClass: 'notification-error'
         });
       }
       else{
@@ -203,12 +209,12 @@ export class ExecuteIdeaComponent implements OnInit, OnDestroy {
         const nextStepAccepted : NextStepDto = {
           ideaId: this.ideaDetails.ideaId,
           description: this.ideaDetails.description,
-          status: IdeaState.INPROGRESS,
+          status: IdeaState.EXECUTED,
           matricule: this.connectedUser.matricule,
           affectedTo: this.userAffectedTo.matricule,
           type: this.ideaDetails.type,
           motif: Motif.NONE,
-          decision: Decision.ACCEPTED,
+          decision: Decision.EXECUTED,
           category: this.ideaDTO.category,
           original: this.ideaDTO.original,
           impact: this.ideaDTO.impact,
@@ -222,14 +228,14 @@ export class ExecuteIdeaComponent implements OnInit, OnDestroy {
               setTimeout(()=>{
                 this.isLoading=false;
                 this.snackbar
-                .open("Idea has been executed", 'X', {
+                .open("Idea has been executed", '', {
                   duration: 2000,
                   horizontalPosition: 'right',
                   verticalPosition: 'top',
-                  panelClass: 'notif-success'
+                  panelClass: 'notification-success'
                 }).afterDismissed().subscribe((res) => {
                   this.dataservice.notifyTaskCompletion();
-                  this.router.navigateByUrl('dashboard/ideas');
+                  this.router.navigateByUrl('/ideas');
                 });
               },2000);
             }
@@ -238,14 +244,14 @@ export class ExecuteIdeaComponent implements OnInit, OnDestroy {
             setTimeout(()=>{
               this.isLoading=false;
               this.snackbar
-              .open(responseError.message, 'X', {
+              .open(responseError.message, '', {
                 duration: 2000,
                 horizontalPosition: 'right',
                 verticalPosition: 'top',
                 panelClass: 'notification-error'
               })
               .afterDismissed().subscribe((res) => {
-                this.router.navigateByUrl('dashboard/ideas');
+                this.router.navigateByUrl('/ideas');
               });
             },2000)
           }
@@ -278,7 +284,15 @@ export class ExecuteIdeaComponent implements OnInit, OnDestroy {
 
   getKaizenImageByName(name:string)
   {
-    this.fileService.downloadFileByName(name).subscribe(data => saveAs(data, name));
+    this.dialog.open(OpenKaizenImageComponent,
+      {
+        data: {
+          kaizenImage: name
+        },
+        minWidth: '40%',
+        minHeight: 'fit-content',
+        panelClass: 'custom-modalbox'
+      });
   }
 
   getIdeabyId(id:string)
@@ -291,7 +305,7 @@ export class ExecuteIdeaComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnDestroy(): void {
-    this.dataservice.clearObject();
-  }
+  // ngOnDestroy(): void {
+  //   this.dataservice.clearObject();
+  // }
 }
