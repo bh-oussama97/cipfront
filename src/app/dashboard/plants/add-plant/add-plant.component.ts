@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,87 +11,107 @@ import { ResponseDto } from 'src/app/shared/interfaces/response-dto';
 import { StructureDto } from 'src/app/shared/interfaces/structure-dto';
 import { StructureService } from 'src/app/shared/services/structure.service';
 
-
 @Component({
   selector: 'app-add-plant',
   templateUrl: './add-plant.component.html',
-  styleUrls: ['./add-plant.component.scss']
+  styleUrls: ['./add-plant.component.scss'],
 })
 export class AddPlantComponent implements OnInit {
-
   faInformation = faInfoCircle;
   addPlantForm: FormGroup;
   sites: any[] = ['Sousse', 'Mateur Sud', 'Mateur Nord', 'Manzel Hayet'];
-
-  constructor(private fb: FormBuilder,
+  uploadedLoading:boolean =false;
+  constructor(
+    private fb: FormBuilder,
     private translate: TranslateService,
     private snackbar: MatSnackBar,
     private router: Router,
     private structureService: StructureService
-  ) {
-  }
+  ) {}
   ngOnInit(): void {
     this.addPlantForm = this.fb.group({
       siteName: [''],
-      plantName: ['']
+      plantName: [''],
     });
   }
-
 
   addNewPlant() {
     const newPlant: StructureDto = {
       name: this.addPlantForm.value.plantName,
       type: StructureType.PLANT,
       belongsTo: {
-        "name": null,
-        "type": null,
-        "id": null
-      }
+        name: null,
+        type: null,
+        id: null,
+      },
     };
     this.structureService.createNewStructure(newPlant).subscribe({
       next: (response: any) => {
         this.snackbar
           .open(response.message, '', {
-            duration: 5000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            panelClass: 'notification-success'
-          })
-          .afterDismissed().subscribe((res) => {
-            this.router.navigateByUrl('plants');
-          });
-      }, error: (httpError: HttpErrorResponse) => {
-        let responseError: ResponseDto = httpError.error;
-        this.snackbar
-          .open(responseError.message, '', {
             duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
-            panelClass: 'notification-error'
+            panelClass: 'notification-success',
+          })
+          .afterDismissed()
+          .subscribe((res) => {
+            this.router.navigateByUrl('plants');
           });
       },
-    })
-
+      error: (httpError: HttpErrorResponse) => {
+        let responseError: ResponseDto = httpError.error;
+        this.snackbar.open(responseError.message, '', {
+          duration: 2000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: 'notification-error',
+        });
+      },
+    });
   }
 
   /**
- * This gets the list of uploaded files from file uploader component
- * @param fileList
- */
-  getUploadedFiles(fileList: IFile[]) {
-      if(fileList.length > 0)
-      {
-      this.snackbar
-        .open(this.translate.instant('plantContent.AddPlant.successAdd'), '', {
-          duration: 2000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'notification-success'
-        })
-        .afterDismissed().subscribe((res) => {
-          this.router.navigateByUrl('plants');
-        });
-    }
+   * This gets the list of uploaded files from file uploader component
+   * @param fileList
+   */
+  getUploadedFiles(files:IFile) {
+    this.uploadedLoading = true;
+    const data: FormData = new FormData();
+    data.append('file', files.value);
+    data.append('type', StructureType.PLANT);
+    this.structureService.excelMassifUpload(data).subscribe(
+      {next:(response:HttpResponse<any>)=>{        
+        if(response !== null)
+          {
+            this.snackbar.open(response['message'], '', {
+              duration: 2000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'notification-success',
+            });
+          }
+      }, error: (httpError: HttpErrorResponse) => {
+        setTimeout(() => {
+          this.uploadedLoading = false;
+          this.snackbar
+            .open(httpError.error.text, '', {
+              duration: 2000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: 'notification-success'
+            })
+        }, 3000);
+
+      }});
+
   }
 
+  handleLoadingState(isLoading: boolean) {
+    this.uploadedLoading = isLoading;
+  }
+  cancelUpload(event)
+  {
+
+  }
 }

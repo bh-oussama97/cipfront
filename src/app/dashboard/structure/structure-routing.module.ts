@@ -11,7 +11,7 @@ const routes: Routes = [
     component: StructureComponent,
     data: {
       breadcrumb: {
-        label: 'headerSection.structure',
+        label: 'dashboardContent.site',
         info : 'home'
       },
     },

@@ -8,6 +8,16 @@
     </ng-container>
   </xng-breadcrumb>
 
+
+  <button
+  (click)="exportRankingList()"
+  mat-raised-button
+  color="primary"
+  class="btn-right"
+>
+  {{ "ideasContent.export" | translate }}
+</button>
+
   <div class="filters">
     <select id="month" class="form-select">
       <option selected disabled>

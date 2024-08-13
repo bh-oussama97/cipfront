@@ -34,6 +34,7 @@
     >
       <select
         id="iniateur"
+        class="form-select"
         [(ngModel)]="selectedEmployee"
         (change)="filterbyEmployee()"
       >
@@ -44,6 +45,8 @@
       </select>
       <select
         id="contreMaitre"
+        class="form-select"
+
         [(ngModel)]="selectedContreMaitre"
         (change)="filterByContreMaitre()"
       >
@@ -51,6 +54,8 @@
       </select>
       <select
         id="chefSegment"
+        class="form-select"
+
         [(ngModel)]="selectedChefSegment"
         (change)="filterByChefSegment()"
       >
@@ -58,6 +63,8 @@
       </select>
       <select
         id="expert"
+        class="form-select"
+
         [(ngModel)]="selectedExpert"
         (change)="filterbyExpert()"
       >

@@ -17,7 +17,7 @@
             <p>
               {{ "ideasContent.ideaDetailsContent.ideeDate" | translate }} :
             </p>
-            <p>{{ ideaDetails.createdAt }}</p>
+            <p>{{ideaCreatedDate}}</p>
           </div>
           <div class="type">
             <!-- <p>
@@ -29,20 +29,20 @@
           </div>
           <div class="segment">
             <p>{{ "ideasContent.ideaDetailsContent.segment" | translate }} :</p>
-            <p>{{ ideaDetails.segment }}</p>
+            <p>{{ ideaDetails?.segment }}</p>
           </div>
           <div class="line">
             <p>{{ "ideasContent.ideaDetailsContent.line" | translate }} :</p>
-            <p>{{ ideaDetails.line }}</p>
+            <p>{{ ideaDetails?.line }}</p>
           </div>
         </div>
 
         <div class="employee-informations">
-          <div class="matricule" *ngIf="expertFullName ">
+          <div class="matricule" *ngIf="ideaDetails?.expert ">
             <p>
               {{ "ideasContent.ideaDetailsContent.matricule" | translate }} :
             </p>
-            <p>{{ideaDetails.employee}}</p>
+            <p>{{ideaDetails?.matricule}}</p>
           </div>
           <div class="motifs">
             <p>{{ "ideasContent.ideaDetailsContent.motif" | translate }} :</p>
@@ -52,40 +52,40 @@
             <p>
               {{ "ideasContent.ideaDetailsContent.contreMaitre" | translate }} :
             </p>
-            <p>{{ ideaMasterFullName}}</p>
+            <p>{{ ideaDetails?.contreMaitre}}</p>
           </div>
           <div class="expert">
             <p>{{ "ideasContent.ideaDetailsContent.expert" | translate }} :</p>
-            <p>{{ expertFullName }}</p>
+            <p>{{ ideaDetails?.expert }}</p>
           </div>
         </div>
 
         <div class="import-kaizen-card" >
-          <div class="images-before-and-after" *ngIf="ideaDTO?.kaizanBefore !== null && ideaDTO?.kaizanAfter !== null">
+          <div class="images-before-and-after" *ngIf="ideaDetails?.kaizanBefore !== null && ideaDetails?.kaizanAfter !== null">
             <fa-icon [icon]="faDownload"></fa-icon>
             <div class="images">
               <a
-                (click)="openKaizenImage(ideaDTO?.kaizanBefore)"
+                (click)="openKaizenImage(ideaDetails?.kaizanBefore)"
               >
-                <p>{{ideaDTO?.kaizanBefore}}</p>
+                <p>{{ideaDetails?.kaizanBefore}}</p>
               </a>
               <a
-               (click)="openKaizenImage(ideaDTO?.kaizanAfter)"
+               (click)="openKaizenImage(ideaDetails?.kaizanAfter)"
               >
-                <p>{{ideaDTO?.kaizanAfter}}</p>
+                <p>{{ideaDetails?.kaizanAfter}}</p>
               </a>
             </div>
           </div>
-          <div class="card-kaizen-upload" *ngIf="ideaDTO?.decision === 'EXECUTED'" >
+          <!-- <div class="card-kaizen-upload" *ngIf="ideaDetails?.decision === 'EXECUTED'" >
             <fa-icon [icon]="faUpload" (click)="openKaizenCardModal()"></fa-icon>
-            <a  (click)="getKaizenImageByName(ideaDTO?.kaizen)">
-              <p>{{ideaDTO?.kaizen}}</p>
+            <a  (click)="getKaizenImageByName(ideaDetails?.kaizen)">
+              <p>{{ideaDetails?.kaizen}}</p>
             </a>
-          </div>
+          </div> -->
         </div>
       </div>
 
-        <textarea matInput [(ngModel)]="description"></textarea>
+        <textarea matInput [(ngModel)]="ideaDescription" [disabled]="true"></textarea>
 
       <form [formGroup]="ideaSelectionForm" >
         <div class="idea-selection-motifs-generalisation-items">
@@ -93,7 +93,9 @@
             <span class="text">{{
               "ideasContent.ideaValidationContent.ideaValidation" | translate
             }}</span>
-            <mat-radio-group class="choice" formControlName="validationChoice">
+            <mat-radio-group 
+            [(ngModel)]="validChoice"
+            class="choice" formControlName="validationChoice">
               <mat-radio-button value="yes" class="example-margin">{{
                 "ideasContent.ideaValidationContent.yes" | translate
               }}</mat-radio-button>
@@ -124,6 +126,8 @@
             <mat-radio-group
               formControlName="generalizableChoice"
               class="choice"
+              [(ngModel)]="globalChoice"
+
             >
               <mat-radio-button value="yes">{{
                 "ideasContent.ideaValidationContent.yes" | translate
@@ -145,7 +149,6 @@
               >
               <input
                 formControlName="originaliteNote"
-                [disabled]="expertFullName !== ''"
                 type="number"
                 name="originalite"
                 appOnlynumber
@@ -198,7 +201,7 @@
         </div>
       </form>
       <button
-      *ngIf="expertFullName === undefined"
+      *ngIf="ideaDetails?.expert === null"
       (click)="sendChanges()"
         mat-raised-button
         class="send-btn"
@@ -207,7 +210,7 @@
         {{ "ideasContent.ideaValidationContent.envoyer" | translate }}
       </button>
       <button 
-      *ngIf="expertFullName !== undefined"
+      *ngIf="ideaDetails?.expert !== null"
       [mtBasicSpinner]="isLoading" 
       [class.spinner]="isLoading"
       (click)="closeIdea()"

@@ -4,7 +4,14 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { debounceTime, Subscription } from 'rxjs';
+import {
+  catchError,
+  concatMap,
+  debounceTime,
+  of,
+  Subscription,
+  tap,
+} from 'rxjs';
 import { DefaultModalComponent } from 'src/app/shared/components/default-modal/default-modal.component';
 import { Category } from 'src/app/shared/enum/category';
 import { Decision } from 'src/app/shared/enum/decision';
@@ -19,15 +26,15 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { DataService } from 'src/app/shared/services/data.service';
 import { IdeaService } from 'src/app/shared/services/idea.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-validate-idea',
   templateUrl: './validate-idea.component.html',
-  styleUrls: ['./validate-idea.component.scss']
+  styleUrls: ['./validate-idea.component.scss'],
 })
-export class ValidateIdeaComponent implements OnInit {
+export class ValidateIdeaComponent implements OnInit{
   ideaDetails: IdeaDto;
-  subscription: Subscription;
   description: string;
   categories: string[];
   motifs: string[];
@@ -36,61 +43,73 @@ export class ValidateIdeaComponent implements OnInit {
   categoryByDefault: string = Category.NONE;
   connectedUser: UserDto;
   userAffectedTo: UserDto;
-  isLoading:boolean=false;
-  ideaId:string;
-  constructor(private dataservice: DataService, private fb: FormBuilder,
+  isLoading: boolean = false;
+  ideaId: string;
+  ideaCreatedDate:any;
+  constructor(
+    private dataservice: DataService,
+    private fb: FormBuilder,
     private dialogService: ModalService,
     private translate: TranslateService,
     private ideaService: IdeaService,
     private snackbar: MatSnackBar,
     private router: Router,
-    private authService:AuthService,
-    private activatedRoute : ActivatedRoute
+    private authService: AuthService,
+    private activatedRoute: ActivatedRoute
   ) {
-    this.motifs = [Motif.NONE, Motif.INCLEAR_IDEA, Motif.NOT_STANDARD, Motif.RECURRENT_IDEA];
-    this.categories = [Category.NONE, Category.ASSEMBLY, Category.CUTTING, Category.MAINTENANCE,Category.MATERIAL_HANDLING,Category.PACKAGING,Category.QUALITY,Category.SHE,Category.TESTING,Category.VCM,Category.VISUAL_MANAGMEMENT,Category.WAP];
+
+
+    this.motifs = [
+      Motif.NONE,
+      Motif.INCLEAR_IDEA,
+      Motif.NOT_STANDARD,
+      Motif.RECURRENT_IDEA,
+    ];
+    this.categories = [
+      Category.NONE,
+      Category.ASSEMBLY,
+      Category.CUTTING,
+      Category.MAINTENANCE,
+      Category.MATERIAL_HANDLING,
+      Category.PACKAGING,
+      Category.QUALITY,
+      Category.SHE,
+      Category.TESTING,
+      Category.VCM,
+      Category.VISUAL_MANAGMEMENT,
+      Category.WAP,
+    ];
     this.ideaValidationForm = this.fb.group({
       choice: ['yes'],
       motif: new FormControl({ value: null, disabled: false }),
-      category: null
+      category: null,
     });
     if (this.ideaValidationForm.get('choice').value === 'yes') {
       this.ideaValidationForm.controls['motif'].disable();
     }
-    this.ideaValidationForm.valueChanges.pipe(debounceTime(500)).subscribe(async valuechange => {
-
-      if (valuechange.choice === 'no') {
-        this.ideaValidationForm.controls['motif'].enable();
-      }
-      if (valuechange.choice === 'yes') {
-        this.ideaValidationForm.controls['motif'].disable();
-      }
-    });
+    this.ideaValidationForm.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe(async (valuechange) => {
+        if (valuechange.choice === 'no') {
+          this.ideaValidationForm.controls['motif'].enable(); 
+          this.ideaValidationForm.controls['category'].disable();
+        }
+        if (valuechange.choice === 'yes') {
+          this.ideaValidationForm.controls['motif'].disable();
+          this.ideaValidationForm.controls['category'].enable();
+        }
+      });
   }
-
-
   ngOnInit(): void {
     this.connectedUser = this.authService.get_login_info();
     this.activatedRoute.paramMap.subscribe({
       next: (params: ParamMap) => {
         this.ideaId = params.get('ideaId');
+        if (this.ideaId) {
+          this.fetchIdeaDetails(this.ideaId);
+        }
       },
     });
-    this.getIdeaById(this.ideaId );
-    console.log("this.ideaDetail",this.ideaDetails);
-    
-    // this.subscription = this.dataservice.currentMessage$.subscribe({
-    //   next: (message: any) => {
-    //     this.ideaDetails = message;
-    //     this.description = message.description;
-    //   }
-    // });
-    this.ideaService.getResponsiblesListByEmployeeMatriculeAndRole(this.connectedUser.matricule, Profile.CHEF_SEGMENT)
-      .subscribe((responsibles: UserDto[]) => {
-        if (responsibles.length > 0) {
-          this.userAffectedTo = responsibles[0];          
-        }
-      });
   }
 
   sendChoice() {
@@ -98,7 +117,7 @@ export class ValidateIdeaComponent implements OnInit {
     if (this.ideaValidationForm.value.choice === 'yes') {
       const nextStep: NextStepDto =
       {
-        ideaId: this.ideaDetails.IdeaId,
+        ideaId: this.ideaDetails.ideaId,
         description: this.ideaDetails.description,
         matricule: this.connectedUser.matricule,
         affectedTo: this.userAffectedTo.matricule,
@@ -111,70 +130,88 @@ export class ValidateIdeaComponent implements OnInit {
         total: 0,
         global: false,
         valid: false,
-        type: this.ideaDetails.type 
-      }
+        type: this.ideaDetails.type,
+      };
       this.dialogService.create({
         component: DefaultModalComponent,
         isDeleteConfirmationModal: false,
         width: '40%',
         height: 'fit-content',
         customModalClass: 'alert-modal',
-        message: this.translate.instant('ideasContent.ideaValidationContent.confimAssignIdeaDialogText'),
+        message: this.translate.instant(
+          'ideasContent.ideaValidationContent.confimAssignIdeaDialogText'
+        ),
         buttons: [
           {
             type: 'flat',
-            text: this.translate.instant('ideasContent.ideaValidationContent.yes'),
+            text: this.translate.instant(
+              'ideasContent.ideaValidationContent.yes'
+            ),
             handler: () => {
-              this.ideaService.updateIdeaNextStep(nextStep).subscribe(
-                {
-                  next: (response: any) => {
-                    if (response !== null) {
-                      this.isLoading = false;
-                      this.snackbar
-                        .open("Idea has been preselected !", '', {
-                          duration: 2000,
-                          horizontalPosition: 'right',
-                          verticalPosition: 'top',
-                          panelClass: 'notification-success'
-                        }).afterDismissed().subscribe((res) => {
-                          this.dataservice.notifyTaskCompletion();
-                          this.router.navigateByUrl('/ideas');
-                        });
-                    }
-                  }, error: (httpError: HttpErrorResponse) => {
-                    let responseError: ResponseDto = httpError.error;
+              this.ideaService.updateIdeaNextStep(nextStep).subscribe({
+                next: (response: any) => {
+                  if (response !== null) {
+                    this.isLoading = false;
                     this.snackbar
-                      .open(responseError.message, '', {
+                      .open('Idea has been preselected !', '', {
                         duration: 2000,
                         horizontalPosition: 'right',
                         verticalPosition: 'top',
-                        panelClass: 'notification-error'
+                        panelClass: 'notification-success',
                       })
-                      .afterDismissed().subscribe((res) => {
+                      .afterDismissed()
+                      .subscribe((res) => {
+                        this.dataservice.notifyTaskCompletion();
                         this.router.navigateByUrl('/ideas');
                       });
                   }
-                });
+                },
+                error: (httpError: HttpErrorResponse) => {
+                  let responseError: ResponseDto = httpError.error;
+                  this.snackbar
+                    .open(responseError.message, '', {
+                      duration: 2000,
+                      horizontalPosition: 'right',
+                      verticalPosition: 'top',
+                      panelClass: 'notification-error',
+                    })
+                    .afterDismissed()
+                    .subscribe((res) => {
+                      this.router.navigateByUrl('/ideas');
+                    });
+                },
+              });
               return true;
-            }
+            },
           },
           {
             type: 'stroked',
-            text: this.translate.instant('ideasContent.ideaValidationContent.no'),
+            text: this.translate.instant(
+              'ideasContent.ideaValidationContent.no'
+            ),
             handler: () => {
               return true;
-            }
-          }
-        ]
+            },
+          },
+        ],
       });
     }
-    if (this.ideaValidationForm.value.choice === 'no') {
-      const rejectionStep: NextStepDto =
-      {
-        ideaId: this.ideaDetails.IdeaId,
+    else if (this.ideaValidationForm.value.choice === 'no' && this.ideaValidationForm.value.motif === 'NONE')
+    {
+      this.snackbar
+      .open(this.translate.instant("ideasContent.ideaValidationContent.ideaWithoutMotifMessage"), '', {
+        duration: 2000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: 'notification-error',
+      })
+    }
+    else {
+      const rejectionStep: NextStepDto = {
+        ideaId: this.ideaDetails.ideaId,
         description: this.ideaDetails.description,
-        matricule: this.connectedUser.matricule,
-        affectedTo: this.ideaDetails.affectedTo,
+        matricule: this.ideaDetails.matricule,
+        affectedTo: this.connectedUser.matricule,
         decision: Decision.REJECTED,
         motif: this.ideaValidationForm.value.motif,
         category: this.ideaValidationForm.value.category,
@@ -184,7 +221,7 @@ export class ValidateIdeaComponent implements OnInit {
         global: false,
         valid: false,
         type: this.ideaDetails.type,
-        total: 0
+        total: 0,
       };
       this.dialogService.create({
         component: DefaultModalComponent,
@@ -192,66 +229,102 @@ export class ValidateIdeaComponent implements OnInit {
         width: '35%',
         height: 'fit-content',
         customModalClass: 'alert-modal',
-        message: this.translate.instant('ideasContent.ideaValidationContent.rejectAssignIdeaDialogText'),
+        message: this.translate.instant(
+          'ideasContent.ideaValidationContent.rejectAssignIdeaDialogText'
+        ),
         buttons: [
           {
             type: 'flat',
-            text: this.translate.instant('ideasContent.ideaValidationContent.yes'),
+            text: this.translate.instant(
+              'ideasContent.ideaValidationContent.yes'
+            ),
             handler: () => {
-              this.ideaService.updateIdeaNextStep(rejectionStep).subscribe(
-                {
-                
-                  next: (response: any) => {
-                    if (response !== null) {
-                      this.snackbar
-                        .open("Idea has been rejected !", '', {
-                          duration: 2000,
-                          horizontalPosition: 'right',
-                          verticalPosition: 'top',
-                          panelClass: 'notification-error'
-                        }).afterDismissed().subscribe((res) => {
-                          this.dataservice.notifyTaskCompletion();
-                          this.router.navigateByUrl('/ideas');
-                        });;
-                    }
-                  }, error: (httpError: HttpErrorResponse) => {
-                    let responseError: ResponseDto = httpError.error;
+              this.ideaService.updateIdeaNextStep(rejectionStep).subscribe({
+                next: (response: any) => {
+                  if (response !== null) {
                     this.snackbar
-                      .open(responseError.message, '', {
+                      .open('Idea has been rejected !', '', {
                         duration: 2000,
                         horizontalPosition: 'right',
                         verticalPosition: 'top',
-                        panelClass: 'notification-error'
+                        panelClass: 'notification-error',
                       })
-                      .afterDismissed().subscribe((res) => {
-                        this.router.navigateByUrl('/dashboard/ideas');
+                      .afterDismissed()
+                      .subscribe((res) => {
+                        this.dataservice.notifyTaskCompletion();
+                        this.router.navigateByUrl('/ideas');
                       });
                   }
-                });
+                },
+                error: (httpError: HttpErrorResponse) => {
+                  let responseError: ResponseDto = httpError.error;
+                  this.snackbar
+                    .open(responseError.message, '', {
+                      duration: 2000,
+                      horizontalPosition: 'right',
+                      verticalPosition: 'top',
+                      panelClass: 'notification-error',
+                    })
+                    .afterDismissed()
+                    .subscribe((res) => {
+                      this.router.navigateByUrl('/ideas');
+                    });
+                },
+              });
               return true;
-            }
+            },
           },
           {
             type: 'stroked',
-            text: this.translate.instant('ideasContent.ideaValidationContent.no'),
+            text: this.translate.instant(
+              'ideasContent.ideaValidationContent.no'
+            ),
             handler: () => {
               return true;
-            }
-          }
-        ]
+            },
+          },
+        ],
       });
     }
-
-  }
-  getIdeaById(ideaId: string) {
-    this.ideaService.getIdeaById(ideaId).subscribe((response: IdeaDto) => {
-      this.ideaDetails = response;
-      console.log("this.ideaDetails",this.ideaDetails);
-      
-    });
   }
 
-  // ngOnDestroy(): void {
-  //   this.dataservice.clearObject();
-  // }
+  fetchIdeaDetails(ideaId: string): void {
+    this.ideaService
+      .getIdeaById(ideaId)
+      .pipe(
+        catchError((error) => {
+          setTimeout(() => {
+            this.snackbar.open(error.message, '', {
+              duration: 2000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: 'notification-error',
+            });
+          }, 2000);
+          return of(null);
+        }),
+        tap((response: any) => {
+          this.ideaDetails = response;
+          if (this.ideaDetails) {
+            this.description = this.ideaDetails.description;
+            this.ideaCreatedDate = DateTime.fromISO(this.ideaDetails.createdAt,{zone:'utc'}).setZone('Africa/Tunis').toFormat("dd/MM/yyyy hh:mm a");
+          }
+        }),
+        concatMap(() =>
+          this.ideaService.getResponsiblesListByEmployeeMatriculeAndRole(
+            this.ideaDetails.matricule,
+            Profile.CHEF_SEGMENT
+          )
+        )
+      )
+      .subscribe((responsibles: UserDto[]) => {
+        if (responsibles.length > 0) {
+          this.userAffectedTo = responsibles[0];
+        }
+      });
+  }
+
+
+
+  
 }

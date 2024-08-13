@@ -14,7 +14,8 @@
       <div class="save-cancel-btn">
         <button mat-raised-button
         color="primary"
-        (click)="saveUploadedFiles()"
+        (click)="saveUploadedFiles(item)"
+        [disabled]="(item.progress !== 0) && !(item.progress === 100)"
         >
         {{"fileUploadContent.save"|translate}}
       </button>

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { StructureDto } from '../interfaces/structure-dto';
@@ -30,5 +30,10 @@ export class StructureService {
 
   addNewSite(newSite:SiteDto){
     return this.httpClient.post(environment.apiUrl+"/sites",newSite);
+  }
+
+  excelMassifUpload(data:FormData) :Observable<HttpResponse<any>>
+  {
+    return this.httpClient.post<HttpResponse<any>>(environment.apiUrl+"/upload/excel",data);
   }
 }

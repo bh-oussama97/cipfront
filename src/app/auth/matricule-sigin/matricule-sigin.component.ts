@@ -17,7 +17,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class MatriculeSiginComponent implements OnInit {
   employeLoginForm: FormGroup;
   errors: string[] = [];
-  isLoading:boolean=false;
+  isLoading: boolean = false;
   constructor(private fb: FormBuilder, private router: Router,
     private translate: TranslateService,
     private authService: AuthService,
@@ -44,32 +44,38 @@ export class MatriculeSiginComponent implements OnInit {
     this.authService.matriculeSignin(employeeLoginDto).subscribe({
       next: (response: UserMatriculeSuccessDto) => {
         if (response !== null) {
-          setTimeout(()=>{
+          setTimeout(() => {
             this.isLoading = false;
-            this.authService.setToken(response.accessToken);            
+            this.authService.setToken(response.accessToken);
             this.authService.save_login_info(response);
             this.router.navigateByUrl('/home');
-          },3000)
+          }, 3000)
         }
       }, error: (httpError: HttpErrorResponse) => {
         setTimeout(() => {
           this.isLoading = false;
           this.snackbar
-          .open(httpError.error.message, '', {
-            duration: 2000,
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-            panelClass: 'notification-error'
-          });
+            .open(httpError.error.message, '', {
+              duration: 2000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: 'notification-error'
+            });
         }, 2000);
-   
+
       }
     });
 
   }
-  enterSubmit(event){
+  enterSubmit(event) {
     if (event.keyCode === 13) {
       this.employeeLogin();
     }
+  }
+
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
   }
 }

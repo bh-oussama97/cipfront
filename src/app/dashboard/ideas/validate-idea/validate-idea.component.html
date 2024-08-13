@@ -16,7 +16,7 @@
             <p>
               {{ "ideasContent.ideaDetailsContent.ideeDate" | translate }} :
             </p>
-            <p>{{ ideaDetails.createdAt | date : 'yyyy-MM-dd hh:mm a'}}</p>
+            <p>{{ ideaCreatedDate}}</p>
           </div>
           <!-- <div class="type">
             <p>
@@ -34,11 +34,11 @@
           </div> -->
           <div class="segment">
             <p>{{ "ideasContent.ideaDetailsContent.segment" | translate }} :</p>
-            <p>{{ ideaDetails.segment }}</p>
+            <p>{{ ideaDetails?.segment }}</p>
           </div>
           <div class="line">
             <p>{{ "ideasContent.ideaDetailsContent.line" | translate }} :</p>
-            <p>{{ ideaDetails.line }}</p>
+            <p>{{ ideaDetails?.line }}</p>
           </div>
         </div>
       </div>
@@ -50,7 +50,8 @@
           :</mat-label
         > -->
         <textarea matInput  [readonly]="true"
-        [(ngModel)]="ideaDetails.description"></textarea>
+        [disabled]="true"
+        [(ngModel)]="description"></textarea>
       <!-- </mat-form-field> -->
 
       <form [formGroup]="ideaValidationForm">

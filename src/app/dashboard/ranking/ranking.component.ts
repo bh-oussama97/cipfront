@@ -10,6 +10,9 @@ import { UserDto } from 'src/app/shared/interfaces/user-dto';
 import { ConfirmBestIdeaDialogComponent } from 'src/app/shared/components/confirm-best-idea-dialog/confirm-best-idea-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { WorksheetColumn } from 'src/app/shared/interfaces/worksheet-column';
+import { FileService } from 'src/app/shared/services/file.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-ranking',
@@ -23,6 +26,7 @@ export class RankingComponent implements OnInit {
     {
       columnDef: 'rank',
       header: 'rankingContent.header.rank',
+      isMedalIcon : true
     },
     {
       columnDef: 'matricule',
@@ -38,11 +42,6 @@ export class RankingComponent implements OnInit {
       header: 'rankingContent.header.average',
     },
     {
-      columnDef: 'kaizenCard',
-      header: 'rankingContent.header.kaizen-card',
-      isFileDownload: true,
-    },
-    {
       columnDef: 'date',
       header: 'rankingContent.header.date',
     },
@@ -54,7 +53,10 @@ export class RankingComponent implements OnInit {
     private dataService: DataService,
     private router: Router,
     private authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private fileService : FileService,
+    private translate :TranslateService
+
   ) {}
 
   ngOnInit(): void {
@@ -65,6 +67,7 @@ export class RankingComponent implements OnInit {
 
   rakingActions(event: TableButtonAction) {
     if (event.name === 'details') {
+      this.dataService.transfertObject(event.value);
       this.router.navigateByUrl('ideas/details/' + event.value.ideaId);
     }
 
@@ -103,12 +106,22 @@ export class RankingComponent implements OnInit {
             matricule: rank.matricule,
             employee: rank.full_name,
             average: rank.average,
-            kaizenCard: rank.kaisenFile,
-            date: DateTime.fromISO(rank.ideaDate).toFormat(
+            date: DateTime.fromISO(rank.ideaDate,{zone:'utc'}).setZone('Africa/Tunis').toFormat(
               'dd/MM/yyyy hh:mm a'
             ),
           };
         });
       });
+  }
+
+  exportRankingList(){
+    let rakingColumns:WorksheetColumn[]=[
+      {header:this.translate.instant('rankingContent.header.rank'),key : 'rank',width:10 },
+      {header:this.translate.instant('rankingContent.header.matricule'),key : 'matricule',width:20},
+      {header : this.translate.instant('rankingContent.header.employee'),key: 'employee',width:20},
+      {header:this.translate.instant('rankingContent.header.average'),key : 'average',width:20},
+      {header:this.translate.instant('rankingContent.header.date'),key : 'date',width:20},
+    ];
+    this.fileService.exportTableXLSX('ranking',rakingColumns,'ranking.xlsx',this.rankingDataSource);
   }
 }

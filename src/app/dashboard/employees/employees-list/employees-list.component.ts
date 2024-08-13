@@ -149,8 +149,8 @@ export class EmployeesListComponent {
 
   onTableAction(event: TableButtonAction) {
     if (event.name === "edit") {
-      // this.dataService.transfertObject(event.value);
-      //this.router.navigateByUrl('employees/edit/' + event.value.matricule);
+      this.dataService.transfertObject(event.value);
+      this.router.navigateByUrl('employees/edit/' + event.value.matricule);
     }
 
     if (event.name === "deactivate") {

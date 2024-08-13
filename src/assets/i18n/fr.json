@@ -60,18 +60,21 @@
     "tableBoard": "Tableau de board CIP",
     "ideasTotalNumber": "Nombre Total des idées",
     "ideasNotTreatedTotalNumber": "Nombre total d'idées non traitées",
-    "ideasRate": "Taux des idées",
-    "cipPerUser": "Nombre des idées traitées par utilisateur",
-    "plant": "Usine",
+    "ideasRate": "Taux d'idées",
+    "cipPerUser": "Nombre d'idées traitées par utilisateur",
+    "site": "Usines",
+    "plant": "Sections de produit",
     "segment": "Segments",
     "li": "Lignes",
-    "sites": "Sites",
-    "preSelection": "Préselectionné",
-    "selection": "Selectionné",
-    "executed": "Exécuté",
-    "onHold": "En attenate",
-    "denied": "Refusé",
-    "valid": "Validé"
+    "sites": "Usines",
+    "year": "Année",
+    "month": "Mois",
+    "preSelection": "pré-sélectionnées",
+    "selection": "sélectionnées",
+    "executed": "exécutées",
+    "onHold": "en attente",
+    "denied": "refusées",
+    "valid": "valides"
   },
   "profileForm": {
     "lastName": "Nom",
@@ -91,71 +94,71 @@
     "save": "Enregistrer"
   },
   "structureContent": {
-    "addStructure": "Ajouter Structure",
-    "search": "Cherchez",
+    "addStructure": "Ajouter une usine",
+    "search": "Rechercher",
     "sites": {
       "columns": {
-        "site": "Site",
-        "plantsNumber": "Nombre de plants",
+        "site": "Usine",
+        "plantsNumber": "Nombre d'usines",
         "segmentsNumber": "Nombre de segments",
         "linesNumber": "Nombre de lignes"
       }
     },
     "editSiteForm": {
-      "editSite": "Modifier site",
-      "siteName": "Nom de votre site",
+      "editSite": "Modifier l'usine",
+      "siteName": "Nom de votre usine",
       "segmentsNumber": "Nombre de segments",
       "linesNumber": "Nombre de lignes",
-      "plantsNumber": "Nombre de plants",
+      "plantsNumber": "Nombre d'usines",
       "edit": "Modifier",
-      "successModification": "Modification a été effectuée avec succés"
+      "successModification": "La modification a été effectuée avec succès"
     },
     "addSite": {
-      "addNewSite": "Ajouter un nouveau site",
-      "description": "Veuillez définir le nom de votre Site :",
-      "organisation": "Organisation",
+      "addNewSite": "Ajouter une nouvelle usine",
+      "description": "Veuillez définir le nom de votre usine :",
+      "organisation": "Usine",
       "add": "Ajouter",
-      "successAlert": "Site a été ajouté avec succés"
+      "successAlert": "L'usine a été ajoutée avec succès"
     },
     "deleteSite": {
-      "title": "Supprimer le site",
-      "message": "Êtes-vous sûr de supprimer ce site portant le nom :",
+      "title": "Supprimer l'usine",
+      "message": "Êtes-vous sûr de vouloir supprimer cette usine nommée :",
       "confirm": "Confirmer",
       "cancel": "Annuler"
     }
   },
   "plantContent": {
-    "addPlan": "Ajout Plant",
-    "downloadTemplate": "Télécharger template",
-    "search": "Cherchez par plant ou site",
-    "site": "Site",
-    "plant": "Plant",
+    "addPlan": "Ajouter une section de produit",
+    "downloadTemplate": "Télécharger le modèle",
+    "search": "Rechercher par section de produit ou usine",
+    "site": "Usine",
+    "plant": "Section de produit",
     "segmentsNumber": "Nombre de segments",
     "deletePlant": {
-      "title": "Supprimer le plant",
-      "message": "Êtes-vous sûr de supprimer le plant portant le nom :",
+      "title": "Supprimer la section de produit",
+      "message": "Êtes-vous sûr de vouloir supprimer cette section de produit nommée :",
       "confirm": "Confirmer",
       "cancel": "Annuler"
     },
     "editPlantForm": {
-      "editPlant": "Modifier plant",
-      "siteName": "Nom du site",
-      "plantName": "Name du plant",
+      "editPlant": "Modifier la section de produit",
+      "siteName": "Nom de votre usine",
+      "plantName": "Nom de votre section de produit",
       "segmentsNumber": "Nombre de segments",
       "edit": "Modifier",
-      "successModification": "Plant a été modifié avec succées"
+      "successModification": "La section de produit a été modifiée avec succès"
     },
     "AddPlant": {
-      "information": "information :",
-      "informationText": "Vous pouvez ajouter une Plant manuellement. Si vous souhaitez ajouter plusieurs Plant à la fois, vous avez la possibilité de le faire automatiquement en important un fichier Excel.",
-      "chooseSite": "Veuillez choisir votre site :",
-      "siteName": "Nom du site",
-      "newPlantName": "Nom de votre nouveau Plant *",
+      "information": "Information :",
+      "informationText": "Vous pouvez ajouter une section de produit manuellement. Si vous souhaitez ajouter plusieurs sections de produit à la fois, vous pouvez le faire automatiquement en important un fichier Excel.",
+      "chooseSite": "Veuillez choisir votre usine :",
+      "siteName": "Nom de l'usine :",
+      "newPlantName": "Nom de votre nouvelle section de produit *",
       "addBtn": "Ajouter",
-      "massAddText": "Ajout Massif de plusieurs plants :",
-      "or": "ou",
-      "plantExample": "Plant exemple",
-      "successAdd": "Plant a été ajouté avec succées"
+      "massAddText": "Ajout en masse de plusieurs sections de produit :",
+      "or": "Ou",
+      "plantExample": "Exemple de section de produit",
+      "successAdd": "La section de produit a été ajoutée avec succès"
     }
   },
   "segementsContent": {
@@ -206,12 +209,12 @@
     "expert": "Expert",
     "ideaNumber": "N° d'idée",
     "date": "Date",
-    "executee": "Exécutée",
-    "validee": "Validée",
-    "selectionnee": "Selectionnée",
-    "preselectionne": "Pre-selectionnée",
-    "enAttente": "En attente",
-    "refusee": "refusée",
+    "executee": "EXÉCUTÉE",
+    "validee": "VALIDÉE",
+    "selectionnee": "SELECTIONNÉE",
+    "preselectionne": "PRE-SELECTIONNÉE",
+    "enAttente": "EN ATTENTE",
+    "refusee": "REFUSÉE",
     "ideasList": "Liste des idées",
     "ideasListTable": {
       "ideaNumber": "N°idée",
@@ -266,7 +269,8 @@
       "envoyer": "Envoyer",
       "confimAssignIdeaDialogText": "Voulez-vous vraiment assigner cette idée au chef segment ?",
       "rejectAssignIdeaDialogText": "Voulez-vous vraiment rejeter cette idée ?",
-      "close": "Clôturer"
+      "close": "Soumettre",
+      "ideaWithoutMotifMessage":"Veuillez sélectionner la raison de refus !"
     },
     "ideaSelectionContent": {
       "ideaSelectionText": "Sélection de l'idée",
@@ -286,7 +290,10 @@
       "uploadKaizenCard": "Veuillez d'abord télécharger la carte Kaizen !",
       "selectImageBeforeAfter": "Veuillez télécharger l'image Kaizen avant et après !",
       "imagePreview": "Aperçu de l'image",
-      "chooseOriginaliteImpactNote": "Veuillez saisir des notes d'originalité et d'impact !"
+      "chooseOriginaliteImpactNote": "Veuillez saisir des notes d'originalité et d'impact !",
+      "addComment":"Ajouter un commentaire",
+      "commentPlaceholder":"Expliquer la différence avant/après et les actions faites",
+      "submit":"Soumettre"
     },
     "bestIdeaSelectionContent":{
       "bestIdeaSelectionDialogText" :"Voulez-vous Confirmer la meilleure carte kaizen ?",
@@ -540,7 +547,7 @@
     "master": "Contre maitre",
     "actions": "Actions",
     "save": "Enregistrer",
-    "edit": "Modfier",
+    "edit": "Modifier",
     "successEdit": "L'employé a été modifié avec succès",
     "addEmployeeContent": {
       "firstStep": "Etape 1",

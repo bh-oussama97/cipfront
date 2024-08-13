@@ -82,7 +82,11 @@
 
           <file-uploader
           (sendUploadedFiles)="getUploadedFiles($event)"
+          *ngIf="!loading"
           ></file-uploader>
+          <mat-spinner 
+          class="loader"
+          *ngIf="loading"></mat-spinner>
         </mat-card-content>
         <mat-card-actions> </mat-card-actions>
       </mat-card>

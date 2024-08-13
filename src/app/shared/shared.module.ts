@@ -29,6 +29,7 @@ import { EditButtonComponent } from './components/edit-button/edit-button.compon
 import { OnlynumberDirective } from './directives/onlynumber.directive';
 import { ConfirmActionComponent } from './components/confirm-action/confirm-action.component';
 import { ConfirmBestIdeaDialogComponent } from './components/confirm-best-idea-dialog/confirm-best-idea-dialog.component';
+import { InputRestrictionDirective } from './directives/input-restriction.directive';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { ConfirmBestIdeaDialogComponent } from './components/confirm-best-idea-d
     OnlynumberDirective,
     ConfirmActionComponent,
     ConfirmBestIdeaDialogComponent,
+    InputRestrictionDirective,
   ],
   imports: [
     CommonModule,
@@ -84,7 +86,8 @@ import { ConfirmBestIdeaDialogComponent } from './components/confirm-best-idea-d
     NgxLoadingButtonsModule,
     EditButtonComponent,
     OnlynumberDirective,
-    ConfirmActionComponent
+    ConfirmActionComponent,
+    InputRestrictionDirective
   ]
   })
   

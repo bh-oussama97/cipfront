@@ -4,6 +4,7 @@ import { AuthService } from './shared/services/auth.service';
 import { jwtDecode } from 'jwt-decode';
 import { DateTime } from 'luxon';
 import { Observable, timer } from 'rxjs';
+import {  Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,14 +16,15 @@ export class AppComponent {
 
   constructor(
     private translate: TranslateService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router : Router
   ) {
     this.translate.setDefaultLang('en');
     this.translate.use('en');
     if (this.authService.isAuthenticated) {
       this.translate.use(this.authService.getSavedLanguage() || 'en');
+      // this.startRefreshTokenTimer();
     }
-    this.startRefreshTokenTimer();
   }
 
   startRefreshTokenTimer() {
@@ -38,9 +40,11 @@ export class AppComponent {
     if (timeDifference > 0) {
       setTimeout(() => {
         this.authService.logout();
+        this.router.navigate(['/login'])
       }, timeDifference);
     } else {
       this.authService.logout();
+      this.router.navigate(['/login'])
     }
   }
 

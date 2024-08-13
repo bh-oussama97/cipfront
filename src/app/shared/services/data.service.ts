@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
@@ -7,13 +6,10 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 })
 export class DataService {
 
-  // private storage = sessionStorage;
 
-  // private messageSource = new BehaviorSubject<any>(JSON.parse(this.storage.getItem('item')) || {});
+  private messageSource = new BehaviorSubject<any>(null) ;
 
-  private messageSource = new BehaviorSubject<any>(null);
-
-  // currentMessage$ = this.messageSource.asObservable();
+  currentMessage$ = this.messageSource.asObservable();
   private taskCompletionSubject = new Subject<void>();
 
   private confirmValueSubject = new BehaviorSubject<boolean>(null);
@@ -32,23 +28,12 @@ export class DataService {
 
   transfertObject(message: any) {
     this.messageSource.next(message);
-    // this.storage.setItem('item', JSON.stringify(message));
   }
 
   getObject()
   {
     return this.messageSource.asObservable();
   }
-
-  // getObjectFromSessionStorage()
-  // {
-  //   return JSON.parse(this.storage.getItem('item'));
-  // }
-
-  // clearObject()
-  // {
-  //   this.storage.clear();
-  // }
 
   notifyTaskCompletion() {
     this.taskCompletionSubject.next();

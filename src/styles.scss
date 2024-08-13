@@ -63,28 +63,24 @@ body {
   -webkit-box-direction: normal;
   position: relative;
   min-height: 73vh;
-
-
-
-
-
   ::ng-deep xng-breadcrumb {
-      align-self: self-start;
-      .xng-breadcrumb-root {
-          .xng-breadcrumb-list {
-              .xng-breadcrumb-item {
-                  .xng-breadcrumb-trail {
-                      gap: 10px !important;
-                      font-family: "Poppins", sans-serif !important;
-                  }
-                  .xng-breadcrumb-link {
-                      gap: 5px !important;
-                      color:gray;
-                  }
-              }
+    align-self: self-start;
+    .xng-breadcrumb-root {
+      .xng-breadcrumb-list {
+        .xng-breadcrumb-item {
+          .xng-breadcrumb-trail {
+            gap: 10px !important;
+            font-family: "Poppins", sans-serif !important;
           }
+          .xng-breadcrumb-link {
+            gap: 5px !important;
+            color: white;
+          }
+        }
       }
+    }
   }
+
   .information {
     margin-top: 30px;
     border: 1px dashed black;
@@ -386,7 +382,7 @@ body {
   .message {
     font-size: 17px;
     font-weight: 500;
-    font-family: 'Poppins',sans-serif;
+    font-family: "Poppins", sans-serif;
   }
 }
 
@@ -402,7 +398,7 @@ body {
     .title {
       font-size: 20px;
       font-weight: 500;
-      font-family: 'Poppins',sans-serif;
+      font-family: "Poppins", sans-serif;
     }
     fa-icon {
       cursor: pointer;
@@ -564,3 +560,66 @@ textarea {
   font-size: 14px;
   outline: none;
 }
+
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
+.state-validated{
+  color: rgb(88, 160, 66);
+  border-radius: 15px !important;
+  border: 1px solid rgb(88, 160, 66);
+  background-color: lighten(rgb(88, 160, 66),50%);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.state-rejected{
+  color: rgb(190, 7, 7);
+  border-radius: 15px !important;
+  border: 1px solid rgb(190, 7, 7);
+  background-color: lighten(rgb(190, 7, 7),58%);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center; 
+}
+.state-preselected
+{
+  color: rgb(247, 190, 4);
+  border: 1px solid rgb(247, 190, 4);
+  border-radius: 15px !important;
+  background-color: lighten(rgb(247, 190, 4),42%);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center; 
+}
+
+.battery-icon-rejection {
+  color: rgb(190, 7, 7);
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+.battery-icon-validated {
+  color: rgb(88, 160, 66);
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+.battery-icon-preselected {
+  color: rgb(247, 190, 4);
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.battery-icon-waiting {
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+

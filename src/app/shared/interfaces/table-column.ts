@@ -5,4 +5,6 @@ export interface TableColumn {
     placeholder?:string;
     isDate?:boolean;
     isFileDownload?:boolean;
+    isState?:boolean;
+    isMedalIcon?:boolean;
 }

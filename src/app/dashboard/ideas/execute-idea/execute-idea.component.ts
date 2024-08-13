@@ -1,12 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { faFileImage, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription, debounceTime } from 'rxjs';
+import { catchError, concatMap, debounceTime, of, tap } from 'rxjs';
 import { DefaultModalComponent } from 'src/app/shared/components/default-modal/default-modal.component';
 import { KaizenCardBeforeAfterModalComponent } from 'src/app/shared/components/kaizen-card-before-after-modal/kaizen-card-before-after-modal.component';
 import { Category } from 'src/app/shared/enum/category';
@@ -17,13 +17,13 @@ import { Profile } from 'src/app/shared/enum/profile';
 import { IdeaDto } from 'src/app/shared/interfaces/idea-dto';
 import { NextStepDto } from 'src/app/shared/interfaces/next-step-dto';
 import { ResponseDto } from 'src/app/shared/interfaces/response-dto';
-import { TaskDto } from 'src/app/shared/interfaces/task-dto';
 import { UserDto } from 'src/app/shared/interfaces/user-dto';
 import { DataService } from 'src/app/shared/services/data.service';
 import { IdeaService } from 'src/app/shared/services/idea.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { OpenKaizenImageComponent } from 'src/app/shared/components/open-kaizen-image/open-kaizen-image.component';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-execute-idea',
@@ -32,14 +32,9 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class ExecuteIdeaComponent implements OnInit {
 
-  ideaDetails: any;
-  subscription: Subscription;
-  description: string;
+  ideaDetails: IdeaDto;
   faUpload = faUpload;
   faDownload = faFileImage;
-  imageBeforeUploaded: string ;
-  imageAfterUploaded: string ;
-  ideaDTO:IdeaDto;
   filename: string;
   ideaExecutionForm: FormGroup;
   motifs: string[];
@@ -47,8 +42,8 @@ export class ExecuteIdeaComponent implements OnInit {
   connectedUser: UserDto;
   userAffectedTo:UserDto;
   isLoading:boolean=false;
-  category:string;
   ideaId:string;
+  ideaCreatedDate:any;
   constructor(private dataservice: DataService, private fb: FormBuilder,
     private translate: TranslateService,
     private dialogService: ModalService,
@@ -57,7 +52,7 @@ export class ExecuteIdeaComponent implements OnInit {
   private router : Router,
   private dialog: MatDialog,
   private authService:AuthService,
-  private activatedRoute : ActivatedRoute
+  private activatedRoute: ActivatedRoute
 
   ) {
     this.motifs = [Motif.NONE, Motif.INCLEAR_IDEA, Motif.NOT_STANDARD, Motif.RECURRENT_IDEA];
@@ -74,25 +69,13 @@ export class ExecuteIdeaComponent implements OnInit {
     this.connectedUser = this.authService.get_login_info();
     this.activatedRoute.paramMap.subscribe({
       next: (params: ParamMap) => {
-      this.ideaId = params.get('ideaId');
+        this.ideaId = params.get('ideaId');
+        if(this.ideaId)
+        {
+          this.fetchIdeaDetails(this.ideaId);
+        }
       },
     });
-    // this.dataservice.getObject().subscribe({
-    //   next: (message: TaskDto) => {
-    //     this.ideaDetails = message;                
-    //     if (message === null) {
-    //       this.ideaDetails = this.dataservice.getObjectFromSessionStorage();
-    //     }
-    //   }
-    // });
-    this.getIdeabyId(this.ideaId);
-    this.ideaService.getResponsiblesListByEmployeeMatriculeAndRole(this.ideaDetails.employee,Profile.CHEF_SEGMENT).subscribe((opexUserList:UserDto[])=>{
-      if (opexUserList.length > 0 )
-      {
-        this.userAffectedTo = opexUserList[0];        
-      }
-    });
-
 
     this.ideaExecutionForm.valueChanges.pipe(debounceTime(500)).subscribe(async valuechange => {
       if (valuechange.choice === 'no') {
@@ -112,7 +95,7 @@ export class ExecuteIdeaComponent implements OnInit {
       minWidth: '30%',
       minHeight: 'fit-content',
     }).afterClosed().subscribe(()=>{
-      this.getIdeabyId(this.ideaDetails.ideaId);
+      this.fetchIdeaDetails(this.ideaId);
     });
   }
   sendChoice() {
@@ -145,7 +128,7 @@ export class ExecuteIdeaComponent implements OnInit {
           description: this.ideaDetails.description,
           status: IdeaState.REFUSED,
           matricule: this.connectedUser.matricule,
-          affectedTo: this.ideaDetails.employee,
+          affectedTo: this.ideaDetails.matricule,
           type: this.ideaDetails.type,
           motif: this.ideaExecutionForm.value.motif,
           decision: Decision.REJECTED,
@@ -194,7 +177,7 @@ export class ExecuteIdeaComponent implements OnInit {
       }
       else if(
         this.ideaExecutionForm.value.choice === 'yes' &&
-        (this.imageBeforeUploaded === null && this.imageAfterUploaded === null) )
+        (this.ideaDetails.kaizanBefore === null && this.ideaDetails.kaizanAfter === null) )
       {
         this.snackbar
         .open(this.translate.instant('ideasContent.ideaSelectionContent.selectImageBeforeAfter'), 'X', {
@@ -215,12 +198,12 @@ export class ExecuteIdeaComponent implements OnInit {
           type: this.ideaDetails.type,
           motif: Motif.NONE,
           decision: Decision.EXECUTED,
-          category: this.ideaDTO.category,
-          original: this.ideaDTO.original,
-          impact: this.ideaDTO.impact,
-          global: this.ideaDTO.global,
-          valid: this.ideaDTO.valid,
-          total: this.ideaDTO.total
+          category: this.ideaDetails.category,
+          original: this.ideaDetails.original,
+          impact: this.ideaDetails.impact,
+          global: this.ideaDetails.global,
+          valid: this.ideaDetails.valid,
+          total: this.ideaDetails.total
         };
         this.ideaService.updateIdeaNextStep(nextStepAccepted).subscribe({
           next: (response: any) => {
@@ -295,17 +278,40 @@ export class ExecuteIdeaComponent implements OnInit {
       });
   }
 
-  getIdeabyId(id:string)
+  fetchIdeaDetails(ideaId:string)
   {
-    this.ideaService.getIdeaById(id).subscribe((ideaDto:IdeaDto)=>{
-      this.ideaDTO = ideaDto;
-      this.category = ideaDto.category;
-      this.imageBeforeUploaded = ideaDto.kaizanBefore;
-      this.imageAfterUploaded = ideaDto.kaizanAfter;
-    })
+    this.ideaService
+    .getIdeaById(ideaId)
+    .pipe(
+      catchError((error) => {
+        setTimeout(() => {
+          this.snackbar.open(error.message, '', {
+            duration: 2000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: 'notification-error',
+          });
+        }, 2000);
+        return of(null);
+      }),
+      tap((ideaDto: any) => {
+        this.ideaDetails = ideaDto;
+        this.ideaCreatedDate = DateTime.fromISO(this.ideaDetails.createdAt,{zone:'utc'}).setZone('Africa/Tunis').toFormat("dd/MM/yyyy hh:mm a");
+      }),
+      concatMap(() =>
+        this.ideaService.getResponsiblesListByEmployeeMatriculeAndRole(
+          this.ideaDetails.matricule,
+          Profile.CHEF_SEGMENT
+        )
+      )
+    )
+    .subscribe((opexUserList: UserDto[]) => {
+      if (opexUserList.length > 0 )
+        {
+          this.userAffectedTo = opexUserList[0];        
+        }
+    });
+
   }
 
-  // ngOnDestroy(): void {
-  //   this.dataservice.clearObject();
-  // }
 }

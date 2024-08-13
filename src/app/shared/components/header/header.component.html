@@ -36,9 +36,9 @@
           {{ "headerSection.dashboard" | translate }}
         </a>
 
-        <button mat-button [matMenuTriggerFor]="menu">
+        <button mat-button [matMenuTriggerFor]="structuresMenu">
           <div class="flex items-center">
-            <a routerLink="/structure" class="header-link">
+            <a  class="header-link">
               {{ "headerSection.structure" | translate }}
             </a>
             <img
@@ -47,18 +47,21 @@
             />
           </div>
         </button>
-        <mat-menu #menu="matMenu" yPosition="above">
-          <a routerLink="/plants" mat-menu-item>
+        <mat-menu  class="structures-menu" #structuresMenu="matMenu" yPosition="above">
+          <a routerLink="/structure" mat-menu-item>
+            {{ "dashboardContent.site" | translate }}
+          </a>
+          <a routerLink="/plants"  mat-menu-item >
             {{ "dashboardContent.plant" | translate }}
           </a>
-          <a routerLink="/segments" mat-menu-item>
+          <a routerLink="/segments"  mat-menu-item>
             {{ "dashboardContent.segment" | translate }}
           </a>
-          <a routerLink="/lines" mat-menu-item>
+          <a routerLink="/lines"  mat-menu-item >
             {{ "dashboardContent.li" | translate }}
           </a>
         </mat-menu>
-        <a routerLink="/users" class="header-link">
+        <a routerLink="/users"  class="header-link">
           {{ "headerSection.users" | translate }}
         </a>
         <a routerLink="/employees" class="header-link">
@@ -79,14 +82,14 @@
             />
           </div>
         </button>
-        <mat-menu #adminMenu="matMenu" yPosition="above">
+        <mat-menu class="administration-menu" #adminMenu="matMenu" yPosition="above">
           <a routerLink="/administration/roles" mat-menu-item>
             {{ "headerSection.gestionRoles" | translate }}
           </a>
-          <a routerLink="/administration/permissions" mat-menu-item>
+          <a routerLink="/administration/permissions" mat-menu-item >
             {{ "headerSection.gestionPermissions" | translate }}
           </a>
-          <a routerLink="/administration/application-config" mat-menu-item>
+          <a routerLink="/administration/application-config" mat-menu-item >
             {{ "headerSection.configurationApplication" | translate }}
           </a>
         </mat-menu>

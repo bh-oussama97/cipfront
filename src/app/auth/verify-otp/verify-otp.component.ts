@@ -30,13 +30,9 @@ export class VerifyOtpComponent implements OnInit{
     this.verifyOTPCodeForm = this.fb.group({
       verificationCode: ['', Validators.required]
     });
-    this.subscription = this.dataservice.getObject().subscribe({
+    this.subscription = this.dataservice.currentMessage$.subscribe({
       next: (emailMessage:string) => {
         this.email = emailMessage;        
-
-        // if (emailMessage === null) {
-        //   this.email = this.dataservice.getObjectFromSessionStorage();
-        // }
       }
     });    
     this.emailMasked = this.maskEmail(this.email);
@@ -99,7 +95,5 @@ export class VerifyOtpComponent implements OnInit{
     
     return `${maskedLocalPart}@${domain}`;
   }
-  // ngOnDestroy(): void {
-  //   this.dataservice.clearObject();
-  //  }
+
 }

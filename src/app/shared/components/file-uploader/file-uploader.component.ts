@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IFile } from 'src/app/shared/interfaces/file';
 import { ProgressBarMode } from '@angular/material/progress-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,9 +8,9 @@ import { faFolderOpen, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'file-uploader',
   templateUrl: './file-uploader.component.html',
-  styleUrls: ['./file-uploader.component.scss']
+  styleUrls: ['./file-uploader.component.scss'],
 })
-export class FileUploaderComponent implements OnInit{
+export class FileUploaderComponent implements OnInit {
   faInformation = faInfoCircle;
   faFolder = faFolderOpen;
   selectedFiles: IFile[] = [];
@@ -18,12 +18,18 @@ export class FileUploaderComponent implements OnInit{
   file: File = null; // Variable to store file
   keyTranslated = '';
   @Output() sendUploadedFiles = new EventEmitter<any>();
-
-  constructor(    private translate: TranslateService, 
-    private snackbar: MatSnackBar){}
+  @Output() cancelUploadEm = new EventEmitter<any>();
+  @Output() isLoadingChange = new EventEmitter<boolean>();
+  isLoading: boolean;
+  constructor(
+    private translate: TranslateService,
+    private snackbar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-    this.keyTranslated = this.translate.instant('fileUploadContent.importerFichierExcel');
+    this.keyTranslated = this.translate.instant(
+      'fileUploadContent.importerFichierExcel'
+    );
   }
 
   onChange(event) {
@@ -44,13 +50,11 @@ export class FileUploaderComponent implements OnInit{
             duration: 5000,
             horizontalPosition: 'center',
             verticalPosition: 'top',
-            panelClass: 'notification-error'
+            panelClass: 'notification-error',
           })
           .afterOpened()
-          .subscribe((res) => {
-          });
-      }
-      else {
+          .subscribe((res) => {});
+      } else {
         item.progress = 0;
         this.selectedFiles.push({
           name: item.name, value: item, type: item.name.split('.')[1].toUpperCase(),
@@ -79,13 +83,13 @@ export class FileUploaderComponent implements OnInit{
     }, 1000);
   }
 
-  saveUploadedFiles()
-  {
-    this.sendUploadedFiles.emit(this.selectedFiles);
+  saveUploadedFiles(item)
+  {    
+    this.sendUploadedFiles.emit(item);
   }
 
-  cancelUpload()
-  {
+  cancelUpload() {
     this.selectedFiles = [];
+    this.cancelUploadEm.emit();
   }
 }

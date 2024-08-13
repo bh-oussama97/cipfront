@@ -23,7 +23,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit,OnDestroy {
   faCircleUser = faCircleUser;
   faUser = faUser;
   faSettings = faGear;
@@ -63,9 +63,7 @@ export class HeaderComponent implements OnInit {
         this.notifsPreview = response.tasks
           .map((task) => {
             return {
-              createdAt: DateTime.fromISO(task.createdAt).toFormat(
-                'dd/MM/yyyy hh:mm a'
-              ),
+              createdAt:  DateTime.fromISO(task.createdAt,{zone:'utc'}).setZone('Africa/Tunis').toFormat("dd/MM/yyyy hh:mm a"),
               ideaNumber: task.sequence,
               ideaId: task.ideaId,
               line: task.line,
@@ -80,7 +78,7 @@ export class HeaderComponent implements OnInit {
               responsables: task.responsables,
             };
           })
-          .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+            .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
       });
   }
 
@@ -97,20 +95,17 @@ export class HeaderComponent implements OnInit {
 
   goToIdeaDetails(notif: TaskDto) {
     if (this.loggedInUser.roles === Profile.CHEF_SEGMENT) {
-      // this.dataService.transfertObject(notif);
       this.router.navigateByUrl('ideas/selection/'+notif.ideaId);
     }
     if (this.loggedInUser.roles === Profile.CONTRE_MAITRE) {
-      // this.dataService.transfertObject(notif);
       this.router.navigateByUrl('ideas/preselection/'+notif.ideaId);
     }
     if (this.loggedInUser.roles === Profile.EXPERT) {
-      // this.dataService.transfertObject(notif);
       this.router.navigateByUrl('ideas/execution/'+notif.ideaId);
     }
   }
-  // ngOnDestroy(): void {
-  //   this.taskCompletionSubscription.unsubscribe();
-  // }
+  ngOnDestroy(): void {
+    this.taskCompletionSubscription.unsubscribe();
+  }
 
 }

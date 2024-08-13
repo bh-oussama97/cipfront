@@ -2,24 +2,28 @@ import { Injectable } from '@angular/core';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { Chart } from 'chart.js';
-import * as Excel from "exceljs";
+import * as Excel from 'exceljs';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { WorksheetColumn } from 'src/app/shared/interfaces/worksheet-column';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { saveAs } from "file-saver";
+import { saveAs } from 'file-saver';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FileService {
-
-  constructor(private httpClient: HttpClient) { }
-    EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    EXCEL_EXTENSION = '.xlsx';
-  exportTemplateXLSX(sheetName: string, columns: WorksheetColumn[], filenameOutput: string) {
+  constructor(private httpClient: HttpClient) {}
+  EXCEL_TYPE =
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  EXCEL_EXTENSION = '.xlsx';
+  exportTemplateXLSX(
+    sheetName: string,
+    columns: WorksheetColumn[],
+    filenameOutput: string
+  ) {
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet(sheetName);
     worksheet.columns = columns;
@@ -32,7 +36,8 @@ export class FileService {
           size: 30,
         };
         cell.alignment = {
-          vertical: 'middle', horizontal: 'center'
+          vertical: 'middle',
+          horizontal: 'center',
         };
 
         if (rowNumber === 1) {
@@ -41,20 +46,33 @@ export class FileService {
             bold: true,
           };
         }
-      })
+      });
     });
     workbook.xlsx.writeBuffer().then((data) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
       fs.saveAs(blob, filenameOutput);
     });
   }
 
-  exportTableXLSX(sheetName: string, columns: WorksheetColumn[], filenameOutput: string, dataSource: any[]) {
+  exportTableXLSX(
+    sheetName: string,
+    columns: WorksheetColumn[],
+    filenameOutput: string,
+    dataSource: any[]
+  ) {
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet(sheetName);
     worksheet.columns = columns;
     worksheet.eachRow((row, rowNumber) => {
       row.eachCell(function (cell, colNumber) {
+        cell.border = {
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' },
+        };
         cell.font = {
           name: 'Arial',
           family: 2,
@@ -62,7 +80,8 @@ export class FileService {
           size: 30,
         };
         cell.alignment = {
-          vertical: 'middle', horizontal: 'left'
+          vertical: 'middle',
+          horizontal: 'left',
         };
 
         if (rowNumber === 1) {
@@ -71,13 +90,28 @@ export class FileService {
             bold: true,
           };
         }
-      })
+      });
     });
-    dataSource.forEach(e => {
+    dataSource.forEach((e) => {
       worksheet.addRow(e);
     });
+
+    // Apply styling to each cell in the sheet
+    worksheet.eachRow((row, rowNumber) => {
+      row.eachCell((cell, colNumber) => {
+        cell.border = {
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' },
+        };
+      });
+    });
+
     workbook.xlsx.writeBuffer().then((data) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
       fs.saveAs(blob, filenameOutput);
     });
   }
@@ -88,28 +122,31 @@ export class FileService {
     let datasets = chartById.data.datasets[0].data;
     let workbook = new Excel.Workbook();
     let worksheet = workbook.addWorksheet(chartid + 'Sheet');
-    worksheet.columns = labels.map(label => {
+    worksheet.columns = labels.map((label) => {
       return {
         header: label,
-        width: 25
-      }
-    })
-    worksheet.addRow(datasets)
+        width: 25,
+      };
+    });
+    worksheet.addRow(datasets);
     worksheet.eachRow((row, rowNumber) => {
       if (rowNumber === 1) {
         row.font = {
-          bold: true
-        }
+          bold: true,
+        };
       }
       row.alignment = {
-        vertical: 'middle', horizontal: 'center'
+        vertical: 'middle',
+        horizontal: 'center',
       };
       row.height = 20;
     });
     workbook.xlsx.writeBuffer().then((datasets) => {
-      let blob = new Blob([datasets], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      fs.saveAs(blob, chartid + ".xlsx");
-    })
+      let blob = new Blob([datasets], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+      fs.saveAs(blob, chartid + '.xlsx');
+    });
   }
 
   exportContentPDF(elementId: string, filename: string) {
@@ -125,23 +162,26 @@ export class FileService {
     });
   }
   uploadKaizenCard(formData: FormData): Observable<any> {
-    return this.httpClient.post(environment.apiUrl + "/upload", formData);
+    return this.httpClient.post(environment.apiUrl + '/upload', formData);
   }
 
   downloadFileByName(filename: string) {
-    return this.httpClient.get(environment.apiUrl + "/files?filename=" + filename, 
-      {responseType: 'blob' })
+    return this.httpClient.get(
+      environment.apiUrl + '/files?filename=' + filename,
+      { responseType: 'blob' }
+    );
   }
 
-   isValidSize(size: number): boolean {
-    const toKByte = size / 1024;    
-    return  toKByte <= 2048;
+  isValidSize(size: number): boolean {
+    const toKByte = size / 1024;
+    return toKByte <= 2048;
   }
 
-   saveAsExcelFile(res: Blob, fileName: string): void {
-    const blob = new Blob([res], { type : 'application/vnd.ms.excel' });
-    const file = new File([blob], fileName + '.xlsx', { type: 'application/vnd.ms.excel' });
+  saveAsExcelFile(res: Blob, fileName: string): void {
+    const blob = new Blob([res], { type: 'application/vnd.ms.excel' });
+    const file = new File([blob], fileName + '.xlsx', {
+      type: 'application/vnd.ms.excel',
+    });
     saveAs(file);
   }
-
 }

@@ -29,7 +29,7 @@ export class NotificationsComponent implements OnInit{
     this.ideaService.getListOfIdeasAffectedByRegistrationNumber( userJson.matricule).subscribe((response:GetTasksListResponse)=>{
       this.tasks = response.tasks.map(task=>  {
         return {
-          createdAt : DateTime.fromISO(task.createdAt).toFormat("dd/MM/yyyy hh:mm a"),
+          createdAt : DateTime.fromISO(task.createdAt,{zone:'utc'}).setZone('Africa/Tunis').toFormat("dd/MM/yyyy hh:mm a"),
           ideaNumber : task.sequence,
           ideaId : task.ideaId,
           line : task.line,

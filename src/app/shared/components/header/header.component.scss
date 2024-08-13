@@ -120,3 +120,29 @@
     }
   }
 }
+
+::ng-deep .structures-menu{
+  .mat-mdc-menu-content{
+    // @apply p-1.5;
+    .mat-mdc-menu-item {
+      .mdc-list-item__primary-text{
+        font-size: 0.9rem;
+        font-family: 'Poppins',sans-serif;
+      }
+    }
+  }
+
+}
+
+::ng-deep .administration-menu{
+  .mat-mdc-menu-content{
+    // @apply p-1.5;
+    .mat-mdc-menu-item {
+      .mdc-list-item__primary-text{
+        font-family: 'Poppins',sans-serif;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+}

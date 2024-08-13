@@ -43,3 +43,54 @@ table {
 .export-text{
   cursor: pointer;
 }
+
+
+::ng-deep .mat-mdc-paginator {
+  .mat-paginator-page-size {
+    display: none !important;
+
+
+  }
+
+  .mat-paginator-range-label {
+    display: none !important;
+  }
+
+  .mat-mdc-select-trigger{
+    font-family: "Poppins", sans-serif;
+
+  }
+
+  .mat-mdc-paginator-page-size-label {
+    order: 1;
+     font-family: "Poppins", sans-serif;
+  }
+  .mat-mdc-paginator-range-label {
+    order: 2;
+     font-family: "Poppins", sans-serif;
+  }
+
+  .mat-mdc-paginator-navigation-previous {
+    order: 3;
+     font-family: "Poppins", sans-serif;
+  }
+  .mat-mdc-paginator-navigation-next {
+     font-family: "Poppins", sans-serif;
+
+    order: 4;
+  }
+}
+
+.medal{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  fa-icon{
+    font-size:1rem;
+  }
+  p{
+    margin:0!important;
+    font-size:14px;
+  }
+}
+

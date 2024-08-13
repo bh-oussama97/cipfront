@@ -13,33 +13,45 @@
                     }
                     .xng-breadcrumb-link {
                         gap: 5px !important;
-                        color:white;
+                        color: white;
                     }
                 }
             }
         }
     }
 
-    .admin-ideas-managment,.chef-segment-ideas-managment,.ideas-managment,.expert-ideas-managment{
+    .admin-ideas-managment,
+    .chef-segment-ideas-managment,
+    .ideas-managment,
+    .expert-ideas-managment {
         display: flex;
         flex-direction: column;
-        width:100%;
+        width: 100%;
         .btn-right {
             width: 10%;
         }
         .filters {
             margin-top: 30px;
+
+            #etat,
+            #iniateur,
+            #contreMaitre,
+            #chefSegment,
+            #expert {
+                font-family: "Poppins", sans-serif;
+                width: 15%;
+            }
         }
 
-        .search-filter-by-state{
+        .search-filter-by-state {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap:30px;
+            gap: 30px;
 
-            #etat{
-              font-family: "Poppins", sans-serif;
-              width:15%;
+            #etat {
+                font-family: "Poppins", sans-serif;
+                width: 15%;
             }
 
             // .search-input {
@@ -48,7 +60,7 @@
             //     margin-top: 10px;
             //     border-radius: 20px;
             //     border: 1px black solid;
-              //     width:50%;
+            //     width:50%;
             //     display: flex;
             //     align-self: center;
             //     .icon-input{
@@ -76,7 +88,7 @@
             //         outline: none;
             //       }
             //     }
-            
+
             //   }
         }
         mat-card {
@@ -87,8 +99,8 @@
             padding-left: 40px;
             padding-right: 50px;
             padding-bottom: 20px;
-            mat-card-title{
-              font-family: "Poppins", sans-serif;
+            mat-card-title {
+                font-family: "Poppins", sans-serif;
             }
             mat-card-content {
                 .ideas-table {

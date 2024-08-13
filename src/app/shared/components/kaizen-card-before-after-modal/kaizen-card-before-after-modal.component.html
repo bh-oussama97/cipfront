@@ -1,40 +1,58 @@
 <div class="kaizen-card-picture-before-after">
-  
-  <fa-icon 
-  class="close-icon"
-  (click)="this.dialogRef.close()" [icon]="close"></fa-icon>
+  <fa-icon
+    class="close-icon"
+    (click)="this.dialogRef.close()"
+    [icon]="close"
+  ></fa-icon>
 
-    <h3 class="cip-state-title">{{"ideasContent.ideaSelectionContent.cipState"|translate}}</h3>
+  <p class="cip-state-title">
+    {{ "ideasContent.ideaSelectionContent.cipState" | translate }}
+  </p>
 
-
-    <div class="card-kaizen-upload-items">
-        <div (click)="imageBeforeUploader.click()" class="card-kaizen-before-upload">
-            <fa-icon [icon]="thumbnailIcon"></fa-icon>
-            <p>{{"ideasContent.ideaSelectionContent.before"|translate}}</p>
-            <input
-              type="file"
-              hidden
-              #imageBeforeUploader
-              (change)="uploadCardKaizenImageBefore($event)"
-            />
-            <p class="filename">{{ filenameImageBefore }}</p>
-          </div>
-    
-          <hr>
-          <div (click)="imageAfterUploader.click()" class="card-kaizen-after-upload">
-            <fa-icon [icon]="thumbnailIcon"></fa-icon>
-            <p>{{"ideasContent.ideaSelectionContent.after"|translate}}</p>
-            <input
-              type="file"
-              hidden
-              #imageAfterUploader
-              (change)="uploadCardKaizenImageAfter($event)"
-            />
-            <p class="filename">{{ filenameImageAfter }}</p>
-          </div>
+  <div class="card-kaizen-upload-items">
+    <div
+      (click)="imageBeforeUploader.click()"
+      class="card-kaizen-before-upload"
+    >
+      <fa-icon [icon]="thumbnailIcon"></fa-icon>
+      <p>{{ "ideasContent.ideaSelectionContent.before" | translate }}</p>
+      <input
+        type="file"
+        hidden
+        #imageBeforeUploader
+        (change)="uploadCardKaizenImageBefore($event)"
+      />
+      <p class="filename">{{ filenameImageBefore }}</p>
     </div>
- 
-    <button mat-raised-button color="primary" (click)="validateCardBeforeAfterUpload()">
-        {{ "ideasContent.ideaSelectionContent.ok" | translate }}
-      </button>
+
+    <hr />
+    <div (click)="imageAfterUploader.click()" class="card-kaizen-after-upload">
+      <fa-icon [icon]="thumbnailIcon"></fa-icon>
+      <p>{{ "ideasContent.ideaSelectionContent.after" | translate }}</p>
+      <input
+        type="file"
+        hidden
+        #imageAfterUploader
+        (change)="uploadCardKaizenImageAfter($event)"
+      />
+      <p class="filename">{{ filenameImageAfter }}</p>
+    </div>
+
+    <h4 class="comment-title">{{ "ideasContent.ideaSelectionContent.addComment" | translate }}</h4>
+
+    <textarea 
+    placeholder="{{'ideasContent.ideaSelectionContent.commentPlaceholder'|translate}}"
+    matInput [(ngModel)]="comment"></textarea>
+  </div>
+
+  <div class="send-btn">
+    <button
+    mat-raised-button
+    color="primary"
+    (click)="validateCardBeforeAfterUpload()"
+  >
+    {{ "ideasContent.ideaSelectionContent.submit" | translate }}
+  </button>
+  </div>
+
 </div>

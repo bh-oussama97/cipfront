@@ -18,6 +18,7 @@ export class KaizenCardBeforeAfterModalComponent {
   imageBeforeFile: File;
   imageAfterFile: File;
   close = faClose;
+  comment:string;
   constructor(
     private fileService: FileService,
     @Inject(MAT_DIALOG_DATA) public data: { ideaId: string },

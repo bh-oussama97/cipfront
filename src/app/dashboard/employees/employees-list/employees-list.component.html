@@ -1,10 +1,10 @@
 <div class="content">
-    <xng-breadcrumb>
-      <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
-        <mat-icon *ngIf="info">{{ info }}</mat-icon>
-        <ng-container>{{ breadcrumb | translate}}</ng-container>
-      </ng-container>
-    </xng-breadcrumb>
+  <xng-breadcrumb>
+    <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
+      <mat-icon *ngIf="info">{{ info }}</mat-icon>
+      <ng-container>{{ breadcrumb | translate}}</ng-container>
+    </ng-container>
+  </xng-breadcrumb>
     <div class="buttons-right">
       <button (click)="addNewEmployee()" mat-raised-button color="primary">
         {{ "employeesManagmentContent.addEmployee" | translate }}

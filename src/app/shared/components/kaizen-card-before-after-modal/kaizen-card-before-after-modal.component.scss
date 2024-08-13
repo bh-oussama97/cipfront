@@ -1,7 +1,7 @@
 .kaizen-card-picture-before-after{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    // align-items: center;
     padding: 50px;
     .close-icon {
         cursor: pointer;
@@ -13,20 +13,21 @@
         font-family: 'Poppins', sans-serif;
         font-weight: 600;
         margin-top: 20px;
+        text-align: center;
     }
 
     .card-kaizen-upload-items{
         display: flex;
         flex-direction: column;
-        margin-top: 30px;
-        gap:15px;
+        // margin-top: 30px;
+        // gap:15px;
         width: 100%;
         .card-kaizen-before-upload,.card-kaizen-after-upload{
             display:flex;
             align-items: center;
             cursor: pointer;
-            gap:10px;
-            flex-direction: column;                        
+            padding-top: 30px;
+            flex-direction: column;
             fa-icon{
                 font-size: 5rem;
             }
@@ -41,6 +42,21 @@
             border: 2px dashed black;
             width: 100%;
         }
+        .comment-title{
+            align-self: self-start;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size:16px;
+            margin-top: 10px;
+        }
+        textarea{
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+        }
+    }
+    .send-btn{
+        float:end;
+        align-self: self-end;
     }
 
 }

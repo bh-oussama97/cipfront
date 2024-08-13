@@ -22,24 +22,8 @@
             <p>
               {{ "ideasContent.ideaDetailsContent.matricule" | translate }} :
             </p>
-            <p>{{ideaDTO.matricule}}</p>
+            <p>{{ideaDTO?.matricule}}</p>
           </div>
-          <!-- <div class="name">
-            <p>{{ "ideasContent.ideaDetailsContent.name" | translate }} :</p>
-            <p>{{ideaDTO.fullName}}</p>
-          </div>
-          <div class="matricule">
-            <p>
-              {{ "ideasContent.ideaDetailsContent.matricule" | translate }} :
-            </p>
-            <p>{{ideaDTO.employee}}</p>
-          </div>
-          <div class="phone-number">
-            <p>
-              {{ "ideasContent.ideaDetailsContent.phoneNumber" | translate }} :
-            </p>
-            <p>{{ideaDTO.phone}}</p>
-          </div> -->
           <div class="segment">
             <p>{{ "ideasContent.ideaDetailsContent.segment" | translate }} :</p>
             <p>{{ideaDTO.segment}}</p>
@@ -60,13 +44,9 @@
             <p>
               {{ "ideasContent.ideaDetailsContent.ideeDate" | translate }} :
             </p>
-            <p>{{ideaDTO.createdAt}}</p>
+            <p>{{ideaCreatedDate}}</p>
           </div>
-          <div class="type">
-            <!-- <p>
-              {{ "ideasContent.ideaDetailsContent.ideaType" | translate }} :
-            </p>
-            <p>{{ideaCategory }}</p> -->
+          <div class="category">
             <p>{{"ideasContent.ideaDetailsContent.category"|translate}} :</p>
             <p *ngIf="ideaCategory !== 'NONE'">{{ideaCategory}}</p>
           </div>
@@ -107,16 +87,6 @@
               </a>
             </div>
           </div>
-          <!-- <div (click)="cardKaizenUploader.click()" class="card-kaizen-upload">
-            <fa-icon [icon]="faUpload"></fa-icon>
-            <p class="filename">{{ filename }}</p>
-            <input
-              type="file"
-              hidden
-              #cardKaizenUploader
-              (change)="uploadCardKaizen($event)"
-            />
-          </div> -->
         </div>
 
         <div class="export-kaizen-card" *ngIf="currentRole === 'OPEX'">
@@ -132,7 +102,7 @@
       </div>
 
         <textarea matInput 
-        [readonly]="true"
+        [disabled]="true"
         [(ngModel)]="ideaDTO.description"></textarea>
       <div class="idea-note-state" *ngIf="currentRole === 'ADMIN' || currentRole === 'EXPERT' || currentRole === 'OPEX'">
         <div class="idea-note">
@@ -163,60 +133,7 @@
           </div>
           <p>{{ "ideasContent.ideaDetailsContent.totalNote" | translate }} {{noteTotal}}</p>
         </div>
-        <!-- <div class="idea-state">
-          <span class="sate-text">{{
-            "ideasContent.ideaDetailsContent.etat" | translate
-          }}</span>
-          <div class="state-validated" *ngIf="ideaDTO.decision === 'VALIDATED'">
-           {{ideaDTO.decision}}
-          </div>
-          <div class="state-rejected" *ngIf="ideaDTO.decision === 'REJECTED'">
-            {{ideaDTO.decision}}
-          </div>
-          <div class="state-preselected" *ngIf="ideaDTO.decision === 'ACCEPTED'">
-            {{ideaDTO.decision}}
-          </div>
-          <div class="state-selected" *ngIf="ideaDTO.decision === 'SELECTED'">
-            {{ideaDTO.decision}}
-          </div>
-        </div> -->
       </div>
-      <!-- <div
-        class="idea-validation-category"
-        *ngIf="currentRole === 'CONTRE_MAITRE'"
-      >
-        <div class="idea-validation">
-          <span class="validation-text">{{
-            "ideasContent.ideaValidationContent.ideaValidation" | translate
-          }}</span>
-          <mat-radio-group class="validation-choice" disabled="true">
-            <mat-radio-button
-              class="example-margin"
-              value="yes"
-              [checked]="ideaDTO.decision === 'VALIDATED'"
-              >{{
-                "ideasContent.ideaValidationContent.yes" | translate
-              }}</mat-radio-button
-            >
-            <mat-radio-button
-              class="example-margin"
-              value="no"
-              [checked]="ideaDTO.decision === 'REJECTED'"
-              >{{
-                "ideasContent.ideaValidationContent.no" | translate
-              }}</mat-radio-button
-            >
-          </mat-radio-group>
-        </div>
-        <div class="idea-category">
-          <span class="category-text">{{
-            "ideasContent.ideaValidationContent.ideaCategory" | translate
-          }}</span>
-          <div class="category">
-          </div>
-        </div>
-      </div> -->
-
       <div
         class="idea-validation-form-items"
         *ngIf="currentRole === 'CHEF_SEGMENT'"
@@ -227,10 +144,10 @@
               "ideasContent.ideaValidationContent.ideaValidation" | translate
             }}</span>
             <mat-radio-group class="choice" disabled="true" [(ngModel)]="validation">
-              <mat-radio-button    [value]="1" >{{
+              <mat-radio-button    value="yes" >{{
                 "ideasContent.ideaValidationContent.yes" | translate
               }}</mat-radio-button>
-              <mat-radio-button [value]="0">{{
+              <mat-radio-button value="no">{{
                 "ideasContent.ideaValidationContent.no" | translate
               }}</mat-radio-button>
             </mat-radio-group>
@@ -239,14 +156,15 @@
             <span class="text">{{
               "ideasContent.ideaValidationContent.generalizable" | translate
             }}</span>
-            <mat-radio-group class="choice" disabled="true" [(ngModel)]="generalization">
+            <mat-radio-group class="choice" disabled="true" 
+            [(ngModel)]="generalization">
               <mat-radio-button
-              [value]="1">{{
+              value="yes">{{
                   "ideasContent.ideaValidationContent.yes" | translate
                 }}</mat-radio-button
               >
               <mat-radio-button
-              [value]="0"
+              value="no"
                 >{{
                   "ideasContent.ideaValidationContent.no" | translate
                 }}</mat-radio-button
@@ -264,7 +182,7 @@
                   }}:</label
                 >
                 <input type="number" name="originalite" disabled
-                [(ngModel)]="this.originaliteNote"
+                [(ngModel)]="originaliteNote"
                 placeholder="..." />
                 <span>/10</span>
               </div>
@@ -274,7 +192,7 @@
                     "ideasContent.ideaDetailsContent.plantImpact" | translate
                   }}:</label
                 >
-                <input type="number" disabled  [(ngModel)]="this.impactNote" name="impact" placeholder="..." />
+                <input type="number" disabled  [(ngModel)]="impactNote" name="impact" placeholder="..." />
                 <span>/10</span>
               </div>
             </div>

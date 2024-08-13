@@ -22,21 +22,21 @@ export class EditEmployeeComponent implements OnInit{
     private dataservice: DataService
   ) { }  
   ngOnInit() {
-    // this.subscription = this.dataservice.currentMessage$.subscribe({
-    //   next: (message: any) => {
-    //     this.employeeToEdit = message;
-    //   }
-    // });
+    this.subscription = this.dataservice.currentMessage$.subscribe({
+      next: (message: any) => {
+        this.employeeToEdit = message;
+      }
+    });
 
     this.editEmployeeForm = this.fb.group({
-      lastName: [''],
-      firstName: [''],
-      phone: [''],
-      registrationNumber: [''],
-      site: [''],
-      plant: [''],
-      segment: [''],
-      line: ['']
+      lastName: [this.employeeToEdit.employee.split(" ")[0]],
+      firstName: [this.employeeToEdit.employee.split(" ")[1]],
+      phone: [this.employeeToEdit.phoneNumber],
+      registrationNumber: [this.employeeToEdit.matricule],
+      site: [this.employeeToEdit.site],
+      plant: [this.employeeToEdit.plant],
+      segment: [this.employeeToEdit.segment],
+      line: [this.employeeToEdit.line]
     });  }
 
     edit(){

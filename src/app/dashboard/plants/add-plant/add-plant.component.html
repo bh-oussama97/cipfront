@@ -64,7 +64,12 @@
 
       <file-uploader
       (sendUploadedFiles)="getUploadedFiles($event)"
+      (cancelUploadEm)="cancelUpload($event)"
+      *ngIf="!uploadedLoading"
       ></file-uploader>
+      <mat-spinner 
+      class="loader"
+      *ngIf="uploadedLoading"></mat-spinner>
     </mat-card-content>
     <mat-card-actions> </mat-card-actions>
   </mat-card>

@@ -16,15 +16,11 @@
                 <p>
                   {{ "ideasContent.ideaDetailsContent.ideeDate" | translate }} :
                 </p>
-                <p>{{ ideaDetails.createdAt}}</p>
+                <p>{{ ideaCreatedDate}}</p>
               </div>
               <div class="type">
-                <!-- <p>
-                  {{ "ideasContent.ideaDetailsContent.ideaType" | translate }} :
-                </p>
-                <p>{{ ideaDetails.type }}</p> -->
                 <p>{{"ideasContent.ideaDetailsContent.category"|translate}} :</p>
-                <p *ngIf="category !== 'NONE'">{{category}}</p>
+                <p *ngIf="ideaDetails.category !== 'NONE'">{{ideaDetails.category}}</p>
               </div>
               <div class="segment">
                 <p>{{ "ideasContent.ideaDetailsContent.segment" | translate }} :</p>
@@ -39,20 +35,20 @@
             <div class="import-kaizen-card" >
                 <div class="images-before-and-after">
                   <div class="images">
-                    <div class="image-item" *ngIf="imageBeforeUploaded !== null">
+                    <div class="image-item" *ngIf="ideaDetails.kaizanBefore !== null">
                       <label>{{"ideasContent.ideaDetailsContent.imageBefore"|translate}} :</label>
                       <a
-                        (click)="getKaizenImageByName(imageBeforeUploaded)"
+                        (click)="getKaizenImageByName(ideaDetails.kaizanBefore)"
                       >
-                        <p>{{imageBeforeUploaded}}</p>
+                        <p>{{this.ideaDetails.kaizanBefore}}</p>
                       </a>
                     </div>
-                    <div class="image-item" *ngIf="imageAfterUploaded !== null">
+                    <div class="image-item" *ngIf="ideaDetails.kaizanAfter !== null">
                       <label>{{"ideasContent.ideaDetailsContent.imageAfter"|translate}} :</label>
                       <a
-                      (click)="getKaizenImageByName(imageAfterUploaded)"
+                      (click)="getKaizenImageByName(ideaDetails.kaizanAfter)"
                       >
-                        <p>{{imageAfterUploaded}}</p>
+                        <p>{{this.ideaDetails.kaizanAfter}}</p>
                       </a>
                     </div>
                  
@@ -66,7 +62,7 @@
               </div>
           </div>
     
-          <textarea  matInput [(ngModel)]="ideaDetails.description"></textarea>
+          <textarea  matInput [(ngModel)]="ideaDetails.description" [disabled]="true"></textarea>
   
         <form [formGroup]="ideaExecutionForm">
             <div class="idea-execution">

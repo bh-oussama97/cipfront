@@ -31,7 +31,8 @@
             type="text"
             [placeholder]="'Ex : 10236587'"
             matInput
-            appOnlynumber
+            inputrestriction="[0-9]"
+            (keypress)="omit_special_char($event)"
             formControlName="matricule"
           />
           <mat-icon matSuffix>privacy_tip</mat-icon>

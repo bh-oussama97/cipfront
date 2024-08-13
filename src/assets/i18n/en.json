@@ -53,10 +53,11 @@
     "ideasNotTreatedTotalNumber": "Total number of unprocessed ideas",
     "ideasRate": "Rate of ideas",
     "cipPerUser": "Number of ideas processed per user",
-    "plant": "Plant",
+    "site":"Plants",
+    "plant": "Product sections",
     "segment": "Segments",
     "li": "Lines",
-    "sites": "Sites",
+    "sites": "Plants",
     "year": "Year",
     "month": "Month",
     "preSelection": "pre-selected",
@@ -83,19 +84,19 @@
     "save": "Save"
   },
   "structureContent": {
-    "addStructure": "Add structure",
+    "addStructure": "Add plant",
     "search": "Search",
     "sites": {
       "columns": {
-        "site": "Site",
+        "site": "Plant",
         "plantsNumber": "Number of plants",
         "segmentsNumber": "Number of segments",
         "linesNumber": "Number of lines"
       }
     },
     "editSiteForm": {
-      "editSite": "Edit site",
-      "siteName": "Name of your site",
+      "editSite": "Edit plant",
+      "siteName": "Name of your plant",
       "segmentsNumber": "Segments number",
       "linesNumber": "Lines number",
       "plantsNumber": "Plants number",
@@ -103,51 +104,51 @@
       "successModification": "Change was completed successfully"
     },
     "addSite": {
-      "addNewSite": "Add new site",
-      "description": "Please define the name of your Site:",
-      "organisation": "Organisation",
+      "addNewSite": "Add new plant",
+      "description": "Please define the name of your plant:",
+      "organisation": "Plant",
       "add": "Add",
-      "successAlert": "Site was successfully added"
+      "successAlert": "Plant was successfully added"
     },
     "deleteSite": {
-      "title": "Delete site",
-      "message": "Are you sure you want to delete this site with the name :",
+      "title": "Delete plant",
+      "message": "Are you sure you want to delete this plant with the name :",
       "confirm": "Confirm",
       "cancel": "Cancel"
     }
   },
   "plantContent": {
-    "addPlan": "Add Plant",
+    "addPlan": "Add Product section",
     "downloadTemplate": "Download Template",
-    "search": "Search by plant or site",
-    "site": "Site",
-    "plant": "Plant",
+    "search": "Search by Product section or plant",
+    "site": "Plant",
+    "plant": "Product section",
     "segmentsNumber": "Segments number",
     "deletePlant": {
-      "title": "Delete plant",
-      "message": "Are you sure you want to delete this plant with the name :",
+      "title": "Delete product section",
+      "message": "Are you sure you want to delete this product section with the name :",
       "confirm": "Confirm",
       "cancel": "Cancel"
     },
     "editPlantForm": {
-      "editPlant": "Edit plant",
-      "siteName": "Name of your site",
-      "plantName": "Name of your plant",
+      "editPlant": "Edit product section",
+      "siteName": "Name of your plant",
+      "plantName": "Name of your product section",
       "segmentsNumber": "Segments number",
       "edit": "Edit",
-      "successModification": "plant was modified successfully"
+      "successModification": "product section was modified successfully"
     },
     "AddPlant": {
       "information": "information :",
-      "informationText": "You can add a Plant manually. If you want to add several Plants at once, you can do so automatically by importing an Excel file.",
-      "chooseSite": "Please choose your site:",
-      "siteName": "Name of the site :",
-      "newPlantName": "Name of your new Plant *",
+      "informationText": "You can add a Product section manually. If you want to add several Product sections at once, you can do so automatically by importing an Excel file.",
+      "chooseSite": "Please choose your plant:",
+      "siteName": "Name of the plant :",
+      "newPlantName": "Name of your new Product section *",
       "addBtn": "Add",
-      "massAddText": "Mass addition of several plants:",
+      "massAddText": "Mass addition of several product sections:",
       "or": "Or",
-      "plantExample": "Plant example",
-      "successAdd": "Plant was added successfully"
+      "plantExample": "Product section example",
+      "successAdd": "Product section was added successfully"
     }
   },
   "segementsContent": {
@@ -198,12 +199,12 @@
     "expert": "Expert",
     "ideaNumber": "Idea number",
     "date": "Date",
-    "executee" : "Executed",
-    "validee" : "Validated",
-    "selectionnee" : "Selected",
-    "preselectionne" : "Pre-selected",
-    "enAttente" : "On hold",
-    "refusee" : "Refused",
+    "executee" : "EXECUTED",
+    "validee" : "VALIDATED",
+    "selectionnee" : "SELECTED",
+    "preselectionne" : "PRESELECTED",
+    "enAttente" : "WAITING",
+    "refusee" : "REFUSED",
     "ideasList" : "Ideas list",
     "ideasListTable":{
       "ideaNumber" : "N° Idea",
@@ -258,7 +259,8 @@
       "envoyer" : "Send",
       "confimAssignIdeaDialogText" :"Are you sure you want to assign this idea to the segment leader?",
       "rejectAssignIdeaDialogText" :"Do you really want to reject this idea?",
-      "close":"Close"
+      "close":"Submit",
+      "ideaWithoutMotifMessage":"Please select the reason for refusal!"
     },
     "ideaSelectionContent" : {
       "ideaSelectionText" : "Idea selection",
@@ -278,7 +280,10 @@
       "uploadKaizenCard" :"Please upload kaizen card first !",
       "selectImageBeforeAfter":"Please upload kaizen image before and after !",
       "imagePreview" : "Image preview",
-      "chooseOriginaliteImpactNote": "Please enter originalite and impact notes !"
+      "chooseOriginaliteImpactNote": "Please enter originalite and impact notes !",
+      "addComment":"Add comment",
+      "commentPlaceholder":"explain the difference before/after and the actions taken",
+      "submit":"Submit"
     },
     "bestIdeaSelectionContent":{
       "bestIdeaSelectionDialogText" :"Do you want to Confirm the best kaizen card?",

@@ -20,10 +20,53 @@
         <ng-template #isNormalRow>
           {{ row[column.columnDef] }}
         </ng-template> -->
-        <div *ngIf="column.isFileDownload === true;else normalColumn" (click)="getKaizenCardByName(row[column.columnDef])">
+        <div *ngIf="column.isFileDownload === true;else ideaState" (click)="getKaizenCardByName(row[column.columnDef])">
           <a class="export-text"
           > {{row[column.columnDef]}}</a>
         </div>
+        <ng-template #ideaState>
+          <div *ngIf="column.isState === true; else medalColumn">
+            <fa-icon
+            [icon]="battery"
+            matTooltip="{{ getIdeaStatusTooltip(row[column.columnDef]) }}"
+            matTooltipPosition="right"
+            aria-label="Idea Status"
+            [ngClass]="{'battery-icon-rejection ': row[column.columnDef] === 'REFUSED',
+          'battery-icon-validated' : row[column.columnDef] === 'VALIDATED' ,
+          'battery-icon-preselected' : row[column.columnDef] === 'PRESELECTED' ||  row[column.columnDef] === 'SELECTED' || row[column.columnDef] === 'EXECUTED',
+        'battery-icon-waiting' :  row[column.columnDef] === 'WAITING'
+        }"
+          ></fa-icon>
+            <!-- <div *ngIf="row[column.columnDef] === 'REFUSED'" class="state-rejected">
+              <fa-icon [icon]="battery"></fa-icon>
+
+              {{"ideasContent.refusee" | translate }}
+            </div>
+            <div *ngIf="row[column.columnDef] === 'VALIDATED'" class="state-validated">
+              {{"ideasContent.validee" | translate }}
+            </div>
+            <div *ngIf="row[column.columnDef] === 'PRESELECTED' " 
+            class="state-preselected">
+            {{"ideasContent.preselectionne" | translate }}
+            </div>
+            <div *ngIf=" row[column.columnDef] === 'SELECTED' " 
+            class="state-preselected">
+            {{"ideasContent.selectionnee" | translate }}
+            </div>
+            <div *ngIf=" row[column.columnDef] === 'EXECUTED'" 
+            class="state-preselected">
+            {{"ideasContent.executee" | translate }}
+            </div> -->
+          </div>
+        </ng-template>
+
+        <ng-template #medalColumn>
+          <div *ngIf="column.isMedalIcon === true; else normalColumn" class="medal">
+            <fa-icon [icon]="medal"></fa-icon>
+           <p> {{row[column.columnDef]}}</p>
+          </div>
+        </ng-template>
+
         <ng-template #normalColumn>
           {{row[column.columnDef]}}
         </ng-template>

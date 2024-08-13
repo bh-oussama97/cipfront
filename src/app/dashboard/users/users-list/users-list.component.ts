@@ -166,7 +166,7 @@ export class UsersListComponent implements OnInit{
   {
     if(event.name === "edit")
     {
-      // this.dataService.transfertObject(event.value);
+      this.dataService.transfertObject(event.value);
       this.router.navigateByUrl('users/edit/'+event.value.matricule);
     }
 

@@ -27,6 +27,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [],
@@ -59,7 +60,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatChipsModule,
     MatRadioModule,
     MatPaginatorModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatTooltipModule
   ]
 })
 export class MaterialModule { }

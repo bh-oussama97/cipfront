@@ -2,10 +2,10 @@
   <div class="flex flex-row items-center pt-36 pl-24">
     <div class="flex flex-col items-center w-full">
       <div class="admin-form">
-        <h2 class="text-center ">
+        <h2 class="text-center">
           {{ "loginContent.descriptionAdmin" | translate }}
         </h2>
-        <mat-card >
+        <mat-card>
           <mat-card-header>
             <mat-card-subtitle></mat-card-subtitle>
             <mat-card-title>{{
@@ -13,7 +13,7 @@
             }}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <form [formGroup]="loginForm"  (keydown)="enterSubmit($event)">
+            <form [formGroup]="loginForm" (keydown)="enterSubmit($event)">
               <mat-form-field class="example-full-width" [floatLabel]="'auto'">
                 <mat-label>
                   {{ "loginContent.username" | translate }}</mat-label
@@ -50,13 +50,16 @@
             </form>
           </mat-card-content>
           <mat-card-actions>
-              <button  
+            <button
               (click)="login()"
               color="primary"
               [disabled]="loginForm.invalid"
-              [mtBasicSpinner]="displayProgressSpinner" 
-              [class.spinner]="displayProgressSpinner" 
-              mat-raised-button> {{ "loginContent.connect" | translate }}</button>
+              [mtBasicSpinner]="displayProgressSpinner"
+              [class.spinner]="displayProgressSpinner"
+              mat-raised-button
+            >
+              {{ "loginContent.connect" | translate }}
+            </button>
           </mat-card-actions>
           <mat-card-footer> </mat-card-footer>
         </mat-card>
@@ -68,4 +71,3 @@
     </div>
   </div>
 </div>
-
