@@ -127,7 +127,7 @@ export class IdeasListComponent {
               (responsable) => responsable.roles[0] === Profile.EXPERT
             )[0]?.fullName,
           };
-        });
+        }).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
         this.filteredDataSource = [...this.ideasData];
         // if (this.currentRole === Profile.CONTRE_MAITRE) {
         //   this.filteredDataSource = this.ideasData.filter(

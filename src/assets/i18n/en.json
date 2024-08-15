@@ -108,7 +108,8 @@
       "description": "Please define the name of your plant:",
       "organisation": "Plant",
       "add": "Add",
-      "successAlert": "Plant was successfully added"
+      "successAlert": "Plant was successfully added",
+      "errorMessage": "Plant name is empty !"
     },
     "deleteSite": {
       "title": "Delete plant",
@@ -148,7 +149,9 @@
       "massAddText": "Mass addition of several product sections:",
       "or": "Or",
       "plantExample": "Product section example",
-      "successAdd": "Product section was added successfully"
+      "successAdd": "Product section was added successfully",
+      "errorAddingProductSection":"Product section name is empty !",
+      "selectPlant":"Please select a plant !"
     }
   },
   "segementsContent": {
@@ -260,12 +263,13 @@
       "confimAssignIdeaDialogText" :"Are you sure you want to assign this idea to the segment leader?",
       "rejectAssignIdeaDialogText" :"Do you really want to reject this idea?",
       "close":"Submit",
-      "ideaWithoutMotifMessage":"Please select the reason for refusal!"
+      "ideaWithoutMotifMessage":"Please select the reason for refusal!",
+      "pleaseSelectCategory" : "Please choose a category  !"
     },
     "ideaSelectionContent" : {
       "ideaSelectionText" : "Idea selection",
       "assignIdeaToExpertAlert":"Are you sure you want to assign this idea to the Expert?",
-      "chooseExpert" : "Please Choose An Expert!",
+      "chooseExpert" : "Choose expert",
       "rejectIdea" : " Do you really want to reject this idea?",
       "kaizenCard" : "Kaizen Card",
       "joinKaizenCard":"Please Attach the kaizen card",
@@ -283,7 +287,9 @@
       "chooseOriginaliteImpactNote": "Please enter originalite and impact notes !",
       "addComment":"Add comment",
       "commentPlaceholder":"explain the difference before/after and the actions taken",
-      "submit":"Submit"
+      "submit":"Submit",
+      "ideaRejectionMessage":"Idea has been rejected !",
+      "selectExpertErrorMessage":"Please Choose An Expert!"
     },
     "bestIdeaSelectionContent":{
       "bestIdeaSelectionDialogText" :"Do you want to Confirm the best kaizen card?",

@@ -1,3 +1,4 @@
+
 <div class="content">
   <xng-breadcrumb>
     <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info">
@@ -26,11 +27,11 @@
           </div>
           <div class="segment">
             <p>{{ "ideasContent.ideaDetailsContent.segment" | translate }} :</p>
-            <p>{{ideaDTO.segment}}</p>
+            <p>{{ideaDTO?.segment}}</p>
           </div>
           <div class="line">
             <p>{{ "ideasContent.ideaDetailsContent.line" | translate }} :</p>
-            <p>{{ideaDTO.line}}</p>
+            <p>{{ideaDTO?.line}}</p>
           </div>
         </div>
         <div class="idea-informations">
@@ -52,23 +53,23 @@
           </div>
           <div class="motifs">
             <p>{{ "ideasContent.ideaDetailsContent.motif" | translate }} :</p>
-            <p *ngIf="ideaMotif !== 'NONE'">{{ideaDTO.motif }}</p>
+            <p *ngIf="ideaMotif !== 'NONE'">{{ideaDTO?.motif }}</p>
           </div>
           <div class="contre-maitre">
             <p>
               {{ "ideasContent.ideaDetailsContent.contreMaitre" | translate }} :
             </p>
-            <p>{{ideaDTO.contreMaitre}}</p>
+            <p>{{ideaDTO?.contreMaitre}}</p>
           </div>
           <div class="chef-segment">
             <p>
               {{ "ideasContent.ideaDetailsContent.chefSegment" | translate }} :
             </p>
-            <p>{{ideaDTO.chefSegment}}</p>
+            <p>{{ideaDTO?.chefSegment}}</p>
           </div>
           <div class="expert">
             <p>{{ "ideasContent.ideaDetailsContent.expert" | translate }} :</p>
-            <p>{{ideaDTO.expert}}</p>
+            <p>{{ideaDTO?.expert}}</p>
           </div>
         </div>
         <div class="import-kaizen-card" *ngIf="currentRole === 'CHEF_SEGMENT' || currentRole === 'EXPERT'">

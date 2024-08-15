@@ -118,7 +118,8 @@
       "description": "Veuillez définir le nom de votre usine :",
       "organisation": "Usine",
       "add": "Ajouter",
-      "successAlert": "L'usine a été ajoutée avec succès"
+      "successAlert": "L'usine a été ajoutée avec succès",
+      "errorMessage": "Le nom de l'usine est vide !"
     },
     "deleteSite": {
       "title": "Supprimer l'usine",
@@ -158,7 +159,10 @@
       "massAddText": "Ajout en masse de plusieurs sections de produit :",
       "or": "Ou",
       "plantExample": "Exemple de section de produit",
-      "successAdd": "La section de produit a été ajoutée avec succès"
+      "successAdd": "La section de produit a été ajoutée avec succès",
+      "errorAddingProductSection":"Le nom de la section produit est vide !",
+      "selectPlant":"Veuillez sélectionner l'usine !"
+
     }
   },
   "segementsContent": {
@@ -270,12 +274,13 @@
       "confimAssignIdeaDialogText": "Voulez-vous vraiment assigner cette idée au chef segment ?",
       "rejectAssignIdeaDialogText": "Voulez-vous vraiment rejeter cette idée ?",
       "close": "Soumettre",
-      "ideaWithoutMotifMessage":"Veuillez sélectionner la raison de refus !"
+      "ideaWithoutMotifMessage":"Veuillez sélectionner la raison de refus !",
+      "pleaseSelectCategory" : "Veuillez choisir une catégorie !"
     },
     "ideaSelectionContent": {
       "ideaSelectionText": "Sélection de l'idée",
       "assignIdeaToExpertAlert": "Voulez-vous vraiment assigner cette idée au Expert ?",
-      "chooseExpert": "Veuillez Choisir Un Expert !",
+      "chooseExpert": "Sélectionner un expert",
       "rejectIdea": " Voulez-vous vraiment rejeter cette idée ?",
       "kaizenCard": "Carte Kaizen",
       "joinKaizenCard": "Veuillez Joindre la carte kaizen",
@@ -293,7 +298,9 @@
       "chooseOriginaliteImpactNote": "Veuillez saisir des notes d'originalité et d'impact !",
       "addComment":"Ajouter un commentaire",
       "commentPlaceholder":"Expliquer la différence avant/après et les actions faites",
-      "submit":"Soumettre"
+      "submit":"Soumettre",
+      "ideaRejectionMessage":"L'idée a été rejetée !",
+      "selectExpertErrorMessage":"Veuillez sélectionner un Expert !"
     },
     "bestIdeaSelectionContent":{
       "bestIdeaSelectionDialogText" :"Voulez-vous Confirmer la meilleure carte kaizen ?",

@@ -32,8 +32,4 @@ export class StructureService {
     return this.httpClient.post(environment.apiUrl+"/sites",newSite);
   }
 
-  excelMassifUpload(data:FormData) :Observable<HttpResponse<any>>
-  {
-    return this.httpClient.post<HttpResponse<any>>(environment.apiUrl+"/upload/excel",data);
-  }
 }

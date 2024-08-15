@@ -1,8 +1,8 @@
-<div class="container py-6">
+<div class="container py-3">
   <div class="flex items-center justify-between">
     <div class="flex gap-8 items-center">
-      <a routerLink="/dashboard">
-        <img class="logo" src="./assets/images/Logo-CIP-V1.png" />
+      <a class="logo" routerLink="/dashboard">
+        <img  src="./assets/images/Logo-CIP-V1.png" />
       </a>
 
       <div
@@ -30,7 +30,7 @@
 
       <div
         *ngIf="connectedUserRole === 'ADMIN'"
-        class="flex gap-6 items-center"
+        class="flex gap-3 items-center"
       >
         <a [routerLink]="'/dashboard'" class="header-link">
           {{ "headerSection.dashboard" | translate }}
@@ -99,13 +99,13 @@
       <button (click)="useLanguage('en')">
         <img
           src="./assets/images/english_lang.png"
-          class="w-6 h-4"
+          class="w-8 h-4"
           alt="english-language-icon"
         />
       </button>
       <button (click)="useLanguage('fr')">
         <img
-          class="w-6 h-4"
+          class="w-8 h-4"
           src="./assets/images/french_lang.png"
           alt="french-language-icon"
         />
@@ -119,7 +119,10 @@
           matBadgeColor="warn"
           [matBadgeHidden]="false"
           [matBadge]="notificationsCount"
-          >notifications</mat-icon
+          >
+          <img 
+          src="/assets/images/notification.png">
+          </mat-icon
         >
       </button>
 
@@ -177,8 +180,8 @@
         </ng-template>
       </mat-menu>
       <span class="menu-dropdown" mat-icon-button [matMenuTriggerFor]="appMenu">
-        <fa-icon [icon]="faCircleUser"></fa-icon>
-        <img class="w-2 h-2" src="./assets/images/arrow-down.png" />
+        <img class="person" src="/assets/images/user.png"/>
+        <!-- <img class="w-2 h-2" src="./assets/images/arrow-down.png" /> -->
       </span>
     </div>
   </div>

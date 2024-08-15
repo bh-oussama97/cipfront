@@ -114,7 +114,7 @@ export class ValidateIdeaComponent implements OnInit{
 
   sendChoice() {
     this.isLoading = true;
-    if (this.ideaValidationForm.value.choice === 'yes') {
+    if (this.ideaValidationForm.value.choice === 'yes' && this.ideaValidationForm.value.category !== 'NONE') {
       const nextStep: NextStepDto =
       {
         ideaId: this.ideaDetails.ideaId,
@@ -196,6 +196,16 @@ export class ValidateIdeaComponent implements OnInit{
         ],
       });
     }
+    else if(this.ideaValidationForm.value.category === Category.NONE)
+    {
+      this.snackbar
+      .open(this.translate.instant("ideasContent.ideaValidationContent.pleaseSelectCategory"), '', {
+        duration: 2000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: 'notification-error',
+      });
+    }
     else if (this.ideaValidationForm.value.choice === 'no' && this.ideaValidationForm.value.motif === 'NONE')
     {
       this.snackbar
@@ -204,7 +214,7 @@ export class ValidateIdeaComponent implements OnInit{
         horizontalPosition: 'right',
         verticalPosition: 'top',
         panelClass: 'notification-error',
-      })
+      });
     }
     else {
       const rejectionStep: NextStepDto = {
@@ -243,11 +253,11 @@ export class ValidateIdeaComponent implements OnInit{
                 next: (response: any) => {
                   if (response !== null) {
                     this.snackbar
-                      .open('Idea has been rejected !', '', {
+                      .open(this.translate.instant("ideasContent.ideaSelectionContent.ideaRejectionMessage"), '', {
                         duration: 2000,
                         horizontalPosition: 'right',
                         verticalPosition: 'top',
-                        panelClass: 'notification-error',
+                        panelClass: 'notification-success',
                       })
                       .afterDismissed()
                       .subscribe((res) => {
@@ -313,7 +323,8 @@ export class ValidateIdeaComponent implements OnInit{
         concatMap(() =>
           this.ideaService.getResponsiblesListByEmployeeMatriculeAndRole(
             this.ideaDetails.matricule,
-            Profile.CHEF_SEGMENT
+            Profile.CHEF_SEGMENT,
+            ""
           )
         )
       )

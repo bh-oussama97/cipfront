@@ -1,6 +1,5 @@
 .breadcrumb-item{
-    background: linear-gradient(to left , #77E4C8 ,#36C2CE , #478CCF , #4535C1);
-
+    background: #002857;
     padding-top: 20px;
     padding-left: 40px;
     padding-right: 50px;
@@ -11,12 +10,16 @@
                 .xng-breadcrumb-item {
                     .xng-breadcrumb-trail {
                         gap: 10px !important;
+                        color: #ffffffe6;
                         font-family: "Poppins", sans-serif !important;
                     }
                     .xng-breadcrumb-link {
                         gap: 5px !important;
-                        color:white;
+                        color: #ffffffe6;
                     }
+                }
+                .xng-breadcrumb-separator{
+                    color: #ffffffe6;
                 }
             }
         }
@@ -26,7 +29,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--color-background); 
+    height:75vh;
+
     ::ng-deep xng-breadcrumb {
         align-self: self-start;
         .xng-breadcrumb-root {

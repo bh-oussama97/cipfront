@@ -1,4 +1,79 @@
-<div class="flex flex-col justify-center items-center h-full">
+<div class="content d-flex justify-content-center align-items-center">
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title></mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <img src="../assets/images/padlock.png" alt="">
+      <div
+        class="code-verification-sent"
+      >
+        <p class="verification-title">
+          Nous vous avons envoyé un code de vérification de connexion par EMAIL
+        </p>
+        <p class="verification-description">
+          Veuillez récupérer sur votre email {{ emailMasked }} un code à six chiffres
+          et entrez-le ci-dessous pour vous connecter
+        </p>
+
+        <form [formGroup]="verifyOTPCodeForm" (keydown)="enterSubmit($event)">
+
+
+          <input 
+          class="form-control form-control-lg bg-light"
+          appOnlynumber type="text" placeholder="Verification Code" formControlName="verificationCode"><br>
+
+
+          <!-- <mat-form-field appearance="fill">
+            <mat-error></mat-error>
+            <mat-label>Verification Code</mat-label>
+            <input matInput type="text" formControlName="verificationCode" />
+          </mat-form-field> -->
+          <mat-error
+            *ngIf="
+              this.verifyOTPCodeForm
+                .get('verificationCode')
+                .hasError('minLength')
+            "
+          >
+            le code doit être au minimum 6 chiffres
+          </mat-error>
+          <button 
+          [class.spinner]="isLoading"
+          [mtBasicSpinner]="isLoading" 
+          (click)="verifyCode()" 
+          mat-flat-button color="primary">
+            Vérifier
+          </button>
+        </form>
+      </div>
+    </mat-card-content>
+    <mat-card-actions> </mat-card-actions>
+  </mat-card>
+
+
+  <!-- <div class="card">
+       <div >
+            <img src="../assets/images/padlock.png" alt="">
+       </div>
+       <div style="margin: 5px 5px 5px 5px;">
+            <h4>Nous vous avons envoyé un code de <br>
+                 vérification de connexion par EMAIL</h4>
+       </div>
+       <div style="margin: 5px 5px 5px 5px;">
+            <p>Veuillez récupérer sur votre email {{ emailMasked }} un <br>
+                 code à six chiffres et entrez-le ci-dessous pour vous <br>
+                 connecter</p>
+       </div>
+       <input type="string" placeholder="code"><br>
+       <button class="btn btn-lg btn-primary fs-6">Vérifier</button>
+  </div> -->
+
+</div>
+
+<!-- <div class="flex flex-col justify-center items-center h-full">
   <mat-card>
     <mat-card-header>
       <mat-card-title></mat-card-title>
@@ -44,4 +119,4 @@
     </mat-card-content>
     <mat-card-actions> </mat-card-actions>
   </mat-card>
-</div>
+</div> -->

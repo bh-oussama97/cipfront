@@ -1,3 +1,28 @@
+.content{
+    height: 80vh;
+
+    ::ng-deep xng-breadcrumb {
+        align-self: self-start;
+        .xng-breadcrumb-root {
+            .xng-breadcrumb-list {
+                .xng-breadcrumb-item {
+                    .xng-breadcrumb-trail {
+                        gap: 10px !important;
+                        color: #ffffffe6;
+                        font-family: "Poppins", sans-serif !important;
+                    }
+                    .xng-breadcrumb-link {
+                        gap: 5px !important;
+                        color: #ffffffe6;
+                    }
+                }
+                .xng-breadcrumb-separator{
+                    color: #ffffffe6;
+                }
+            }
+        }
+    }
+    
 mat-card{
     margin-top:50px;
     mat-card-content{
@@ -52,4 +77,5 @@ mat-card{
             }
         }
     }
+}
 }

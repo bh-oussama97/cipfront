@@ -308,8 +308,11 @@
         </p>
   
         <file-uploader
-        (sendUploadedFiles)="getUploadedFiles($event)"
-        ></file-uploader>
+        *ngIf="!uploadedLoading"
+            (sendUploadedFiles)="getUploadedFiles($event)"></file-uploader>
+            <mat-spinner 
+            class="loader"
+            *ngIf="uploadedLoading"></mat-spinner>
       </div>
 
     </mat-card-content>

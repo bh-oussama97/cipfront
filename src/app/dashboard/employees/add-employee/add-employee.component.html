@@ -16,7 +16,6 @@
 
                 <form [formGroup]="personalInformationsForm" class="personal-informations-form p-4">
                     <!-- Form content -->
-                    <div class="form-content">
                         <div class="last-first-name-items">
                             <!-- Last name and first name fields -->
                             <mat-form-field>
@@ -39,12 +38,14 @@
                                 <input type="text" matInput placeholder="{{ 'employeesManagmentContent.addEmployeeContent.matriculePlaceholder' | translate }}" formControlName="registrationNumber" required />
                             </mat-form-field>
                         </div>
-                        <mat-form-field>
-                            <!-- Email field -->
-                            <mat-label>{{ "employeesManagmentContent.addEmployeeContent.emailPlaceholder" | translate }}</mat-label>
-                            <input type="email" matInput [(ngModel)]="emailValue" placeholder="{{ 'employeesManagmentContent.addEmployeeContent.emailPlaceholder' | translate }}" formControlName="email" required />
-                        </mat-form-field>
-                    </div>
+                        <div class="email-form-item">
+                            <mat-form-field>
+                                <!-- Email field -->
+                                <mat-label>{{ "employeesManagmentContent.addEmployeeContent.emailPlaceholder" | translate }}</mat-label>
+                                <input type="email" matInput [(ngModel)]="emailValue" placeholder="{{ 'employeesManagmentContent.addEmployeeContent.emailPlaceholder' | translate }}" formControlName="email" required />
+                            </mat-form-field>
+                        </div>
+
                     <div class="button-container">
                         <!-- Add button -->
                         <button color="primary" mat-raised-button (click)="addEmployee()">
@@ -63,7 +64,11 @@
                     </p>
 
                     <file-uploader
+                    *ngIf="!uploadedLoading"
                         (sendUploadedFiles)="getUploadedFiles($event)"></file-uploader>
+                        <mat-spinner 
+                        class="loader"
+                        *ngIf="uploadedLoading"></mat-spinner>
                 </div>
 
             </div>

@@ -1,6 +1,7 @@
 .content {
     display: flex;
     flex-direction: column;
+    height: 100vh;
     ::ng-deep xng-breadcrumb {
         align-self: self-start;
         .xng-breadcrumb-root {
@@ -8,12 +9,16 @@
                 .xng-breadcrumb-item {
                     .xng-breadcrumb-trail {
                         gap: 10px !important;
+                        color: #ffffffe6;
                         font-family: "Poppins", sans-serif !important;
                     }
                     .xng-breadcrumb-link {
                         gap: 5px !important;
-                        color:white;
+                        color: #ffffffe6;
                     }
+                }
+                .xng-breadcrumb-separator{
+                    color: #ffffffe6;
                 }
             }
         }

@@ -1,45 +1,52 @@
-mat-card{
-    mat-card-content{
-        padding-top: 20px;
-        padding-bottom: 20px;
-
-        form{
-            display: flex;
-            flex-direction: column;
-            gap:5px;
-            width: 100%;
-            .form-items,.form-item,.registration-item{
-                display: flex;
-                gap:30px;
-                mat-form-field{
-                    width:50%;
-                }
-            }
-            mat-form-field{
-                width:50%;
-            }
-            .edit-btn{
-                align-self: self-end;
-                width:10%;
-            }
-        }
-    }
-}
-
-::ng-deep xng-breadcrumb {
+.content{
+  ::ng-deep xng-breadcrumb {
     align-self: self-start;
     .xng-breadcrumb-root {
-      .xng-breadcrumb-list {
-        .xng-breadcrumb-item {
-          .xng-breadcrumb-trail {
-            gap: 10px !important;
-            font-family: "Poppins", sans-serif !important;
-          }
-          .xng-breadcrumb-link {
-            gap: 5px !important;
-            color: white;
-          }
+        .xng-breadcrumb-list {
+            .xng-breadcrumb-item {
+                .xng-breadcrumb-trail {
+                    gap: 10px !important;
+                    color: #ffffffe6;
+                    font-family: "Poppins", sans-serif !important;
+                }
+                .xng-breadcrumb-link {
+                    gap: 5px !important;
+                    color: #ffffffe6;
+                }
+            }
+            .xng-breadcrumb-separator{
+                color: #ffffffe6;
+            }
         }
-      }
     }
   }
+  mat-card{
+      mat-card-content{
+          padding-top: 20px;
+          padding-bottom: 20px;
+  
+          form{
+              display: flex;
+              flex-direction: column;
+              gap:5px;
+              width: 100%;
+              .form-items,.form-item,.registration-item{
+                  display: flex;
+                  gap:30px;
+                  mat-form-field{
+                      width:50%;
+                  }
+              }
+              mat-form-field{
+                  width:50%;
+              }
+              .edit-btn{
+                  align-self: self-end;
+                  width:10%;
+              }
+          }
+      }
+  }
+}
+
+

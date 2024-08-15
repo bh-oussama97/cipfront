@@ -5,17 +5,17 @@
     align-items: baseline;
     justify-content: center;
     font-family: "Poppins", sans-serif;
-    // background-color: var(--color-background);
-    background: linear-gradient(to left , #77E4C8 ,#36C2CE , #478CCF , #4535C1);
-
+    background: #002857;
     padding-top:50px;
     padding-bottom:50px;
     fa-icon{
         font-size:1rem;
+        color:var(--color-background);
     }
     h1{
         font-size:1rem;
         font-weight: 700;
+        color:var(--color-background);
         font-family: "Poppins", sans-serif;
     }
 }

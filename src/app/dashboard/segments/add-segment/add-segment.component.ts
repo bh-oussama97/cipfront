@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
 import { StructureType } from 'src/app/shared/enum/structure-type';
-import { IFile } from 'src/app/shared/interfaces/file';
-import { StructureService } from 'src/app/shared/services/structure.service';
+import { FileService } from 'src/app/shared/services/file.service';
 
 @Component({
   selector: 'app-add-segment',
@@ -26,8 +25,8 @@ export class AddSegmentComponent implements OnInit {
     private translate: TranslateService,
     private fb: FormBuilder,
     private router: Router,
-    private structureService: StructureService
-  ) {}
+    private fileService : FileService
+  ) { }
   ngOnInit(): void {
     this.addSegmentForm = this.fb.group({
       site: ['', [Validators.required]],
@@ -57,12 +56,12 @@ export class AddSegmentComponent implements OnInit {
    * This gets the list of uploaded files from file uploader component
    * @param fileList
    */
-  getUploadedFiles(fileList: any) {    
+  getUploadedFiles(fileList: any) {
     this.loading = true;
     const data: FormData = new FormData();
     data.append('file', fileList.value);
     data.append('type', StructureType.SEGMENT);
-    this.structureService.excelMassifUpload(data).subscribe({
+    this.fileService.excelMassifUpload(data).subscribe({
       next: (response: HttpResponse<any>) => {
         if (response !== null) {
           this.snackbar.open(response['message'], '', {
@@ -76,23 +75,37 @@ export class AddSegmentComponent implements OnInit {
       error: (httpError: HttpErrorResponse) => {
         setTimeout(() => {
           this.loading = false;
-          if(httpError.status !== 200)
-          { 
-            this.snackbar.open(httpError.error, '', {
-              duration: 2000,
-              horizontalPosition: 'right',
-              verticalPosition: 'top',
-              panelClass: 'notification-error',
-            });
-          }
-          else{
-            this.snackbar.open(httpError.error.text, '', {
-              duration: 2000,
-              horizontalPosition: 'right',
-              verticalPosition: 'top',
-              panelClass: 'notification-success',
-            });
-          }
+          if(httpError.status == 417 && typeof httpError.error === 'object')
+            {
+              let errorMsj = "";
+              Object.keys(httpError.error).forEach(row => {
+                let message = httpError.error[row][0];
+                errorMsj += message + "\n";
+              });
+              this.snackbar.open(errorMsj, '', {
+                duration: 4000,
+                horizontalPosition: 'right',
+                verticalPosition: 'top',
+                panelClass: 'error-notification-message',
+              });
+            }
+            else if( httpError.status == 200)
+            {
+              this.snackbar.open(httpError.error.text, '', {
+                duration: 2000,
+                horizontalPosition: 'right',
+                verticalPosition: 'top',
+                panelClass: 'notification-success',
+              });
+            }
+            else{
+              this.snackbar.open(httpError.error, '', {
+                duration: 4000,
+                horizontalPosition: 'right',
+                verticalPosition: 'top',
+                panelClass: 'error-notification-message',
+              });
+            }
         }, 3000);
       },
     });

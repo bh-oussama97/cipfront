@@ -6,14 +6,28 @@
     <fa-icon (click)="this.dialogRef.close()" [icon]="close"></fa-icon>
   </div>
   <div class="select-expert-body">
-    <mat-form-field class="expert-select">
-      <mat-label> Expert</mat-label>
-      <mat-select [(value)]="expertSelected">
-        <mat-option [value]="value" *ngFor="let value of data.expertList">{{
-          value.fullName
-        }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+
+    <div class="expert-category-select">
+      <mat-form-field class="category-select">
+        <mat-label> Category</mat-label>
+        <mat-select 
+        (selectionChange)="onChangeCategory($event)"
+        >
+          <mat-option [value]="value" *ngFor="let value of categoryList">{{
+            value
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="expert-select">
+        <mat-label> Expert</mat-label>
+        <mat-select [(value)]="expertSelected">
+          <mat-option [value]="value" *ngFor="let value of expertsList">{{
+            value.fullName
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <div class="buttons">
       <ng-container>
         <button color="primary"

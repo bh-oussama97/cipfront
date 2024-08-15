@@ -1,6 +1,5 @@
 
 .content {
-    background-color: var(--color-background); 
     display:flex;
     flex-direction: column;
     padding-top: 30px;
@@ -16,10 +15,8 @@
                     .xng-breadcrumb-trail {
                         gap: 10px !important;
                         font-family: "Poppins", sans-serif !important;
-                    }
-                    .xng-breadcrumb-link {
-                        gap: 5px !important;
-                        color:white;
+                        color: #ffffffe6;
+
                     }
                 }
             }
@@ -36,7 +33,7 @@
             flex-direction: column;
             gap: 5px;
             width: 100%;
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid white;
     
             .download-report {
                 display: flex;
@@ -44,7 +41,7 @@
                 align-items: center;
                 width: 100%;
                 padding-bottom: 10px;
-                border-bottom: 1px solid black;
+                border-bottom: 1px solid white;
     
                 .select-report {
                     width: 100%;
@@ -69,6 +66,7 @@
                     fa-icon {
                         font-size: 30px;
                         cursor: pointer;
+                        color:white;
                     }
                 }
             }

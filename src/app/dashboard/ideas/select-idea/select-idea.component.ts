@@ -52,7 +52,6 @@ import * as exceljs from 'exceljs';
 export class SelectIdeaComponent implements OnInit {
   ideaDetails: IdeaDto;
   ideaSelectionForm: FormGroup;
-  expertsList: UserDto[];
   motifs: string[];
   currentRole: string;
   faUpload = faUpload;
@@ -122,7 +121,7 @@ export class SelectIdeaComponent implements OnInit {
       error: (error) => {
         console.error('Error fetching idea details:', error);
       },
-      complete: () => {},
+      complete: () => { },
     });
     this.ideaSelectionForm.valueChanges
       .pipe(debounceTime(500))
@@ -147,7 +146,7 @@ export class SelectIdeaComponent implements OnInit {
         ) {
           this.ideaSelectionForm.controls['motif'].disable();
         }
-
+        
         if (
           valuechange.impactNote >= 0 &&
           valuechange.impactNote <= 10 &&
@@ -158,6 +157,14 @@ export class SelectIdeaComponent implements OnInit {
             (valuechange.impactNote + valuechange.originaliteNote) / 2;
         } else {
           this.noteTotal = 0;
+        }
+
+        if(valuechange.validationChoice === 'no')
+        {
+          this.ideaSelectionForm.controls['generalizableChoice'].disable();
+        }
+        else{
+          this.ideaSelectionForm.controls['generalizableChoice'].enable();
         }
       });
     if (this.ideaSelectionForm.get('validationChoice').value === 'yes') {
@@ -231,11 +238,11 @@ export class SelectIdeaComponent implements OnInit {
                 next: (response: any) => {
                   if (response !== null) {
                     this.snackbar
-                      .open('Idea has been rejected !', '', {
+                      .open(this.translate.instant("ideasContent.ideaSelectionContent.ideaRejectionMessage"), '', {
                         duration: 2000,
                         horizontalPosition: 'right',
                         verticalPosition: 'top',
-                        panelClass: 'notification-error',
+                        panelClass: 'notification-success',
                       })
                       .afterDismissed()
                       .subscribe((res) => {
@@ -314,7 +321,6 @@ export class SelectIdeaComponent implements OnInit {
             handler: () => {
               this.dialog.open(SelectExpertModalComponent, {
                 data: {
-                  expertList: this.expertsList,
                   ideaDetails: this.ideaDetails,
                   valid: this.ideaSelectionForm.value.validationChoice,
                   generalizable:
@@ -512,19 +518,8 @@ export class SelectIdeaComponent implements OnInit {
   fetchIdeaDetails(ideaId: string) {
     this.ideaService
       .getIdeaById(ideaId)
-      .pipe(
-        catchError((error) => {
-          setTimeout(() => {
-            this.snackbar.open(error.message, '', {
-              duration: 2000,
-              horizontalPosition: 'right',
-              verticalPosition: 'top',
-              panelClass: 'notification-error',
-            });
-          }, 2000);
-          return of(null);
-        }),
-        tap((ideaDto: IdeaDto) => {
+      .subscribe({
+        next: (ideaDto: IdeaDto) => {
           this.ideaDetails = ideaDto;
           this.ideaDescription = ideaDto.description;
           this.kaizenImageBeforeName = ideaDto.kaizanBefore;
@@ -549,17 +544,17 @@ export class SelectIdeaComponent implements OnInit {
             this.ideaSelectionForm.controls['generalizableChoice'].disable();
             this.ideaSelectionForm.controls['validationChoice'].disable();
           }
-        }),
-        concatMap(() =>
-          this.ideaService.getResponsiblesListByEmployeeMatriculeAndRole(
-            this.ideaDetails.matricule,
-            Profile.EXPERT
-          )
-        )
-      )
-      .subscribe((responsibles: UserDto[]) => {
-        this.expertsList = responsibles;
-      });
+        }, error: (error) => {
+          setTimeout(() => {
+            this.snackbar.open(error.message, '', {
+              duration: 2000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: 'notification-error',
+            });
+          }, 2000);
+        }
+      })
   }
 
   async blobToBuffer(blob: Blob): Promise<Uint8Array> {
@@ -612,9 +607,8 @@ export class SelectIdeaComponent implements OnInit {
       })
     );
     formData.append('status', 'kaizen');
-    debugger;
     this.fileService.uploadKaizenCard(formData).subscribe({
-      next: (result: any) => {},
+      next: (result: any) => { },
       error: (httpError: HttpErrorResponse) => {
         setTimeout(() => {
           this.isLoading = false;

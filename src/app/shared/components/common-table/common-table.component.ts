@@ -218,8 +218,11 @@ export class CommonTableComponent implements OnInit {
         case IdeaState.WAITING:
           this.battery = faBatteryEmpty;
           return IdeaState.WAITING;
+        case IdeaState.PRESELECTED :
+          this.battery = faBatteryHalf;
+          return IdeaState.PRESELECTED;
       default:
-        return 'Unknown status.';
+        return '';
     }
   }
 }

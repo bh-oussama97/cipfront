@@ -17,6 +17,7 @@ import { UserDto } from '../../interfaces/user-dto';
 import { Profile } from '../../enum/profile';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-header',
@@ -44,11 +45,8 @@ export class HeaderComponent implements OnInit,OnDestroy {
   ) {}
   ngOnInit(): void {
     this.loggedInUser = this.authService.get_login_info();
-    this.connectedUserRole = this.loggedInUser['roles'];
-    this.fullName =
-      this.loggedInUser.email.split('@')[0].split('.')[0].toLocaleUpperCase() +
-      ' ' +
-      this.loggedInUser.email.split('@')[0].split('.')[1].toLocaleUpperCase();
+    this.connectedUserRole = this.loggedInUser['roles'];    
+    this.fullName = jwtDecode(this.authService.getToken())['full_name'];
     this.refreshTasksByMatricule(this.loggedInUser['matricule']);
     this.taskCompletionSubscription =this.dataService.taskCompletion$.subscribe(() => {
       this.refreshTasksByMatricule(this.loggedInUser['matricule']);

@@ -33,8 +33,8 @@ export class IdeaService {
     return this.http.post<IdeaDto>(environment.apiUrl + '/nextStep', nextStepDto);
   }
 
-  getResponsiblesListByEmployeeMatriculeAndRole(matricule: string, role: string): Observable<UserDto[]> {
-    return this.http.get<UserDto[]>(environment.apiUrl + "/users/responsables/" + matricule + "/" + role);
+  getResponsiblesListByEmployeeMatriculeAndRole(matricule: string, role: string,category?:string): Observable<UserDto[]> {
+    return this.http.get<UserDto[]>(environment.apiUrl + "/users/responsables/" + matricule + "/" + role+ (category === '' ? '' : "/"+category));
   }
 
   getIdeaById(id: string): Observable<IdeaDto> {

@@ -1,4 +1,4 @@
-.content{
+.content {
   background-color: white;
 }
 .header-link {
@@ -8,19 +8,19 @@
   text-transform: uppercase;
   color: #0e1c36;
   min-width: fit-content;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   letter-spacing: 1.5px;
 }
 .logo {
-  width: 70px;
-  height: 50px;
+  width: 7%;
 }
 
 .username {
   color: black;
   margin: 0 !important;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 18px;
+  font-weight: 700;
 }
 
 .menu-dropdown {
@@ -29,18 +29,30 @@
   align-items: center;
   gap: 4px;
   cursor: pointer;
-  fa-icon {
-    font-size: 24px;
+  .person{
+    width: 47px;
   }
 }
 .notification {
+  width: 70px;
+  height: 70px;
+  padding:5px;
   mat-icon {
-    font-size: 24px;
+    height:45px!important;
+    width:45px!important;
+    img{
+      --mdc-icon-button-icon-size:45px;
+    }
+    ::ng-deep.mat-badge-content{
+      right: -10px;
+      top: -5px;
+    }
+    }
   }
-}
+
 
 ::ng-deep .notification-menu {
-//  max-width: 400px;
+  //  max-width: 400px;
   .mat-mdc-menu-content {
     padding-top: 20px;
     padding-left: 16px;
@@ -53,7 +65,7 @@
       color: var(--color-blue-lighter);
       padding-bottom: 10px;
       border-bottom: 0.5px solid #f1f1f1;
-      font-family: 'Poppins', sans-serif;
+      font-family: "Poppins", sans-serif;
     }
     .notifications-items {
       display: flex;
@@ -73,13 +85,21 @@
           width: 30px;
           height: 30px;
         }
-        .notification-content{
+        .notification-content {
           display: flex;
           flex-direction: column;
           align-content: flex-start;
-          .title{ font-size:13px;font-weight: bold;}
-          .description{font-size:13px;}
-          .date{font-size:13px;color:#DBDBDB;}
+          .title {
+            font-size: 13px;
+            font-weight: bold;
+          }
+          .description {
+            font-size: 13px;
+          }
+          .date {
+            font-size: 13px;
+            color: #dbdbdb;
+          }
         }
       }
     }
@@ -92,14 +112,15 @@
 }
 ::ng-deep .header-menu {
   .mat-mdc-menu-content {
-    @apply p-2.5;
+    padding: 1rem;
     border-radius: var(--border-radius-soft);
     box-shadow: var(--shadow-s);
     max-width: 350px;
-    min-width: 142px;
+    min-width: 150px;
+    
 
     .menu-item {
-      font-family: 'Poppins', sans-serif;
+      font-family: "Poppins", sans-serif;
       margin-top: var(--space-s);
       color: black;
       display: flex;
@@ -121,28 +142,26 @@
   }
 }
 
-::ng-deep .structures-menu{
-  .mat-mdc-menu-content{
+::ng-deep .structures-menu {
+  .mat-mdc-menu-content {
     // @apply p-1.5;
     .mat-mdc-menu-item {
-      .mdc-list-item__primary-text{
+      .mdc-list-item__primary-text {
         font-size: 0.9rem;
-        font-family: 'Poppins',sans-serif;
+        font-family: "Poppins", sans-serif;
       }
     }
   }
-
 }
 
-::ng-deep .administration-menu{
-  .mat-mdc-menu-content{
+::ng-deep .administration-menu {
+  .mat-mdc-menu-content {
     // @apply p-1.5;
     .mat-mdc-menu-item {
-      .mdc-list-item__primary-text{
-        font-family: 'Poppins',sans-serif;
+      .mdc-list-item__primary-text {
+        font-family: "Poppins", sans-serif;
         font-size: 0.9rem;
       }
     }
   }
-
 }

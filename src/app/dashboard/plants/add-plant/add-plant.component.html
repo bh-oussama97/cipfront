@@ -7,7 +7,7 @@
   </xng-breadcrumb>
 
   <div class="information">
-    <fa-icon [icon]="faInformation"></fa-icon>
+    <fa-icon  [styles]="{  color: 'white' }" [icon]="faInformation"></fa-icon>
     <div class="information-body">
       <p class="information-title">
         {{ "plantContent.AddPlant.information" | translate }}
@@ -30,10 +30,11 @@
           <mat-label>    {{ "plantContent.AddPlant.siteName" | translate }}</mat-label>
           <mat-select
             formControlName="siteName"
+            [(value)]="siteSelected"
           >
             <mat-option 
-            [value]="site"
-            *ngFor="let site of sites">{{ site }}</mat-option>
+            [value]="site.id"
+            *ngFor="let site of sites">{{ site.name }}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field [floatLabel]="'auto'">
@@ -43,14 +44,19 @@
           <input type="text" matInput formControlName="plantName" />
         </mat-form-field>
       </form>
-      <button
+      <div class="d-flex justify-content-end">
+        <button
         (click)="addNewPlant()"
-        class="add-btn"
         mat-raised-button
         color="primary"
+        [disabled]="addPlantForm.valid"
+        [mtBasicSpinner]="displayProgressSpinner"
+        [class.spinner]="displayProgressSpinner"
       >
         {{ "plantContent.AddPlant.addBtn" | translate }}
       </button>
+      </div>
+
       <div class="or-text">
         <hr />
         <p>{{ "plantContent.AddPlant.or" | translate }}</p>

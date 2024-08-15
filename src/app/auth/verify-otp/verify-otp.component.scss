@@ -1,3 +1,6 @@
+.content{
+    min-height:100%;
+}
 .mat-mdc-card-header {
     display: flex;
     flex-direction: column;
@@ -5,6 +8,12 @@
 
 mat-card{
     width:500px;
+    padding: 20px 30px;
+   
+    // border-radius: 4%;
+    // border: 2px solid #ddd;
+    // flex-direction: column;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15); 
     height: auto;
 
 }
@@ -37,10 +46,12 @@ mat-card-content {
         color: var(--color-blue);
         font-weight:bold;
         line-height: 1.5;
+        text-align: center;
     }
     .verification-description{
         font-size:15px;;
         line-height: 1.5;
+        text-align: center;
     }
     .error-text{
         font-size: 15px;
@@ -67,4 +78,12 @@ mat-card-content {
     border-top-color: #000000;
     animation: spinner .8s linear infinite;
   }
+
+  input {
+    padding-top: 0.625rem;
+    padding-right: 1.25rem;
+    padding-left: 1.25rem;
+    padding-bottom: 0.625rem;
+    font-size: 1rem !important;
+ }
   

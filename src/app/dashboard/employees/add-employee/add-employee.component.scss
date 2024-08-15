@@ -1,42 +1,59 @@
-::ng-deep xng-breadcrumb {
-    align-self: self-start;
-    .xng-breadcrumb-root {
-      .xng-breadcrumb-list {
-        .xng-breadcrumb-item {
-          .xng-breadcrumb-trail {
-            gap: 10px !important;
-            font-family: "Poppins", sans-serif !important;
-          }
-          .xng-breadcrumb-link {
-            gap: 5px !important;
-            color: white;
-          }
+.content{
+    height:100vh;
+    flex-direction: column;
+    ::ng-deep xng-breadcrumb {
+        align-self: self-start;
+        .xng-breadcrumb-root {
+            .xng-breadcrumb-list {
+                .xng-breadcrumb-item {
+                    .xng-breadcrumb-trail {
+                        gap: 10px !important;
+                        color: #ffffffe6;
+                        font-family: "Poppins", sans-serif !important;
+                    }
+                    .xng-breadcrumb-link {
+                        gap: 5px !important;
+                        color: #ffffffe6;
+                    }
+                }
+                .xng-breadcrumb-separator{
+                    color: #ffffffe6;
+                }
+            }
         }
       }
-    }
-  }
 
-.form-and-massive-container {
-    display: flex;
-    flex-wrap: wrap; /* Allows wrapping to next line if necessary */
-    gap: 40px; /* Adjust the gap between form and massive section */
+      
+      .form-and-massive-container {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap; /* Allows wrapping to next line if necessary */
+          gap: 40px; /* Adjust the gap between form and massive section */
+      }
+      
+      .massive-addition-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+      
+      .personal-informations-form {
+          display: flex;
+          flex-direction: column;
+      }
+      
+      .last-first-name-items,.registration-number-phone-items,.email-form-item{
+        display: flex;
+        gap:30px;
+        mat-form-field{
+            width: 48%;
+        }
+      }
+      
+      .button-container {
+          align-self: flex-end; /* Aligns the button to the end (right) of the form container */
+          margin-top: 10px; /* Optional: Add margin between form content and button */
+      }
+      
 }
 
-.massive-addition-section {
-    flex: 1; /* Allow the massive addition section to grow and take available space */
-}
-
-.personal-informations-form {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-content {
-    flex: 1; /* Allow the form content to take up remaining space */
-    margin-right: 20px; /* Optional: Add margin between form content and button */
-}
-
-.button-container {
-    align-self: flex-end; /* Aligns the button to the end (right) of the form container */
-    margin-top: 10px; /* Optional: Add margin between form content and button */
-}

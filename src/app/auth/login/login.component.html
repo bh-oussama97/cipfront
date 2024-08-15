@@ -1,4 +1,106 @@
-<div class="container">
+<div class="container d-flex flex-column" >
+  <div class="logo">
+    <img src="./assets/images/leoni-logo-white.png" alt="">
+  </div>
+  <div
+  class="container d-flex justify-content-center align-items-center mw-100 vh-100"
+>
+  <div class="row border rounded-4 p-12 bg-white shadow box-area">
+    <div
+      class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box block-container"
+    >
+      <img src="./assets/images/Logo-CIP-V1.png" />
+      <h1 class="welcome">{{ "loginContent.welcome" | translate }}</h1>
+    </div>
+
+    <div class="col-md-6 right-box">
+      <form [formGroup]="loginForm" (keydown)="enterSubmit($event)">
+        <div class="row align-items-center">
+          <div class="header-text mb-4">
+            {{ "loginContent.descriptionAdmin" | translate }}
+          </div>
+
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              formControlName="username"
+              class="form-control form-control-lg bg-light fs-6 pr-5 pl-5 pt-2.5 pb-2.5"
+              [placeholder]="'loginContent.username' | translate"
+            />
+          </div>
+
+          <div
+            *ngIf="
+              loginForm.controls['username'].invalid &&
+              (loginForm.controls['username'].dirty ||
+                loginForm.controls['username'].touched)
+            "
+          >
+            <div
+              class="text-danger mb-3"
+              *ngIf="loginForm.controls['username'].errors?.['required']"
+            >
+              le nom d'utilisateur est obligatoire
+            </div>
+          </div>
+
+          <div class="input-group mb-3">
+            <input
+              type="password"
+              formControlName="password"
+              class="form-control form-control-lg bg-light fs-6 pr-5 pl-5 pt-2.5 pb-2.5"
+              [placeholder]="'loginContent.password' | translate"
+            />
+          </div>
+
+          <div
+            *ngIf="
+              loginForm.controls['password'].invalid &&
+              (loginForm.controls['password'].dirty ||
+                loginForm.controls['password'].touched)
+            "
+          >
+            <div
+              class="text-danger"
+              *ngIf="loginForm.controls['password'].errors?.['required']"
+            >
+              le mot de passe est obligatoire
+            </div>
+            <div
+              class="text-danger"
+              *ngIf="loginForm.controls['password'].errors?.['minlength']"
+            >
+              Mot de passe doit être au minimum 6 caractères
+            </div>
+          </div>
+
+          <div class="forgot-text input-group">
+            <a [routerLink]="['/reset-password']">Mot de passe oublié?</a>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button
+              (click)="login()"
+              color="primary"
+              [disabled]="loginForm.invalid"
+              [mtBasicSpinner]="displayProgressSpinner"
+              [class.spinner]="displayProgressSpinner"
+              mat-raised-button
+            >
+              {{ "loginContent.connect" | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<!-- <div class="container">
   <div class="flex flex-row items-center pt-36 pl-24">
     <div class="flex flex-col items-center w-full">
       <div class="admin-form">
@@ -70,4 +172,4 @@
       <h1 class="welcome">{{ "loginContent.welcome" | translate }}</h1>
     </div>
   </div>
-</div>
+</div>-->

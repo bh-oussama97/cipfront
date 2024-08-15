@@ -147,11 +147,11 @@ export class ExecuteIdeaComponent implements OnInit {
                 setTimeout(()=>{
                   this.isLoading=false;
                   this.snackbar
-                  .open("Idea has been rejected !", '', {
+                  .open(this.translate.instant("ideasContent.ideaSelectionContent.ideaRejectionMessage"), '', {
                     duration: 2000,
                     horizontalPosition: 'right',
                     verticalPosition: 'top',
-                    panelClass: 'notification-error'
+                    panelClass: 'notification-success'
                   }).afterDismissed().subscribe((res) => {
                     this.dataservice.notifyTaskCompletion();
                     this.router.navigateByUrl('/ideas');
@@ -301,7 +301,8 @@ export class ExecuteIdeaComponent implements OnInit {
       concatMap(() =>
         this.ideaService.getResponsiblesListByEmployeeMatriculeAndRole(
           this.ideaDetails.matricule,
-          Profile.CHEF_SEGMENT
+          Profile.CHEF_SEGMENT,
+          this.ideaDetails.category
         )
       )
     )

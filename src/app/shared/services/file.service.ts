@@ -6,7 +6,7 @@ import * as Excel from 'exceljs';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { WorksheetColumn } from 'src/app/shared/interfaces/worksheet-column';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { saveAs } from 'file-saver';
@@ -183,5 +183,19 @@ export class FileService {
       type: 'application/vnd.ms.excel',
     });
     saveAs(file);
+  }
+
+  uploadEmployees(formData:FormData) :Observable<HttpResponse<any>>
+  {
+    return this.httpClient.post<HttpResponse<any>>(environment.apiUrl + '/upload/employees',formData);
+  }
+  uploadUsers(formData:FormData) :Observable<HttpResponse<any>>
+  {
+    return this.httpClient.post<HttpResponse<any>>(environment.apiUrl + '/upload/users',formData);
+  }
+
+  excelMassifUpload(data:FormData) :Observable<HttpResponse<any>>
+  {
+    return this.httpClient.post<HttpResponse<any>>(environment.apiUrl+"/upload/structures",data);
   }
 }
