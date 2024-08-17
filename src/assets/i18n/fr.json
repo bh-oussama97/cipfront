@@ -30,25 +30,25 @@
     "users": "Utilisateurs",
     "employees": "Employés",
     "ranking": "Classement",
-    "permissions":"Permissions",
-    "roles":"Rôles",
+    "permissions": "Permissions",
+    "roles": "Rôles",
     "id": "Idées",
     "admin": "Administration",
     "profile": "Profil",
     "settings": "Paramètres",
     "logout": "Déconnexion",
-    "details":"Détails",
-    "preselection":"Présélection",
-    "selection":"Sélection",
-    "execution":"Exécution",
+    "details": "Détails",
+    "preselection": "Présélection",
+    "selection": "Sélection",
+    "execution": "Exécution",
     "gestionRoles": "Gestion des roles",
     "gestionPermissions": "Gestion des permissions",
-    "gestionEmployees":"Gestion des employés",
-    "gestionUsers":"Gestion des utilisateurs",
+    "gestionEmployees": "Gestion des employés",
+    "gestionUsers": "Gestion des utilisateurs",
     "configurationApplication": "Configuration de l'application",
-    "account":"Compte",
-    "notifications":"Notifications",
-    "ideasRanking":"Classement des idées",
+    "account": "Compte",
+    "notifications": "Notifications",
+    "ideasRanking": "Classement des idées",
     "notificationContent": {
       "youHaveNewNotification": "Vous avez",
       "NewIdeaSaved": "Nouvelle idée a été enregistrée",
@@ -119,7 +119,8 @@
       "organisation": "Usine",
       "add": "Ajouter",
       "successAlert": "L'usine a été ajoutée avec succès",
-      "errorMessage": "Le nom de l'usine est vide !"
+      "errorMessage": "Le nom de l'usine est vide !",
+      "siteAlreadyExists":"La plante existe déjà !"
     },
     "deleteSite": {
       "title": "Supprimer l'usine",
@@ -160,9 +161,8 @@
       "or": "Ou",
       "plantExample": "Exemple de section de produit",
       "successAdd": "La section de produit a été ajoutée avec succès",
-      "errorAddingProductSection":"Le nom de la section produit est vide !",
-      "selectPlant":"Veuillez sélectionner l'usine !"
-
+      "errorAddingProductSection": "Le nom de la section produit est vide !",
+      "selectPlant": "Veuillez sélectionner l'usine !"
     }
   },
   "segementsContent": {
@@ -274,8 +274,8 @@
       "confimAssignIdeaDialogText": "Voulez-vous vraiment assigner cette idée au chef segment ?",
       "rejectAssignIdeaDialogText": "Voulez-vous vraiment rejeter cette idée ?",
       "close": "Soumettre",
-      "ideaWithoutMotifMessage":"Veuillez sélectionner la raison de refus !",
-      "pleaseSelectCategory" : "Veuillez choisir une catégorie !"
+      "ideaWithoutMotifMessage": "Veuillez sélectionner la raison de refus !",
+      "pleaseSelectCategory": "Veuillez choisir une catégorie !"
     },
     "ideaSelectionContent": {
       "ideaSelectionText": "Sélection de l'idée",
@@ -296,16 +296,19 @@
       "selectImageBeforeAfter": "Veuillez télécharger l'image Kaizen avant et après !",
       "imagePreview": "Aperçu de l'image",
       "chooseOriginaliteImpactNote": "Veuillez saisir des notes d'originalité et d'impact !",
-      "addComment":"Ajouter un commentaire",
-      "commentPlaceholder":"Expliquer la différence avant/après et les actions faites",
-      "submit":"Soumettre",
-      "ideaRejectionMessage":"L'idée a été rejetée !",
-      "selectExpertErrorMessage":"Veuillez sélectionner un Expert !"
+      "addComment": "Ajouter un commentaire",
+      "commentPlaceholder": "Expliquer la différence avant/après et les actions faites",
+      "submit": "Soumettre",
+      "ideaRejectionMessage": "L'idée a été rejetée !",
+      "selectExpertErrorMessage": "Veuillez sélectionner un Expert !",
+      "kaizenUploadErrorMassage": "Veuillez télécharger les deux images",
+      "commentErrorMessage": "Le commentaire ne peut pas être vide !",
+      "ideaExecutionMessage":"L'idée a été exécutée"
     },
-    "bestIdeaSelectionContent":{
-      "bestIdeaSelectionDialogText" :"Voulez-vous Confirmer la meilleure carte kaizen ?",
-      "yes" : "Oui",
-      "errorMessage":"Problème lors de la confirmation de la meilleure sélection de carte Kaizen"
+    "bestIdeaSelectionContent": {
+      "bestIdeaSelectionDialogText": "Voulez-vous Confirmer la meilleure carte kaizen ?",
+      "yes": "Oui",
+      "errorMessage": "Problème lors de la confirmation de la meilleure sélection de carte Kaizen"
     }
   },
   "linesContent": {
@@ -467,8 +470,8 @@
     "yourUserLine": "Votre ligne utilisateur",
     "save": "Enregistrer",
     "successEdit": "L'utilisateur a été modifié avec succès",
-    "addNewUser":"Ajouter un nouvel utilisateur",
-    "edit":"Modifier",
+    "addNewUser": "Ajouter un nouvel utilisateur",
+    "edit": "Modifier",
     "addUserContent": {
       "firstStep": "Etape 1",
       "secondStep": "Etape 2",

@@ -20,4 +20,5 @@ export interface NextStepDto {
 	global: boolean;
 	valid: boolean;
 	total :number;
+	comment:string;
 }

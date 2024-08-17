@@ -109,7 +109,8 @@
       "organisation": "Plant",
       "add": "Add",
       "successAlert": "Plant was successfully added",
-      "errorMessage": "Plant name is empty !"
+      "errorMessage": "Plant name is empty !",
+      "siteAlreadyExists":"Plant already exists !"
     },
     "deleteSite": {
       "title": "Delete plant",
@@ -289,7 +290,10 @@
       "commentPlaceholder":"explain the difference before/after and the actions taken",
       "submit":"Submit",
       "ideaRejectionMessage":"Idea has been rejected !",
-      "selectExpertErrorMessage":"Please Choose An Expert!"
+      "selectExpertErrorMessage":"Please Choose An Expert!",
+      "kaizenUploadErrorMassage":"Please upload both images",
+      "commentErrorMessage":"Comment cannot be empty !",
+      "ideaExecutionMessage":"Idea has been executed"
     },
     "bestIdeaSelectionContent":{
       "bestIdeaSelectionDialogText" :"Do you want to Confirm the best kaizen card?",

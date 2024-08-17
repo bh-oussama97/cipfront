@@ -5,6 +5,7 @@ import { FileService } from '../../services/file.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-kaizen-card-before-after-modal',
@@ -23,7 +24,8 @@ export class KaizenCardBeforeAfterModalComponent {
     private fileService: FileService,
     @Inject(MAT_DIALOG_DATA) public data: { ideaId: string },
     public dialogRef: MatDialogRef<KaizenCardBeforeAfterModalComponent>,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private translate : TranslateService
   ) { }
 
   uploadCardKaizenImageBefore(event: any) {
@@ -90,7 +92,16 @@ export class KaizenCardBeforeAfterModalComponent {
   validateCardBeforeAfterUpload(){    
     if( this.filenameImageAfter === undefined || this.filenameImageBefore === undefined)
     {
-      this.snackbar.open('Please upload both images', '',  {
+      this.snackbar.open(this.translate.instant("ideasContent.ideaSelectionContent.kaizenUploadErrorMassage"), '',  {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: 'notification-error'
+      });
+    }
+    else if(this.comment === "" ||this.comment === undefined)
+    {
+      this.snackbar.open(this.translate.instant("ideasContent.ideaSelectionContent.commentErrorMessage"), '',  {
         duration: 3000,
         horizontalPosition: 'right',
         verticalPosition: 'top',
@@ -98,7 +109,7 @@ export class KaizenCardBeforeAfterModalComponent {
       });
     }
     else{
-      this.dialogRef.close();
+      this.dialogRef.close({comment:this.comment});
     }
   }
 }

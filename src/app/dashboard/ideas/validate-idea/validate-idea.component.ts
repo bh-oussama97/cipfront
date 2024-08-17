@@ -131,6 +131,7 @@ export class ValidateIdeaComponent implements OnInit{
         global: false,
         valid: false,
         type: this.ideaDetails.type,
+        comment: ''
       };
       this.dialogService.create({
         component: DefaultModalComponent,
@@ -232,6 +233,7 @@ export class ValidateIdeaComponent implements OnInit{
         valid: false,
         type: this.ideaDetails.type,
         total: 0,
+        comment: ''
       };
       this.dialogService.create({
         component: DefaultModalComponent,

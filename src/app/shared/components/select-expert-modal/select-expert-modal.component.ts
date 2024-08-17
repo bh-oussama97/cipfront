@@ -98,7 +98,8 @@ export class SelectExpertModalComponent implements OnInit{
         motif: this.data.motif,
         decision: Decision.SELECTED,
         category: this.data.category,
-        total : this.data.noteTotal
+        total: this.data.noteTotal,
+        comment: ""
       };    
       this.ideaService.updateIdeaNextStep(nextStepDto).subscribe({
         next: (response: any) => {

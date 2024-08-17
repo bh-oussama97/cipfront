@@ -30,7 +30,7 @@ export class AddStructureComponent {
       name: this.addSiteForm.value.organisation
     }
 
-    if(this.addSiteForm.valid)
+    if(this.addSiteForm.value.organisation === "")
     {
       this.snackbar.open(this.translate.instant("structureContent.addSite.errorMessage"),'',
       {
@@ -58,16 +58,27 @@ export class AddStructureComponent {
             }
         }, error: (httpError: HttpErrorResponse) => {
           let responseError: ResponseDto = httpError.error;
-          this.snackbar
+
+          if(responseError.message.includes('already exists'))
+          {
+            this.snackbar
+            .open(this.translate.instant("structureContent.addSite.siteAlreadyExists"), '', {
+              duration: 2000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: 'notification-error'
+            });
+          }
+          else{
+            this.snackbar
             .open(responseError.message, '', {
               duration: 2000,
               horizontalPosition: 'right',
               verticalPosition: 'top',
               panelClass: 'notification-error'
-            })
-            .afterDismissed().subscribe((res) => {
-              this.addSiteForm.reset();
             });
+          }
+
         }});
     }
 

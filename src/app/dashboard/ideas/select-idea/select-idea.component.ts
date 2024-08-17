@@ -220,19 +220,18 @@ export class SelectIdeaComponent implements OnInit {
                 affectedTo: this.ideaDetails.matricule,
                 impact: this.ideaSelectionForm.value.impactNote,
                 original: this.ideaSelectionForm.value.originaliteNote,
-                global:
-                  this.ideaSelectionForm.value.generalizableChoice === 'yes'
-                    ? true
-                    : false,
-                valid:
-                  this.ideaSelectionForm.value.validationChoice === 'yes'
-                    ? true
-                    : false,
+                global: this.ideaSelectionForm.value.generalizableChoice === 'yes'
+                  ? true
+                  : false,
+                valid: this.ideaSelectionForm.value.validationChoice === 'yes'
+                  ? true
+                  : false,
                 type: this.ideaDetails.type,
                 motif: this.ideaSelectionForm.value.motif,
                 decision: Decision.REJECTED,
                 category: Category.NONE,
                 total: this.noteTotal,
+                comment: ''
               };
               this.ideaService.updateIdeaNextStep(rejectedIdea).subscribe({
                 next: (response: any) => {
@@ -413,6 +412,7 @@ export class SelectIdeaComponent implements OnInit {
               decision: Decision.VALIDATED,
               category: this.ideaDetails.category,
               total: this.noteTotal,
+              comment :""
             })
           )
         )

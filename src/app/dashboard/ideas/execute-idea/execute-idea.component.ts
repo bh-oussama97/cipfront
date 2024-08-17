@@ -44,6 +44,7 @@ export class ExecuteIdeaComponent implements OnInit {
   isLoading:boolean=false;
   ideaId:string;
   ideaCreatedDate:any;
+  experComment:string;
   constructor(private dataservice: DataService, private fb: FormBuilder,
     private translate: TranslateService,
     private dialogService: ModalService,
@@ -94,7 +95,10 @@ export class ExecuteIdeaComponent implements OnInit {
       },
       minWidth: '30%',
       minHeight: 'fit-content',
-    }).afterClosed().subscribe(()=>{
+    }).afterClosed().subscribe((result)=>{
+      console.log("result",result);
+      
+      this.experComment = result.comment;
       this.fetchIdeaDetails(this.ideaId);
     });
   }
@@ -137,7 +141,8 @@ export class ExecuteIdeaComponent implements OnInit {
           impact: this.ideaDetails.impact,
           global: this.ideaDetails.global,
           valid: this.ideaDetails.valid,
-          total: this.ideaDetails.total
+          total: this.ideaDetails.total,
+          comment:""
         };
       this.ideaService.updateIdeaNextStep(nextStepRejected).subscribe(
         {
@@ -203,7 +208,8 @@ export class ExecuteIdeaComponent implements OnInit {
           impact: this.ideaDetails.impact,
           global: this.ideaDetails.global,
           valid: this.ideaDetails.valid,
-          total: this.ideaDetails.total
+          total: this.ideaDetails.total,
+          comment: this.experComment
         };
         this.ideaService.updateIdeaNextStep(nextStepAccepted).subscribe({
           next: (response: any) => {
@@ -211,7 +217,7 @@ export class ExecuteIdeaComponent implements OnInit {
               setTimeout(()=>{
                 this.isLoading=false;
                 this.snackbar
-                .open("Idea has been executed", '', {
+                .open(this.translate.instant("ideasContent.ideaSelectionContent.ideaExecutionMessage"), '', {
                   duration: 2000,
                   horizontalPosition: 'right',
                   verticalPosition: 'top',
